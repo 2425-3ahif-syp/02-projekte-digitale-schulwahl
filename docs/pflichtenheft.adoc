@@ -21,3 +21,18 @@ Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Die digitale Lös
 === Aufgabenstellung
 
 Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
+
+//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen
+
+=== Ziele
+
+* Vereinfachung und Automatisierung des Wahlprozesses
+* Reduzierung von Fehlern
+* Beschleunigung des Wahlprozesses
+* Reduzierung des Papierverbrauchs
+
+=== Mengengerüst
+
+* 1000 Schüler*innen
+* 8 abzugebende Stimmen pro Schüler*in
+* 1 Wahl pro Jahr
