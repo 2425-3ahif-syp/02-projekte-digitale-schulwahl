@@ -34,11 +34,17 @@ Erwartete Projektergebnisse:
     - Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
     - Umweltfreundlichkeit in der Schule verbessern
 
+
+// SCHREIBE HIER WEITER
+
 === Projektrisiken
     - Risiko 1: Wahlmanipulation
     ** Maßnahme: KEINE AHNUNG
     - Risiko 2: Datenschutzverletzung
     ** Maßname: KEINE AHNUNG HILFE..
+
+=== Projektorganisation
+image::Organisationsdiagramm_Schulwahl_Projekt.png[]
 
 
 08.11.2024, Linz
