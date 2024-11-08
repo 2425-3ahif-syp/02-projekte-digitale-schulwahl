@@ -4,4 +4,12 @@ Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala
 :toclevels: 3
 :sectnums:
 
-== 
+== Pflichtenheft "Was mache ich"
+
+=== Ausgangssituation
+
+Die HTL Leonding ist eine technische Schule in Leonding, Oberösterreich mit etwa 1000 Schüler*innen. Sie bietet verschiedene Fachrichtungen wie Informatik, Medientechnik, Elektronik und Medizintechnik an.
+
+=== Istzustand
+
+Seit vielen Jahren werden die Wahlen der Schülersprecher und Stellvertreter in Papierform durchgeführt. Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
