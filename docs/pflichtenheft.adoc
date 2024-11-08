@@ -13,3 +13,11 @@ Die HTL Leonding ist eine technische Schule in Leonding, Oberösterreich mit etw
 === Istzustand
 
 Seit vielen Jahren werden die Wahlen der Schülersprecher und Stellvertreter in Papierform durchgeführt. Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
+
+=== Problemstellung
+
+Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Die digitale Lösung soll die Wahlen vereinfachen, beschleunigen und fehlerresistenter machen.
+
+=== Aufgabenstellung
+
+Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
