@@ -12,7 +12,8 @@ Die HTL Leonding ist eine technische Schule in Leonding, Oberösterreich mit etw
 
 === Istzustand
 
-Seit vielen Jahren werden die Wahlen der Schülersprecher und Stellvertreter in Papierform durchgeführt. Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
+Seit vielen Jahren werden die Wahlen der Schülersprecher*Innen und Stellvertreter*Innen in Papierform durchgeführt.
+Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
 
 === Problemstellung
 
@@ -22,17 +23,42 @@ Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Die digitale Lös
 
 Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
 
-//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen
+//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen kontrollieren und absprechen
+//TODO: Ausformulierung der Stichpunkte
+==== Funktionale Anforderungen
+Auf der Schulwahlplattform sollen sich sowohl Schüler*Innen als auch Lehrer*innen einloggen können. Hierbei kommt es schon zur ersten Funktionalität.
+Danach soll man als Lehrer die jeweilige Klasse und die Anzahl der anwesenden Schüler*innen angeben können.
+Nun werden Codes generiert. +
+Mit diesen Codes könenn sich schlussendlich die Schüler*innen einloggen. Sobald dies geschehen ist, finden diese eine Liste der kandidierenden Schüler*innen vor.
+In diese können sie nun jeweils einen Block mit einer Punkteanzahl abgeben. +
+Zum Schluss soll noch ein Button für die Abgabe zur Verfügung stehen.
+
+* Als Lehrer*In einloggen
+** Auswahl der KLasse
+** Auswahl der präsenten Schüler*innen
+** Generierung eines Codes
+* Als Schüler*In einloggen mit einem Code
+** Stimmen zuteilen mit Hilfe von Punkte-Blöcken
+** Abgabe Button
+
+==== Nicht-Funktionale Anforderungen
+* Anonymes wählen
+* Robust (ca. 1000 Wahlen auf einmal)
+* Rechtlichen Richtlinien entsprechen
 
 === Ziele
 
 * Vereinfachung und Automatisierung des Wahlprozesses
+* Steigerung der Effizienz
 * Reduzierung von Fehlern
 * Beschleunigung des Wahlprozesses
 * Reduzierung des Papierverbrauchs
 
 === Mengengerüst
 
-* 1000 Schüler*innen
-* 8 abzugebende Stimmen pro Schüler*in
-* 1 Wahl pro Jahr
+Die Wahl für die Schülervertretung findet einmal im Jahr statt.
+Einzurechnen sind dabei ca. 1000 Schüler*innen, die alle am selben Tag abstimmen wollen. Dabei müssen diese
+jeweils maximal 8 Stimmen abgeben. +
+Je nachdem wie viele Schüler*innen für einen Posten kandidieren können die zu wählenden Schüler*innen und somit auch die abzugebenden Stimmen variieren.
+
+
