@@ -39,9 +39,9 @@ Erwartete Projektergebnisse:
 
 === Projektrisiken
     - Risiko 1: Wahlmanipulation
-    ** Maßnahme: KEINE AHNUNG
+    ** Maßnahme: Zur Verhinderung einer Wahlmanipulation werden die Daten der Schüler (z. B. die SchülerID) nach Abschluss ihres Wahlvorgangs aus der Datenbank gelöscht. Dadurch wird ein erneuter Login verhindert, da der Benutzer nicht mehr in der Datenbank gefunden wird, was eine doppelte Wahl ausschließt.
     - Risiko 2: Datenschutzverletzung
-    ** Maßname: KEINE AHNUNG HILFE..
+    ** Maßname: Jeder Schülerin, jedem Schüler werden zufällig generierte Passwörter zugeteilt für den Zugang für's Wahlportal. Somit können im Nachhinein keine Daten zurückverfolgt werden.
 
 === Projektorganisation
 image::Organisationsdiagramm_Schulwahl_Projekt.png[]
