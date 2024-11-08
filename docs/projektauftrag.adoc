@@ -4,4 +4,38 @@ Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala
 :toclevels: 3
 :sectnums:
 
-== 
+== Projektauftrag
+
+=== Projektbezeichnung
+Projektname: Digitale Schulwahlplattform
+
+=== Projektauftraggeber
+
+[verse]
+
+Auftraggeber: HTL Leonding, Abteilung Administration
+Verantwortlicher Ansprechspartner: Thomas Stütz
+Kontaktdaten: Limesstraße 12-14, 4060 Leonding
+Telefon: (0732) 67 33 68 – 0
+E-Mail: office@htl-leonding.ac.at
+
+
+=== Projekthintergrund
+Das Projekt "Digitale Schulwahlplattform" wurde in Gang gesetzt, um veraltete Strukturen der Schulwahlen der HTL Leonding zu reformieren und Prozesse zu optimieren.
+
+=== Projektergebnis:
+Erwartete Projektergebnisse:
+
+    - Einführung einer neuen digitalen Schulwahlplattform zur Prozessoptimierung
+
+    - Reduzierung rechnerischer Fehler
+
+    - keine ungültigen Wahlen
+    - Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
+    - Umweltfreundlichkeit in der Schule verbessern
+
+=== Projektrisiken
+    -
+
+
+
