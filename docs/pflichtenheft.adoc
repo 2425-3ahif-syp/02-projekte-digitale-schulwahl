@@ -12,7 +12,8 @@ Die HTL Leonding ist eine technische Schule in Leonding, Oberösterreich mit etw
 
 === Istzustand
 
-Seit vielen Jahren werden die Wahlen der Schülersprecher und Stellvertreter in Papierform durchgeführt. Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
+Seit vielen Jahren werden die Wahlen der Schülersprecher*Innen und Stellvertreter*Innen in Papierform durchgeführt.
+Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
 
 === Problemstellung
 
@@ -22,7 +23,22 @@ Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Die digitale Lös
 
 Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
 
-//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen
+//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen kontrollieren und absprechen
+//TODO: Ausformulierung der Stichpunkte
+==== Funktionale Anforderungen
+Auf der Schulwahlplattform sollen sich sowohl Sch
+
+* Als Lehrer*In einloggen
+** Auswahl der KLasse
+** Auswahl der präsenten Schüler*innen
+** Generierung eines Codes
+* Als Schüler*In einloggen mit einem Code
+** Stimmen zuteilen mit Hilfe von Punkte-Blöcken
+
+==== Nicht-Funktionale Anforderungen
+* Anonymes wählen
+* Robust (ca. 1000 Wahlen auf einmal)
+* Rechtlichen Richtlinien entsprechen
 
 === Ziele
 
@@ -32,6 +48,10 @@ Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -v
 * Reduzierung des Papierverbrauchs
 
 === Mengengerüst
+
+Einzurechnen sind ca. 1000 Schüler*innen, die alle auf einmal abstimmen wollen. Dabei müssen diese
+jeweils maximal 8 Stimmen abgeben.
+Je nach Aufstellung können die zu wählenden Schüler*innen und somit auch die abzugebenden Stimmen variieren.
 
 * 1000 Schüler*innen
 * 8 abzugebende Stimmen pro Schüler*in
