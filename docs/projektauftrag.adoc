@@ -64,7 +64,7 @@ Das Projekt sollte voraussichtlich vor der neuen Wahl der Schülervertretung abg
     ** Maßname: Jeder Schülerin, jedem Schüler werden zufällig generierte Passwörter zugeteilt für den Zugang für's Wahlportal. Somit können im Nachhinein keine Daten zurückverfolgt werden.
 
 === Projektorganisation
-image::Organisationsdiagramm_Schulwahl_Projekt.png[]
+image::OrganisationsDiagramm.png[]
 
 
 08.11.2024, Linz
