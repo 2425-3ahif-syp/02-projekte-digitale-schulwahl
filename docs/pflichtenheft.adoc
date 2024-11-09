@@ -13,7 +13,7 @@ Die HTL Leonding ist eine technische Schule in Leonding, Oberösterreich mit etw
 
 === Istzustand
 
-Seit vielen Jahren werden die Wahlen der Schülersprecher*Innen und Stellvertreter*Innen in Papierform durchgeführt.
+Seit vielen Jahren werden die Wahlen der Schülersprecher*innen und Stellvertreter*innen in Papierform durchgeführt.
 Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.
 
 === Problemstellung
@@ -24,21 +24,19 @@ Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Die digitale Lös
 
 Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
 
-//TODO: Funktionale Anforderungen + Nicht-funktionale Anforderungen kontrollieren und absprechen
-//TODO: Ausformulierung der Stichpunkte
 ==== Funktionale Anforderungen
-Auf der Schulwahlplattform sollen sich sowohl Schüler*Innen als auch Lehrer*innen einloggen können. Hierbei kommt es schon zur ersten Funktionalität.
+Auf der Schulwahlplattform sollen sich sowohl Schüler*innen als auch Lehrer*innen einloggen können. Hierbei kommt es schon zur ersten Funktionalität.
 Danach soll man als Lehrer die jeweilige Klasse und die Anzahl der anwesenden Schüler*innen angeben können.
-Nun werden Codes generiert. +
-Mit diesen Codes könenn sich schlussendlich die Schüler*innen einloggen. Sobald dies geschehen ist, finden diese eine Liste der kandidierenden Schüler*innen vor.
+Als nächstes werden Codes generiert. +
+Mit diesen Codes können sich schlussendlich die Schüler*innen einloggen. Sobald dies geschehen ist, finden diese eine Liste der kandidierenden Schüler*innen vor.
 In diese können sie nun jeweils einen Block mit einer Punkteanzahl abgeben. +
 Zum Schluss soll noch ein Button für die Abgabe zur Verfügung stehen.
 
-* Als Lehrer*In einloggen
+* Als Lehrer*in einloggen
 ** Auswahl der KLasse
 ** Auswahl der präsenten Schüler*innen
 ** Generierung eines Codes
-* Als Schüler*In einloggen mit einem Code
+* Als Schüler*in einloggen mit einem Code
 ** Stimmen zuteilen mit Hilfe von Punkte-Blöcken
 ** Abgabe Button
 
