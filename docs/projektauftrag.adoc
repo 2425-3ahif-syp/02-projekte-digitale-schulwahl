@@ -35,8 +35,27 @@ Erwartete Projektergebnisse:
     - Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
     - Umweltfreundlichkeit in der Schule verbessern
 
+=== Projektziel
 
-// SCHREIBE HIER WEITER
+=== Projektbeschreibung
+
+=== Meilensteine
+
+[cols="1,1"]
+|===
+| Phase | Meilenstein/Ergebnis | Soll-Termin | Freigabe
+
+|===
+
+=== Projektstart
+
+
+=== Projektende
+
+Das Projekt sollte voraussichtlich vor der neuen Wahl der Schülervertretung abgeschlossen sein.
+
+=== Projektressourcen
+
 
 === Projektrisiken
     - Risiko 1: Wahlmanipulation
