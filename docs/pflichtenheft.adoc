@@ -65,4 +65,8 @@ Die Wahl für die Schülervertretung findet einmal im Jahr statt.
 Einzurechnen sind dabei ca. 1000 Schüler*innen, die alle am selben Tag innerhalb kurzer Zeit abstimmen wollen. Dabei müssen diese
 jeweils maximal 8 Punkte-Blöcke abgeben.
 
-
+=== Ramenbedingungen
+* anonyme Wahl
+* Eine Stimme/Schüler*in
+* Einbindung in Schulnetzwerk
+* Betreuung durch Systemadministrator
