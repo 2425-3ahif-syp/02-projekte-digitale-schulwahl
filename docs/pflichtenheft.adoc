@@ -53,11 +53,17 @@ Zum Schluss soll noch eine Möglichkeit zum Abschluss der Stimmenabgabe zur Verf
 * Einhaltung rechtlicher Rahmenbedingungen
 
 === Ziele
+.Wirkungsziele
 * Vereinfachung und Automatisierung des Wahlprozesses
-* Steigerung der Effizienz
-* Reduzierung von Fehlern
+** Steigerung der Effizienz
+** Reduzierung von Fehlern
 * Beschleunigung des Wahlprozesses
 * Reduzierung des Papierverbrauchs
+
+.Nicht-Ziele
+* Verwaltung von Schüler*innenlisten
+* Verwaltung von Klassenlisten
+* Plausilibitätsprüfungen
 
 === Mengengerüst
 
