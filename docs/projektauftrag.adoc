@@ -38,13 +38,13 @@ Erwartete Projektergebnisse:
 === Projektziele
 Die Ziele vom Projekt: 
 
-    - Das derzeitge Schulwahlsystem der HTL Leonding sollte digitalisiert werden, da Lehrkräfe sowie SchülerInnen Probleme haben das Wahlsystem zu verstehen.
+    - Das derzeitge Wahlsystem wird vollständig digitalisiert um das Verständnis bei den Lehrkräften und Schüler:innen zu verbessern.
 
-    - Damit man Fehler bei der Berechnung der Stimmen um 90% vermindert, wird eine Rechenmaschine verwendet. 
+    - Die Anzahl der Rechenfehler wird  durch den Einsatz einer Rechenmaschine um 90% vermindert.
 
-    - Da es bei der Schulwahl zu ungültigen Wahlergebnissen kommen kann, werden die Punkte digital in eigenen Feldern zur Auswahl stehen.
+    - Durch die Einführung vorgegebener Auswahlfelder wird sichergestellt, dass keine ungültigen Stimmabgaben möglich sind.
     
-    - Die Dauer für die Wahl sollte weniger als 10 Minuten dauern als eine ganze Unterrichtseinheit. 
+    - Die Dauer für der Wahl sollte weniger als 10 Minuten dauern als eine ganze Unterrichtseinheit.
     
     - Um die Umweltfreundlichkeit zu verbessern werden digitale Geräte als Abstimmungssystem eingesetzt statt mehr als hunderte Blättern Papier. 
 
