@@ -95,7 +95,7 @@ Daten (sonstige Aufwendungen): Klassenzuordnungen, Zugangsdaten aller Lehrkräft
     ** Maßname: Jeder Schülerin, jedem Schüler werden zufällig generierte Passwörter zugeteilt für den Zugang für's Wahlportal. Somit können im Nachhinein keine Daten zurückverfolgt werden.
 
 === Projektorganisation
-image::Organisationsdiagramm_Schulwahl_Projekt.png[]
+image::OrganisationsDiagramm.png[]
 
 
 10.11.2024, Linz
