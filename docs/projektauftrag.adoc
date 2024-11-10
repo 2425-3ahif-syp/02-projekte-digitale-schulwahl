@@ -80,12 +80,11 @@ Sobald das erwartete Projektergebnis und die Erfüllung der Ziele vom Auftragsge
 === Projektressourcen
 
 Folgende Ressourcen stehen zur Verfügung: 
-Personal: 4 Teammitglieder welcher davon ein Mitglied die Projektleitung übernimmt
-Zeit: 15 Personentage = 120 Stunden
+ - Personal: 4 Teammitglieder welcher davon ein Mitglied die Projektleitung übernimmt
 
 Ressourcen die der Auftraggeber zur Verfügung stellt: 
-Personal: ProjektkoordinatorIn
-Daten (sonstige Aufwendungen): Klassenzuordnungen, Zugangsdaten aller Lehrkräfte?, Liste von Schüler:innen ,die sich für die Schülerinnenvertretung aufstellen
+ - Personal: ProjektkoordinatorIn
+ - Daten (sonstige Aufwendungen): Klassenzuordnungen, Identifikationsnummer aller Lehrkräfte, Liste von Schüler:innen ,die sich für die Schülerinnenvertretung aufstellen
 
 
 === Projektrisiken
