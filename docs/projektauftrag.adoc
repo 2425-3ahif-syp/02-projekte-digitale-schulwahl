@@ -70,42 +70,45 @@ Für dieses Projekt wurde eine agile Vorgehensweise ausgewählt, denn es ermögl
 * Kickoff
 * Abnahme Frontend
 * Fertigstellung Funktionalität
-** Punktesystem
+** Punktesystem und Zuordnung der Punkte
 ** Code Generierung mitsamt Anmeldung
 * Testlauf
-
-
+* Optimierung
+* Produktlaunch
 
 === Projektstart
 
-Das Projekt wird gestartet, sobald der Auftragsgeber diesen Auftrag bestätigt.
+Das Projekt wird gestartet, sobald der Auftraggeber diesen Auftrag bestätigt und zwischen Auftraggeber und Auftragnehmer vereinbart ist, wann das Kickoff-Meeting stattfindet.
 
 === Projektende
 
-Sobald das erwartete Projektergebnis und die Erfüllung der Ziele vom Auftragsgeber erreicht wurden, wird das Projekt offiziell beendet.
+Das Projekt endet mit Abnahme des Projektergebnisses durch den Auftraggeber. +
+Sobald das erwartete Projektergebnis und die Erfüllung der Ziele erreicht werden, wird ein Abnahmetermin vereinbart.
 
 === Projektressourcen
 
 Folgende Ressourcen stehen zur Verfügung: 
 
  - Personal: 
- ** 4 Teammitglieder welcher davon ein Mitglied die Projektleitung übernimmt
- 
+ ** 4 Teammitglieder, inbegriffen ist die Projektleitung
+ - zeitlicher Aufwand:
+ ** pauschal 15 Personentage
 
-Ressourcen ,die der Auftraggeber zur Verfügung stellt: 
+Ressourcen, die der Auftraggeber zur Verfügung stellt:
 
- - Personal: ProjektkoordinatorIn
- - Daten (sonstige Aufwendungen): 
+ - Daten (sonstige Aufwendungen):
  ** Klassenzuordnungen
  ** Identifikationsnummer aller Lehrkräfte
  ** Liste von Schüler:innen, die sich für die Schülerinnenvertretung aufstellen
-
+ - Administrator zur Einbindung der Applikation in das Schulnetzwerk
 
 === Projektrisiken
-    - Risiko 1: Wahlmanipulation
-    ** Maßnahme: Zur Verhinderung einer Wahlmanipulation werden die Daten der Schüler (z. B. die SchülerID) nach Abschluss ihres Wahlvorgangs aus der Datenbank gelöscht. Dadurch wird ein erneuter Login verhindert, da der Benutzer nicht mehr in der Datenbank gefunden wird, was eine doppelte Wahl ausschließt.
-    - Risiko 2: Datenschutzverletzung
-    ** Maßname: Jeder Schülerin, jedem Schüler werden zufällig generierte Passwörter zugeteilt für den Zugang ins Wahlportal. Somit können im Nachhinein keine Daten zurückverfolgt werden.
+ - Risiko 1: Wahlmanipulation
+ ** Maßnahme: Zur Verhinderung einer Wahlmanipulation werden die Daten der Schüler (z. B. die SchülerID) nach Abschluss ihres Wahlvorgangs aus der Datenbank gelöscht. Dadurch wird ein erneuter Login verhindert, da der Benutzer nicht mehr in der Datenbank gefunden wird, was eine doppelte Wahl ausschließt.
+ - Risiko 2: Datenschutzverletzung
+ ** Maßname: Jeder Schülerin, jedem Schüler werden zufällig generierte Passwörter zugeteilt für den Zugang ins Wahlportal. Somit können im Nachhinein keine Daten zurückverfolgt werden.
+ - Risiko 3: falsche Auswertungen
+ ** Maßnahme: Plausilibitätsprüfungen
 
 === Projektorganisation
 image::OrganisationsDiagramm.png[]
