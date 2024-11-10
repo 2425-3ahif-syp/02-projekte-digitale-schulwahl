@@ -73,7 +73,7 @@ Für dieses Projekt wurde eine agile Vorgehensweise ausgewählt, denn es ermögl
 
 === Projektstart
 
-Das Projekt wird gestartet ,sobald der Auftragsgeber diesen Auftrag bestätigt.
+Das Projekt wird gestartet, sobald der Auftragsgeber diesen Auftrag bestätigt.
 
 === Projektende
 
@@ -82,9 +82,11 @@ Sobald das erwartete Projektergebnis und die Erfüllung der Ziele vom Auftragsge
 === Projektressourcen
 
 Folgende Ressourcen stehen zur Verfügung: 
+
  - Personal: 4 Teammitglieder welcher davon ein Mitglied die Projektleitung übernimmt
 
 Ressourcen die der Auftraggeber zur Verfügung stellt: 
+
  - Personal: ProjektkoordinatorIn
  - Daten (sonstige Aufwendungen): Klassenzuordnungen, Identifikationsnummer aller Lehrkräfte, Liste von Schüler:innen ,die sich für die Schülerinnenvertretung aufstellen
 
