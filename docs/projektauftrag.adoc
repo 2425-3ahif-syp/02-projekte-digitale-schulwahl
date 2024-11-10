@@ -1,5 +1,7 @@
 = Digitale Schulwahlplattform
 Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala
+10.11.2024, Linz
+
 :toc: left
 :toclevels: 3
 :sectnums:
@@ -22,52 +24,55 @@ E-Mail: office@htl-leonding.ac.at
 
 
 === Projekthintergrund
-Das Projekt "Digitale Schulwahlplattform" wurde in Gang gesetzt, um veraltete Strukturen der Schulwahlen der HTL Leonding zu reformieren und Prozesse zu optimieren.
+Das Projekt "Digitale Schulwahlplattform" wurde in Gang gesetzt, um veraltete Strukturen der Schulwahlen in der HTL Leonding zu reformieren und Prozesse zu optimieren.
 
-=== Projektergebnis:
-Erwartete Projektergebnisse:
+=== Projektergebnis
 
-    - Einführung einer neuen digitalen Schulwahlplattform zur Prozessoptimierung
+Das Ergebnis ist eine Applikation, die es den Schüler*innen ermöglicht, ihre Stimme für die Schulsprecher*innenwahl digital abzugeben.
+Der*Die Schulsprecher*in wird ohne händisches Auszählen automatisiert ermittelt. Das Programm steht dem Adminsitrator zur Verfügung. Sowohl die Verwaltung als auch die Konfiguration
+des Programmes liegen in seiner Hand.
 
-    - Reduzierung rechnerischer Fehler
+.Weitere konkrete Ergebnisse sind:
 
-    - keine ungültigen Wahlstimmen
-    - Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
-    - Anstieg der Nachhaltigkeit durch den papierlosen Verfahren
+- Die Anzahl der Rechenfehler wird durch den Einsatz einer Rechenmaschine vermindert.
+- Durch die Einführung vorgegebener Auswahlfelder wird sichergestellt, dass keine ungültigen Stimmabgaben möglich sind.
+- Der Wahlprozess soll weniger als 10 Minuten dauern und Unterrichtszeit sparen
+- Der Papierverbrauch wird an der HTL Leonding verbessern, das zu Anstieg der Umweltfreundlichkeit führt.
+
 
 === Projektziele
-Die Ziele vom Projekt: 
+Die Ziele vom Projekt:
 
-    - Das derzeitge Wahlsystem wird vollständig digitalisiert um das Verständnis bei den Lehrkräften und Schüler:innen zu verbessern.
-
-    - Die Anzahl der Rechenfehler wird durch den Einsatz einer Rechenmaschine um 90% vermindert.
-
-    - Durch die Einführung vorgegebener Auswahlfelder wird sichergestellt, dass keine ungültigen Stimmabgaben möglich sind.
-    
-    - Der Wahlprozess soll weniger als 10 Minuten dauern und Unterrichtszeit sparen
-    
-    - Der Papierverbrauch wird an der HTL Leonding verbessern, das zu Anstieg der Umweltfreundlichkeit führt.
+- Einführung einer neuen digitalen Schulwahlplattform zur Prozessoptimierung
+- Reduzierung rechnerischer Fehler
+- Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
+- Anstieg der Nachhaltigkeit durch ein papierloses Verfahren
 
 === Projektbeschreibung
 ==== Vorgehensweise
 
-- Start des Projektes (Kickoff)
-- Durchführung mit Meilensteinen und regelmäßigen Teambesprechungen
-  - Frontend
-  - Backend
-- Frontend und Backend werden zusammengesetzt
-- Die Zusammensetzung der Teile wird getestet
-- Verbesserung der Bestandteile
-- Erneuter Test von Frontend und Backend
-- Präsentation des Projekts
-- Bestätigung des Auftraggebers -> Rollout
+* Start des Projektes (Kickoff)
+* Durchführung mit Meilensteinen und regelmäßigen Teambesprechungen
+** Frontend
+** Backend
+* Frontend und Backend werden zusammengesetzt
+* Die Zusammensetzung der Teile wird getestet
+* Verbesserung der Bestandteile
+* Erneuter Test von Frontend und Backend
+* Präsentation des Projekts
+* Bestätigung des Auftraggebers -> Rollout
 
 ==== Vorgehensmodell
-Für dieses Projekt wurde eine agile Vorgehensweise ausgewählt, denn es ermöglicht, flexibel auf Veränderungen und Anforderungen zu reagieren.
+Für dieses Projekt wurde eine agile Vorgehensweise ausgewählt, denn es ermöglicht, flexibel auf Veränderungen und auftretende Problemstellungen zu reagieren.
 
 
 === Meilensteine
-
+* Kickoff
+* Abnahme Frontend
+* Fertigstellung Funktionalität
+** Punktesystem
+** Code Generierung mitsamt Anmeldung
+* Testlauf
 
 
 
@@ -106,12 +111,8 @@ Ressourcen ,die der Auftraggeber zur Verfügung stellt:
 image::OrganisationsDiagramm.png[]
 
 
-10.11.2024, Linz
-[verse]
-Sarah Ngimbi
-Elysee Mbala
-Flora Dallinger
-Antonio Subasic
+
+
 
 
 
