@@ -1,5 +1,6 @@
 = Digitale Schulwahlplattform
 Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala
+3ahif
 :toc: left
 :toclevels: 3
 :sectnums:
@@ -77,4 +78,5 @@ dass jede*r Schüler*in anonym wählen und nur ein Mal seine/ihre Stimme abgeben
 Organisatorisch muss sichergestellt werden, dass die Software im Schulnetzwerk eingebunden ist und für die Dauer der Wahl nur den Beteiligten
 Lehrer*innen und Schüler*innen zur Verfügung steht. +
 Eine Betreuung und Wartung durch einen Systemadministrator ist für die Folgejahre erforderlich.
+
 
