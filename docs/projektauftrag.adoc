@@ -31,22 +31,22 @@ Erwartete Projektergebnisse:
 
     - Reduzierung rechnerischer Fehler
 
-    - keine ungültigen Wahlen
+    - keine ungültigen Wahlstimmen
     - Zeitoptimierung -> Unterrichtseinheiten gehen nicht verloren + schnelleres Ergebnis
-    - Umweltfreundlichkeit in der Schule verbessern
+    - Anstieg der Nachhaltigkeit durch den papierlosen Verfahren
 
 === Projektziele
 Die Ziele vom Projekt: 
 
     - Das derzeitge Wahlsystem wird vollständig digitalisiert um das Verständnis bei den Lehrkräften und Schüler:innen zu verbessern.
 
-    - Die Anzahl der Rechenfehler wird  durch den Einsatz einer Rechenmaschine um 90% vermindert.
+    - Die Anzahl der Rechenfehler wird durch den Einsatz einer Rechenmaschine um 90% vermindert.
 
     - Durch die Einführung vorgegebener Auswahlfelder wird sichergestellt, dass keine ungültigen Stimmabgaben möglich sind.
     
-    - Die Dauer für der Wahl sollte weniger als 10 Minuten dauern als eine ganze Unterrichtseinheit.
+    - Der Wahlprozess soll weniger als 10 Minuten dauern und Unterrichtszeit sparen
     
-    - Um die Umweltfreundlichkeit zu verbessern werden digitale Geräte als Abstimmungssystem eingesetzt statt mehr als hunderte Blättern Papier. 
+    - Der Papierverbrauch wird an der HTL Leonding verbessern, das zu Anstieg der Umweltfreundlichkeit führt.
 
 === Projektbeschreibung
 ==== Vorgehensweise
