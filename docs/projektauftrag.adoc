@@ -92,7 +92,7 @@ Folgende Ressourcen stehen zur Verfügung:
  - Personal: 
  ** 4 Teammitglieder, inbegriffen ist die Projektleitung
  - zeitlicher Aufwand:
- ** pauschal 15 Personentage
+ ** pauschal 30 Personentage
 
 Ressourcen, die der Auftraggeber zur Verfügung stellt:
 
