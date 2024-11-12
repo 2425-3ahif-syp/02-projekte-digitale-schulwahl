@@ -72,8 +72,8 @@ Die Wahl für die Schülervertretung findet einmal im Jahr statt.
 Einzurechnen sind dabei ca. 1000 Schüler*innen, die alle am selben Tag innerhalb kurzer Zeit abstimmen wollen. Dabei müssen diese
 jeweils maximal 8 Punkte-Blöcke abgeben.
 
-=== Ramenbedingungen
-Es müssen sowhol rechtliche als auch organisatorische Ramenbedingungen eingehalten werden. Zu den rechtlichen Ramenbedingungen zählt,
+=== Rahmenbedingungen
+Es müssen sowohl rechtliche als auch organisatorische Rahmenbedingungen eingehalten werden. Zu den rechtlichen Rahmenbedingungen zählt,
 dass jede*r Schüler*in anonym wählen und nur ein Mal seine/ihre Stimme abgeben kann. +
 Organisatorisch muss sichergestellt werden, dass die Software im Schulnetzwerk eingebunden ist und für die Dauer der Wahl nur den Beteiligten
 Lehrer*innen und Schüler*innen zur Verfügung steht. +
