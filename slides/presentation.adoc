@@ -21,3 +21,36 @@ Es soll eine digitale Schulwahlplattform entwickelt werden, die:
 * Die Stimmenabgabe online ermöglicht
 * Die Auszählung und Validierung automatisiert
 * Einen sicheren und transparenten Wahlprozess gewährleistet
+
+== Aktivitätsdiagramm
+[plantuml, aktivitaetsdiagramm.png]
+----
+@startuml
+start
+
+:Lehrer*in loggt sich ein;
+if (Erfolgreich?) then (Ja)
+    :Klasse & anwesende Schüler*innen auswählen;
+    :Codes generieren;
+    :Schüler*in loggt sich mit Code ein;
+
+    if (Code gültig?) then (Ja)
+        :Stimmenvergabe mit Punkte-Blöcken;
+        :Stimme abgeben;
+        end
+    else (Nein)
+        :Fehlermeldung anzeigen;
+        :Neuer Versuch;
+        -> zurück zur Code-Eingabe;
+    endif
+
+else (Nein)
+    :Fehlermeldung anzeigen;
+    :Zurück zum Login;
+    ->  __zurück zum Start;
+endif
+
+
+@enduml
+
+----
