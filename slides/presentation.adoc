@@ -1,17 +1,7 @@
-= Title Slide
+= Digitale Schulwahl
 
-== Slide One
+== Links
 
-* Foo
-* Bar
-* World
-
-== Slide Two
-
-A Great Story
-
-[.notes]
---
-* tell anecdote
-* make a point
---
+link:projektauftrag.html[Projektauftrag^] +
+link:pflichtenheft.html[Pflichtenheft^] +
+https://vm81.htl-leonding.ac.at/projects/9df92ed8-54ff-4e3b-8fba-5db374b9799d[YouTrack]
