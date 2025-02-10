@@ -30,12 +30,14 @@ jobs:
             -w /documents \
             asciidoctor/docker-asciidoctor:latest \
             asciidoctor-revealjs \
+            -r asciidoctor-diagram \
             -r asciidoctor-revealjs \
             -a revealjsdir=https://cdn.jsdelivr.net/npm/reveal.js@4.5.0 \
             -a revealjs_theme=white \
             -a revealjs_history=true \
             -a revealjs_plugin_highlight=enabled \
             -a source-highlighter=highlight.js \
+            -a allow-uri-read \
             -D slides \
             -o index.html \
             slides/presentation.adoc
