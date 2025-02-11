@@ -1,0 +1,56 @@
+= Digitale Schulwahl
+
+== Links
+
+link:../docs/projektauftrag.html[Projektauftrag^] +
+link:../docs/pflichtenheft.html[Pflichtenheft^] +
+https://vm81.htl-leonding.ac.at/projects/9df92ed8-54ff-4e3b-8fba-5db374b9799d[YouTrack]
+
+== Problemstellung
+
+Die Schulsprecherwahl an der HTL Leonding wird derzeit manuell mit Papier durchgeführt. Dies führt zu:
+
+* Zeitaufwändiger Stimmenauszählung
+* Erhöhtem Fehlerpotenzial
+* Ressourcenverschwendung (Papier, Arbeitszeit)
+
+== Aufgabenstellung
+
+Es soll eine digitale Schulwahlplattform entwickelt werden, die:
+
+* Die Stimmenabgabe online ermöglicht
+* Die Auszählung und Validierung automatisiert
+* Einen sicheren und transparenten Wahlprozess gewährleistet
+
+== Aktivitätsdiagramm
+[plantuml, aktivitaetsdiagramm.png]
+----
+@startuml
+start
+
+:Lehrer*in loggt sich ein;
+if (Erfolgreich?) then (Ja)
+    :Klasse & anwesende Schüler*innen auswählen;
+    :Codes generieren;
+    :Schüler*in loggt sich mit Code ein;
+
+    if (Code gültig?) then (Ja)
+        :Stimmenvergabe mit Punkte-Blöcken;
+        :Stimme abgeben;
+        end
+    else (Nein)
+        :Fehlermeldung anzeigen;
+        :Neuer Versuch;
+        -> zurück zur Code-Eingabe;
+    endif
+
+else (Nein)
+    :Fehlermeldung anzeigen;
+    :Zurück zum Login;
+    ->  __zurück zum Start;
+endif
+
+
+@enduml
+
+----
