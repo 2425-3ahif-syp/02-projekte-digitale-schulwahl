@@ -1,5 +1,4 @@
 = Digitale Schulwahlplattform
 
-link:./docs/projektauftrag.adoc[Projektauftrag]
-
-link:./docs/pflichtenheft.adoc[Pflichtenheft]
+link:./asciidocs/docs/projektauftrag.adoc[Projektauftrag] +
+link:./asciidocs/docs/pflichtenheft.adoc[Pflichtenheft]
