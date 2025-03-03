@@ -11,6 +11,7 @@
 == Stimmenabgabe (Flora Dallinger)
 
 // image
+image::images/stimmen_abgabe.png[]
 
 == Auswertung (Antonio Subašić)
 
