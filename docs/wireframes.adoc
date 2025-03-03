@@ -1,0 +1,17 @@
+= Wireframes
+
+== Lehrer bzw. Schüler Auswahl (Elysee Mbala)
+
+// image
+
+== Anmeldung (Sarah Ngimbi)
+
+// image
+
+== Stimmenabgabe (Flora Dallinger)
+
+// image
+
+== Auswertung (Antonio Subašić)
+
+image::images/wireframe_auswertung.jpg[]
