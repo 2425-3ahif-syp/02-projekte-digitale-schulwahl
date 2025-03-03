@@ -1,9 +1,5 @@
 = Wireframes
 
-== Lehrer bzw. Schüler Auswahl (Elysee Mbala)
-
-// image
-
 == Anmeldung (Sarah Ngimbi)
 
 // image
@@ -12,6 +8,9 @@
 
 // image
 image::images/stimmen_abgabe.png[]
+
+== Lehreransicht während der Abstimmung in der Klasse (Elysee Mbala)
+image::images/lehreransicht_während_stimmenabgabe.jpg[]
 
 == Auswertung (Antonio Subašić)
 
