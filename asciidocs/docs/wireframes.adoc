@@ -3,6 +3,7 @@
 == Anmeldung (Sarah Ngimbi)
 
 // image
+image::images/anmeldeseite.jpg[]
 
 == Stimmenabgabe (Flora Dallinger)
 
