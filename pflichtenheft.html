@@ -5,8 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="author" content="Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Index page</title>
+<title>Digitale Schulwahlplattform</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -444,14 +445,182 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     }
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
-<h1>Index page</h1>
+<h1>Digitale Schulwahlplattform</h1>
+<div class="details">
+<span id="author" class="author">Antonio Subašić, Flora Dallinger, Sarah Ngimbi, Elysee Mbala</span><br>
+<span id="revdate">3ahif</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_pflichtenheft_was_mache_ich">1. Pflichtenheft "Was mache ich"</a>
+<ul class="sectlevel2">
+<li><a href="#_ausgangssituation">1.1. Ausgangssituation</a></li>
+<li><a href="#_istzustand">1.2. Istzustand</a></li>
+<li><a href="#_problemstellung">1.3. Problemstellung</a></li>
+<li><a href="#_aufgabenstellung">1.4. Aufgabenstellung</a></li>
+<li><a href="#_ziele">1.5. Ziele</a></li>
+<li><a href="#_mengengerüst">1.6. Mengengerüst</a></li>
+<li><a href="#_rahmenbedingungen">1.7. Rahmenbedingungen</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div class="imageblock">
-<div class="content">
-<img src="images/img.png" alt="img">
+<div class="sect1">
+<h2 id="_pflichtenheft_was_mache_ich"><a class="anchor" href="#_pflichtenheft_was_mache_ich"></a>1. Pflichtenheft "Was mache ich"</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ausgangssituation"><a class="anchor" href="#_ausgangssituation"></a>1.1. Ausgangssituation</h3>
+<div class="paragraph">
+<p>Die HTL Leonding ist eine höhere technische Lehranstalt (HTL) in Leonding, Oberösterreich mit etwa 1000 Schüler*innen.
+Sie bietet Ausbildungen in verschiedenen Fachrichtungen wie Informatik, Medientechnik, Elektronik und Medizintechnik an.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_istzustand"><a class="anchor" href="#_istzustand"></a>1.2. Istzustand</h3>
+<div class="paragraph">
+<p>Seit vielen Jahren werden die Wahlen der Schülersprecher*innen und Stellvertreter*innen in Papierform durchgeführt.
+Sowohl die Stimmenabgabe als auch die Auszählung der Stimmen erfolgt per Hand. Dieser Prozess ist zeitaufwendig und fehleranfällig.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_problemstellung"><a class="anchor" href="#_problemstellung"></a>1.3. Problemstellung</h3>
+<div class="paragraph">
+<p>Der bisherige Wahlprozess ist ineffizient und fehleranfällig. Außerdem werden viele Ressourcen wie z.B. Papier und Arbeitszeit übermäßig
+benötigt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aufgabenstellung"><a class="anchor" href="#_aufgabenstellung"></a>1.4. Aufgabenstellung</h3>
+<div class="paragraph">
+<p>Die Entwicklung einer Schulwahlplattform, die Stimmenabgabe, -auszählung und -validierung digitalisiert.
+Die digitale Lösung soll die Wahlen vereinfachen, beschleunigen und fehlerresistenter machen.</p>
+</div>
+<div class="sect3">
+<h4 id="_funktionale_anforderungen"><a class="anchor" href="#_funktionale_anforderungen"></a>1.4.1. Funktionale Anforderungen</h4>
+<div class="paragraph">
+<p>Auf der Schulwahlplattform sollen sich sowohl Schüler*innen als auch Lehrer*innen einloggen können. Hierbei kommt es schon zur ersten Funktionalität.
+Danach soll man als Lehrer die jeweilige Klasse und die Anzahl der anwesenden Schüler*innen angeben können.
+Als nächstes werden Codes generiert.<br>
+Mit diesen Codes können sich schlussendlich die Schüler*innen einloggen. Sobald dies geschehen ist, finden diese eine Liste der kandidierenden Schüler*innen vor.
+In diese können sie nun jeweils einen Block mit einer Punkteanzahl abgeben.<br>
+Zum Schluss soll noch eine Möglichkeit zum Abschluss der Stimmenabgabe zur Verfügung stehen.</p>
+</div>
+<div class="ulist">
+<div class="title">Übersicht</div>
+<ul>
+<li>
+<p>Als Lehrer*in einloggen</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Auswahl der KLasse</p>
+</li>
+<li>
+<p>Auswahl der präsenten Schüler*innen</p>
+</li>
+<li>
+<p>Generierung eines Codes</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Als Schüler*in einloggen mit einem Code</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Stimmen zuteilen mit Hilfe von Punkte-Blöcken</p>
+</li>
+<li>
+<p>Abgabe Button</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nicht_funktionale_anforderungen"><a class="anchor" href="#_nicht_funktionale_anforderungen"></a>1.4.2. Nicht-Funktionale Anforderungen</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Anonymes Wählen</p>
+</li>
+<li>
+<p>Robustheit (ca. 1000 Wahlen auf einmal)</p>
+</li>
+<li>
+<p>Einhaltung rechtlicher Rahmenbedingungen</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ziele"><a class="anchor" href="#_ziele"></a>1.5. Ziele</h3>
+<div class="ulist">
+<div class="title">Wirkungsziele</div>
+<ul>
+<li>
+<p>Vereinfachung und Automatisierung des Wahlprozesses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Steigerung der Effizienz</p>
+</li>
+<li>
+<p>Reduzierung von Fehlern</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Beschleunigung des Wahlprozesses</p>
+</li>
+<li>
+<p>Reduzierung des Papierverbrauchs</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Nicht-Ziele</div>
+<ul>
+<li>
+<p>Verwaltung von Schüler*innenlisten</p>
+</li>
+<li>
+<p>Verwaltung von Klassenlisten</p>
+</li>
+<li>
+<p>Plausilibitätsprüfungen</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mengengerüst"><a class="anchor" href="#_mengengerüst"></a>1.6. Mengengerüst</h3>
+<div class="paragraph">
+<p>Die Wahl für die Schülervertretung findet einmal im Jahr statt.
+Einzurechnen sind dabei ca. 1000 Schüler*innen, die alle am selben Tag innerhalb kurzer Zeit abstimmen wollen. Dabei müssen diese
+jeweils maximal 8 Punkte-Blöcke abgeben.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rahmenbedingungen"><a class="anchor" href="#_rahmenbedingungen"></a>1.7. Rahmenbedingungen</h3>
+<div class="paragraph">
+<p>Es müssen sowohl rechtliche als auch organisatorische Rahmenbedingungen eingehalten werden. Zu den rechtlichen Rahmenbedingungen zählt,
+dass jede*r Schüler*in anonym wählen und nur ein Mal seine/ihre Stimme abgeben kann.<br>
+Organisatorisch muss sichergestellt werden, dass die Software im Schulnetzwerk eingebunden ist und für die Dauer der Wahl nur den Beteiligten
+Lehrer*innen und Schüler*innen zur Verfügung steht.<br>
+Eine Betreuung und Wartung durch einen Systemadministrator ist für die Folgejahre erforderlich.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
