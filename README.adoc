@@ -1,5 +1,3 @@
 = Digitale Schulwahlplattform
 
-link:./asciidocs/docs/projektauftrag.adoc[Projektauftrag] +
-link:./asciidocs/docs/pflichtenheft.adoc[Pflichtenheft] +
-link:./asciidocs/docs/wireframes.adoc[Wireframes]
+https://2425-3ahif-syp.github.io/02-projekte-digitale-schulwahl/slides/presentation.html#/_links[Links^]
