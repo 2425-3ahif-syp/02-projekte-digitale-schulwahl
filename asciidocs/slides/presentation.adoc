@@ -2,8 +2,9 @@
 
 == Links
 
-link:./docs/projektauftrag.html[Projektauftrag^] +
-link:./docs/pflichtenheft.html[Pflichtenheft^] +
+link:../projektauftrag.html[Projektauftrag^] +
+link:../pflichtenheft.html[Pflichtenheft^] +
+link:../wireframes.html[Wireframes^] +
 https://vm81.htl-leonding.ac.at/projects/9df92ed8-54ff-4e3b-8fba-5db374b9799d[YouTrack^]
 
 == Problemstellung

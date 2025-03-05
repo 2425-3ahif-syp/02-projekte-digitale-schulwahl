@@ -1,18 +1,19 @@
 = Wireframes
+:imagesdir: images
 
 == Anmeldung (Sarah Ngimbi)
 
 // image
-image::images/anmeldeseite.jpg[]
+image::anmeldeseite.jpg[]
 
 == Stimmenabgabe (Flora Dallinger)
 
 // image
-image::images/stimmen_abgabe.png[]
+image::stimmen_abgabe.png[]
 
 == Lehreransicht während der Abstimmung in der Klasse (Elysee Mbala)
-image::images/lehreransicht_während_stimmenabgabe.jpg[]
+image::lehreransicht_während_stimmenabgabe.jpg[]
 
 == Auswertung (Antonio Subašić)
 
-image::images/wireframe_auswertung.jpg[]
+image::wireframe_auswertung.jpg[]
