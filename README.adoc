@@ -1,3 +1,25 @@
 = Digitale Schulwahlplattform
+Sarah Ngimbi, Elysee Mbala, Flora Dallinger, Antonio Subašić
+:icons: font
+:sectnums:
+:toc: left
+:toclevels: 2
+:toc-title: Inhaltsverzeichnis
 
-https://2425-3ahif-syp.github.io/02-projekte-digitale-schulwahl/slides/presentation.html#/_links[Links^]
+== Beschreibung
+
+Die Digitale Schulwahlplattform ist eine Anwendung zur Modernisierung der Schulsprecherwahlen an der HTL Leonding.
+Sie ersetzt den bisherigen papierbasierten Wahlprozess durch ein digitales System.
+
+== Team-Mitglieder
+
+* Sarah Ngimbi
+* Elysee Mbala
+* Flora Dallinger
+* Antonio Subašić
+
+== Links
+
+* https://github.com/2425-3ahif-syp/02-projekte-digitale-schulwahl[GitHub Repository^]
+* https://2425-3ahif-syp.github.io/02-projekte-digitale-schulwahl/slides/presentation.html[Slides^]
+* https://2425-3ahif-syp.github.io/02-projekte-digitale-schulwahl/slides/presentation.html#/_links[Weitere Links^]
