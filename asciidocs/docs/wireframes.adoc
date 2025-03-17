@@ -13,6 +13,7 @@ image::logins.png[]
 == Stimmenabgabe
 
 image::abteilungswahl.png[]
+* die Wahl für die Abteilungsvertretung wird je nach Zweig angepasst
 
 image::sv_wahl.png[]
 
@@ -23,6 +24,8 @@ image::lehrkraftansicht.png[]
 
 image::sv_auswertung.png[]
 image::abteilungs_auswertung.png[]
+* die Wahlauswertung für die Abteilungsvertretung wird je nach Zweig angepasst
+
 
 == Wireframe
 image::wireframes.png[]
