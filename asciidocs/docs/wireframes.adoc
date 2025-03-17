@@ -1,19 +1,28 @@
 = Wireframes
 :imagesdir: images
 
-== Anmeldung (Sarah Ngimbi)
+Wir halten uns bei der Ausarbeitung der Benutzeroberfläche an die Vorgaben der HTL Leonding,
+die das Gendern verpflichtend vorsieht.
 
-// image
-image::anmeldeseite.jpg[]
+== Login
 
-== Stimmenabgabe (Flora Dallinger)
+image::loginl.png[]
 
-// image
-image::stimmen_abgabe.png[]
+image::logins.png[]
 
-== Lehreransicht während der Abstimmung in der Klasse (Elysee Mbala)
-image::lehreransicht_während_stimmenabgabe.jpg[]
+== Stimmenabgabe
 
-== Auswertung (Antonio Subašić)
+image::abteilungswahl.png[]
 
-image::wireframe_auswertung.jpg[]
+image::sv_wahl.png[]
+
+== Lehreransicht
+image::lehrkraftansicht.png[]
+
+== Auswertung
+
+image::sv_auswertung.png[]
+image::abteilungs_auswertung.png[]
+
+== Wireframe
+image::wireframes.png[]
