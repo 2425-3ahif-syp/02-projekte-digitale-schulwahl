@@ -1,31 +1,35 @@
-= Wireframes
+= Wireframe und UI
 :imagesdir: images
 
 Wir halten uns bei der Ausarbeitung der Benutzeroberfläche an die Vorgaben der HTL Leonding,
 die das Gendern verpflichtend vorsieht.
 
 == Login
-
+.Login Lehrkraft
 image::loginl.png[]
 
+.Login Schüler:in
 image::logins.png[]
 
 == Stimmenabgabe
 
+.Wahl der Abteilungsvertretung
 image::abteilungswahl.png[]
 * die Wahl für die Abteilungsvertretung wird je nach Zweig angepasst
 
+.Wahl der Schülervertretung
 image::sv_wahl.png[]
 
 == Lehreransicht
 image::lehrkraftansicht.png[]
 
 == Auswertung
-
+.Wahlergebnis Schülervertretung
 image::sv_auswertung.png[]
+
+.Wahlergebnis Abteilungsvertretung
 image::abteilungs_auswertung.png[]
 * die Wahlauswertung für die Abteilungsvertretung wird je nach Zweig angepasst
-
 
 == Wireframe
 image::wireframes.png[]
