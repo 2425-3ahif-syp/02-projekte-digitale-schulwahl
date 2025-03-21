@@ -35,6 +35,7 @@ public class MainView {
         generateButton.setOnAction(e -> {
             controller.generateAndSaveCodesForAllStudents();
             loadData();
+            controller.getCodesIntoPDF(1);
         });
 
         toolbar.getChildren().add(generateButton);
