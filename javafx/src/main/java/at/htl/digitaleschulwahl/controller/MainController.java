@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
 public class MainController {
     private final Connection connection;
     private final Random random = new Random();
@@ -101,6 +102,7 @@ public class MainController {
                 """;
         StringBuilder pdfContent = new StringBuilder();
 
+        pdfContent.append(getClass(classId)).append("\n\n");
 
         try (var statement = connection.prepareStatement(query)) {
             statement.setInt(1, classId);
@@ -129,7 +131,7 @@ public class MainController {
                 Files.createDirectories(pdfDir);
             }
 
-            String filePath = PDF_DIRECTORY + File.separator + classId + "_codes.pdf";
+            String filePath = PDF_DIRECTORY + File.separator + getClass(classId) + "_codes.pdf";
             try (PDDocument document = new PDDocument()) {
                 PDPage page = new PDPage();
                 document.addPage(page);
@@ -151,7 +153,32 @@ public class MainController {
             throw new RuntimeException("Fehler beim Speichern der PDF: " + e.getMessage(), e);
         }
     }
-    
+
+    private String getClass(Integer classId) {
+        var query = """
+            SELECT 
+                (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS grade
+            FROM class
+            WHERE id = ?;
+            """;
+
+        try (var statement = connection.prepareStatement(query)) {
+            statement.setInt(1, classId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("grade");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+
 }
 
 
