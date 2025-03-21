@@ -156,12 +156,12 @@ public class MainController {
 
     private String getClass(Integer classId) {
         var query = """
-            SELECT 
-                (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
-                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS grade
-            FROM class
-            WHERE id = ?;
-            """;
+                SELECT 
+                    (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+                    (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS grade
+                FROM class
+                WHERE id = ?;
+                """;
 
         try (var statement = connection.prepareStatement(query)) {
             statement.setInt(1, classId);
