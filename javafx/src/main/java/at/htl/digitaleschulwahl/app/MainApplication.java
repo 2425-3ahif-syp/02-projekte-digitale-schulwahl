@@ -26,7 +26,7 @@ public class MainApplication extends Application {
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
                einmal für Abteilungssprecher ... wird dann noch gehandelt!
              */
-            var votingScene = new Scene(mainView.getRoot(),900,600);
+            var votingScene = new Scene(votingView.getRoot(),900,600);
 
 
 
