@@ -1,8 +1,10 @@
 package at.htl.digitaleschulwahl.app;
 
+import at.htl.digitaleschulwahl.controller.VotingController;
 import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.view.MainView;
 import at.htl.digitaleschulwahl.controller.MainController;
+import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,12 +15,23 @@ public class MainApplication extends Application {
         try {
             var databaseManager = DatabaseManager.getInstance();
             var mainController = new MainController();
-            var mainView = new MainView(mainController);
+            var votingController = new VotingController();
 
-            var scene = new Scene(mainView.getRoot(), 900, 600);
+            var mainView = new MainView(mainController);
+            var votingView = new VotingView(votingController);
+
+            var mainScene = new Scene(mainView.getRoot(), 900, 600);
+
+            /* Die scene wird erst durch einen button-click oder so angezeigt.
+               Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
+               einmal für Abteilungssprecher ... wird dann noch gehandelt!
+             */
+            var votingScene = new Scene(mainView.getRoot(),900,600);
+
+
 
             primaryStage.setTitle("Digitale Schulwahl");
-            primaryStage.setScene(scene);
+            primaryStage.setScene(mainScene);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
