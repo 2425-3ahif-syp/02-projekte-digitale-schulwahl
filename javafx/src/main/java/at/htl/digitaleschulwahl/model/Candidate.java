@@ -1,19 +1,14 @@
 package at.htl.digitaleschulwahl.model;
 
 public class Candidate {
+    private String name;
+    private String type; // "Schülervertreter" oder "Abteilungsvertreter"
 
-    private String name;  // Name des Kandidaten
-    private String position;  // Position (Schülervertretung oder Abteilungssprecher)
-    private int points;  // Punkteanzahl des Kandidaten
-
-    // Konstruktor
-    public Candidate(String name, String position) {
+    public Candidate(String name, String type) {
         this.name = name;
-        this.position = position;
-        this.points = 0;  // Initialpunkte setzen (könnte auch aus einer Datei kommen)
+        this.type = type;
     }
 
-    // Getter und Setter
     public String getName() {
         return name;
     }
@@ -22,29 +17,11 @@ public class Candidate {
         this.name = name;
     }
 
-    public String getPosition() {
-        return position;
+    public String getType() {
+        return type;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setType(String type) {
+        this.type = type;
     }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void addPoints(int points) {
-        this.points += points;  // Punkte hinzufügen
-    }
-
-    @Override
-    public String toString() {
-        return "Candidate{" +
-                "name='" + name + '\'' +
-                ", position='" + position + '\'' +
-                ", points=" + points +
-                '}';
-    }
-
 }

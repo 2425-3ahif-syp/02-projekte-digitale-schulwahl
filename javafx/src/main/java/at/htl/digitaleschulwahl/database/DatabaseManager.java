@@ -63,6 +63,23 @@ public class DatabaseManager {
                 login_code VARCHAR(20),
                 FOREIGN KEY (class_id) REFERENCES class(id)
             )
+            """,
+                """
+            CREATE TABLE IF NOT EXISTS candidate (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                role VARCHAR(50) NOT NULL CHECK (role IN ('Schülersprecher', 'Abteilungsvertreter'))
+            )
+            """,
+                """
+            CREATE TABLE IF NOT EXISTS votes (
+                id SERIAL PRIMARY KEY,
+                student_id INTEGER NOT NULL,
+                candidate_id INTEGER NOT NULL,
+                ranking INTEGER NOT NULL,
+                FOREIGN KEY (student_id) REFERENCES student(id),
+                FOREIGN KEY (candidate_id) REFERENCES candidate(id)
+            )
             """
         };
 
@@ -111,9 +128,29 @@ public class DatabaseManager {
                         ('Paul', 'Bauer', 5),
                         ('Hannah', 'Müller', 6)
                         """;
+                var insertCandidateQuery = """
+                    INSERT INTO candidate (name, role) VALUES
+                    ('Lukas Meier', 'Schülersprecher'),
+                    ('Anna Schmidt', 'Schülersprecher'),
+                    ('Felix Bauer', 'Abteilungsvertreter'),
+                    ('Julia Fischer', 'Abteilungsvertreter')
+                """;
+
+                var insertVotesQuery = """
+                    INSERT INTO votes (student_id, candidate_id, ranking) VALUES
+                    (1, 1, 5),
+                    (2, 1, 4),
+                    (3, 2, 6),
+                    (4, 3, 2),
+                    (5, 3, 1),
+                    (6, 4, 2)
+                """;
+
 
                 statement.execute(insertClassQuery);
                 statement.execute(insertStudentQuery);
+                statement.execute(insertCandidateQuery);
+                statement.execute(insertVotesQuery);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,52 +1,31 @@
 package at.htl.digitaleschulwahl.model;
+import at.htl.digitaleschulwahl.model.Candidate;
 
 public class Vote {
-    private String voterId;  // ID (auto_increment, damit sie später in eine tabelle oder so gepeichert werden kann...irgendwie so...muss noch ünerlegt werden)
-    private Candidate selectedCandidate;  // Der gewählte Kandidat
-    private int points;  // Punkte, die dem Kandidaten gegeben wurden
+    private Candidate candidate;
+    private int ranking;
 
-    // Konstruktor
-    public Vote(String voterId, Candidate selectedCandidate, int points) {
-        this.voterId = voterId;
-        this.selectedCandidate = selectedCandidate;
-        this.points = points;
+    public Vote(Candidate candidate, int ranking) {
+        if (!isValidRanking(candidate.getType(), ranking)) {
+            throw new IllegalArgumentException("Ungültiges Ranking für " + candidate.getType());
+        }
+        this.candidate = candidate;
+        this.ranking = ranking;
     }
 
-    // Getter und Setter
-    public String getVoterId() {
-        return voterId;
+    private boolean isValidRanking(String candidateType, int ranking) {
+        return switch (candidateType) {
+            case "Schülervertreter" -> ranking >= 1 && ranking <= 6;
+            case "Abteilungsvertreter" -> ranking == 1 || ranking == 2;
+            default -> false;
+        };
     }
 
-    public void setVoterId(String voterId) {
-        this.voterId = voterId;
+    public Candidate getCandidate() {
+        return candidate;
     }
 
-    public Candidate getSelectedCandidate() {
-        return selectedCandidate;
-    }
-
-    public void setSelectedCandidate(Candidate selectedCandidate) {
-        this.selectedCandidate = selectedCandidate;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-
-    @Override
-    public String toString() {
-
-        // jaaa string format oder so...
-        return "Vote{" +
-                "voterId='" + voterId + '\'' +
-                ", selectedCandidate=" + selectedCandidate +
-                ", points=" + points +
-                '}';
+    public int getRanking() {
+        return ranking;
     }
 }
-
