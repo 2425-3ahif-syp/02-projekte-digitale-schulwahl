@@ -68,6 +68,7 @@ public class DatabaseManager {
             CREATE TABLE IF NOT EXISTS candidate (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(100) NOT NULL,
+                class  VARCHAR(100) NOT NULL,
                 role VARCHAR(50) NOT NULL CHECK (role IN ('Schülersprecher', 'Abteilungsvertreter'))
             )
             """,
@@ -126,11 +127,11 @@ public class DatabaseManager {
                         ('Hannah', 'Müller', 6)
                         """;
                 var insertCandidateQuery = """
-                    INSERT INTO candidate (name, role) VALUES
-                    ('Lukas Meier', 'Schülersprecher'),
-                    ('Anna Schmidt', 'Schülersprecher'),
-                    ('Felix Bauer', 'Abteilungsvertreter'),
-                    ('Julia Fischer', 'Abteilungsvertreter')
+                    INSERT INTO candidate (name,class, role) VALUES
+                    ('Lukas Meier','5ahif', 'Schülersprecher'),
+                    ('Anna Schmidt','4ahitm', 'Schülersprecher'),
+                    ('Felix Bauer', '3bhif','Abteilungsvertreter'),
+                    ('Julia Fischer','5bhitm', 'Abteilungsvertreter')
                 """;
 
                 var insertVotesQuery = """
@@ -150,6 +151,7 @@ public class DatabaseManager {
                 statement.execute(insertVotesQuery);
             }
         } catch (SQLException e) {
+            System.err.println("Fehler beim Ausführen der SQL-Anweisung: " + e.getMessage());
             e.printStackTrace();
         }
     }

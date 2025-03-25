@@ -3,6 +3,8 @@ package at.htl.digitaleschulwahl.view;
 import at.htl.digitaleschulwahl.controller.VotingController;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -33,7 +35,7 @@ public class VotingView {
 
     public void createUI() {
         numOfPoints = 2;
-        HBox main = createMainUI("Abteilungvertretung", candidates, numOfPoints);
+        var main = createMainUI("Abteilungvertretung", candidates, numOfPoints);
         Button continueButton = new Button("Weiter");
         continueButton.setOnAction(e -> createUiForStudentCouncil());
         main.getChildren().add(continueButton);
@@ -42,7 +44,7 @@ public class VotingView {
 
     public void createUiForStudentCouncil() {
         numOfPoints = 6;
-        HBox main = createMainUI("Schülervertretung", candidates, numOfPoints);
+        var main = createMainUI("Schülervertretung", candidates, numOfPoints);
         Button backButton = new Button("Zurück");
         backButton.setOnAction(e -> createUI());
 
@@ -56,7 +58,59 @@ public class VotingView {
         root.setCenter(main);
     }
 
-    public HBox createMainUI(String title, List<Candidate> canidates, int maxPoints) {
+    private VBox createMainUI(String title, List<Candidate> candidates, int maxPoints) {
+        VBox main = new VBox(10);
+        main.setPadding(new Insets(20));
+        main.getStyleClass().add("main-container");
+
+        Label titleLabel = new Label("Digitale Schulwahl - Wahl");
+        titleLabel.getStyleClass().add("title-label");
+
+        Label sectionLabel = new Label(title);
+        sectionLabel.getStyleClass().add("section-label");
+
+        main.getChildren().addAll(titleLabel, sectionLabel);
+
+        ToggleGroup[] pointGroups = new ToggleGroup[candidates.size()];
+        for (int i = 0; i < candidates.size(); i++) {
+            pointGroups[i] = new ToggleGroup();
+        }
+
+        for (int i = 0; i < candidates.size(); i++) {
+            Candidate candidate = candidates.get(i);
+            HBox candidateBox = new HBox(10);
+            candidateBox.getStyleClass().add("candidate-box");
+
+            ImageView profileImage = new ImageView(new Image("profile-placeholder.png"));
+            profileImage.setFitWidth(50);
+            profileImage.setFitHeight(50);
+
+            VBox infoBox = new VBox(new Label(candidate.getName()), new Label(candidate.getClassName()));
+
+            ToggleGroup group = pointGroups[i];
+            HBox radioButtons = new HBox(5);
+
+            for (int j = maxPoints; j > 0; j--) {
+                RadioButton radioButton = new RadioButton();
+                radioButton.setToggleGroup(group);
+                radioButton.setUserData(j);
+                radioButtons.getChildren().add(radioButton);
+            }
+
+            candidateBox.getChildren().addAll(profileImage, infoBox, radioButtons);
+            main.getChildren().add(candidateBox);
+        }
+
+        if (maxPoints == 2) {
+            this.departmentGroups = pointGroups;
+        } else {
+            this.studentCouncilGroups = pointGroups;
+        }
+
+        return main;
+    }
+
+   /* public HBox createMainUI(String title, List<Candidate> candidates, int maxPoints) {
         HBox main = new HBox();
         main.setSpacing(10);
         main.setPadding(new Insets(10));
@@ -68,13 +122,13 @@ public class VotingView {
 
         main.getChildren().add(new Label(title));
 
-        ToggleGroup[] pointGroups = new ToggleGroup[canidates.size()];
-        for (int i = 0; i < canidates.size(); i++) {
+        ToggleGroup[] pointGroups = new ToggleGroup[candidates.size()];
+        for (int i = 0; i < candidates.size(); i++) {
             pointGroups[i] = new ToggleGroup();
         }
 
-        for (int i = 0; i < canidates.size(); i++) {
-            Candidate candidate = canidates.get(i);
+        for (int i = 0; i < candidates.size(); i++) {
+            Candidate candidate = candidates.get(i);
             HBox candidateBox = new HBox(new Label(candidate.getName()));
             ToggleGroup group = pointGroups[i];
 
@@ -95,6 +149,7 @@ public class VotingView {
 
         return main;
     }
+*/
 
 
     private void saveVotes(ToggleGroup[] groups, String type) {

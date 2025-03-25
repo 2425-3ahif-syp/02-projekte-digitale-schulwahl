@@ -1,0 +1,38 @@
+/* Allgemeine Styles */
+.root {
+    -fx-background-color: #333;
+    -fx-padding: 20px;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #cccccc;
+}
+
+.hbox {
+    -fx-spacing: 15px;
+    -fx-alignment: center;
+}
+
+/* Radiobutton Styles */
+.radio-button {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.radio-button:selected {
+    -fx-mark-color: #ffcc00;
+}
