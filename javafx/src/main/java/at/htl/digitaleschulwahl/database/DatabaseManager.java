@@ -84,9 +84,6 @@ public class DatabaseManager {
         };
 
         try (var statement = connection.createStatement()) {
-            statement.execute("DROP TABLE IF EXISTS student");
-            statement.execute("DROP TABLE IF EXISTS class");
-
             for (var createTableStatement : createTableStatements) {
                 statement.execute(createTableStatement);
             }
