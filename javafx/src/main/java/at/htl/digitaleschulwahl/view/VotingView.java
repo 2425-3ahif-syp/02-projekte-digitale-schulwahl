@@ -7,9 +7,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 
 
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import java.util.List;
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-    private final List<Candidate> canidates = new ArrayList();
+    private final List<Candidate> candidates = new ArrayList();
     private int numOfPoints;
     private ToggleGroup[] departmentGroups;
     private ToggleGroup[] studentCouncilGroups;
@@ -36,7 +33,7 @@ public class VotingView {
 
     public void createUI() {
         numOfPoints = 2;
-        HBox main = createMainUI("Abteilungvertretung", canidates, numOfPoints);
+        HBox main = createMainUI("Abteilungvertretung", candidates, numOfPoints);
         Button continueButton = new Button("Weiter");
         continueButton.setOnAction(e -> createUiForStudentCouncil());
         main.getChildren().add(continueButton);
@@ -45,7 +42,7 @@ public class VotingView {
 
     public void createUiForStudentCouncil() {
         numOfPoints = 6;
-        HBox main = createMainUI("Schülervertretung", canidates, numOfPoints);
+        HBox main = createMainUI("Schülervertretung", candidates, numOfPoints);
         Button backButton = new Button("Zurück");
         backButton.setOnAction(e -> createUI());
 
@@ -102,8 +99,8 @@ public class VotingView {
 
     private void saveVotes(ToggleGroup[] groups, String type) {
         int points = 0;
-        for (int i = 0; i < canidates.size(); i++) {
-            Candidate candidate = canidates.get(i);
+        for (int i = 0; i < candidates.size(); i++) {
+            Candidate candidate = candidates.get(i);
             if (groups[i].getSelectedToggle() != null) {
                 points = (int) groups[i].getSelectedToggle().getUserData();
             }
