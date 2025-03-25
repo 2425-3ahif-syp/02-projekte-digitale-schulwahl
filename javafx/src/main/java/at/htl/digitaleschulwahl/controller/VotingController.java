@@ -7,8 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-// Hier kommt die Logik für das Abstimmen
-/* die votes der Kandidaten speichern und zählen jo */
+
 public class VotingController {
 
     private final Connection connection;
@@ -28,5 +27,4 @@ public class VotingController {
             e.printStackTrace();
         }
     }
-
 }

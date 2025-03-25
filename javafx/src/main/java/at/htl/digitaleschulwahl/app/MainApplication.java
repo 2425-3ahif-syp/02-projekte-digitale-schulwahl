@@ -29,7 +29,6 @@ public class MainApplication extends Application {
             var votingScene = new Scene(votingView.getRoot(),900,600);
 
 
-
             primaryStage.setTitle("Digitale Schulwahl");
             primaryStage.setScene(mainScene);
             primaryStage.show();
