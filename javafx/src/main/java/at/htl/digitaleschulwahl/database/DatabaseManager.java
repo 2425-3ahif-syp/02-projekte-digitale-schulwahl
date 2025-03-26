@@ -144,7 +144,6 @@ public class DatabaseManager {
                     (6, 4, 2)
                 """;
 
-
                 statement.execute(insertClassQuery);
                 statement.execute(insertStudentQuery);
                 statement.execute(insertCandidateQuery);

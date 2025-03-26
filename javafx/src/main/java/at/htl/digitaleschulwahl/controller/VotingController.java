@@ -1,11 +1,14 @@
 package at.htl.digitaleschulwahl.controller;
 
+import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.database.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class VotingController {
@@ -26,5 +29,26 @@ public class VotingController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Candidate> getCandidates() {
+        List<Candidate> candidates = new ArrayList<Candidate>();
+        String query = "Select id, name, class, role from candidate";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             var resultSet = statement.executeQuery();
+        ) {
+            while (resultSet.next()) {
+                candidates.add(new Candidate(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("class"),
+                        resultSet.getString("role")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return candidates;
     }
 }

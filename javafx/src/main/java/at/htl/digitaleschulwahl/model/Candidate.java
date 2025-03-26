@@ -1,11 +1,12 @@
 package at.htl.digitaleschulwahl.model;
 
 public class Candidate {
+    private int id;
     private String name;
     private String type; // "Schülervertreter" oder "Abteilungsvertreter"
     private String className;
 
-    public Candidate(String name, String className, String type) {
+    public Candidate(int id, String name, String className, String type) {
         this.name = name;
         this.type = type;
         this.className = className;
