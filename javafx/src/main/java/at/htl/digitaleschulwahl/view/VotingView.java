@@ -12,15 +12,18 @@ import javafx.scene.layout.BorderPane;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 // Java-FX Oberfläche fürs Abstimmen
 
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-    private final List<Candidate> candidates = new ArrayList();
     private int numOfPoints;
+    private List<Candidate> candidates;
     private ToggleGroup[] departmentGroups;
     private ToggleGroup[] studentCouncilGroups;
 
@@ -35,17 +38,32 @@ public class VotingView {
 
     public void createUI() {
         numOfPoints = 2;
-        var main = createMainUI("Abteilungvertretung", candidates, numOfPoints);
+        List<Candidate> sortedCandidates = controller.getCandidates().stream()
+                .filter(c -> c.getType() == "Abteilungsvertreter")  // Normaler String-Vergleich
+                .collect(Collectors.toList());;
+
+        int numOfDepartments = sortedCandidates.size();
+        System.out.println(numOfDepartments);
+
+        var toolbar = new HBox(10);
+        toolbar.setPadding(new Insets(10));
+        var main = createMainUI("Abteilungvertretung", sortedCandidates, numOfPoints);
         Button continueButton = new Button("Weiter");
         continueButton.setOnAction(e -> createUiForStudentCouncil());
         main.getChildren().add(continueButton);
-        root.setTop(main);
+        continueButton.getStyleClass().add("button");
+        root.setCenter(main);
     }
 
     public void createUiForStudentCouncil() {
         numOfPoints = 6;
-        var main = createMainUI("Schülervertretung", candidates, numOfPoints);
+        List<Candidate> studentCouncilCandidate = controller.getCandidates().stream().
+                filter(c -> Objects.equals(c.getType(), "Schülersprecher"))
+              .collect(Collectors.toList());
+
+        var main = createMainUI("Schülervertretung", studentCouncilCandidate, numOfPoints);
         Button backButton = new Button("Zurück");
+        backButton.getStyleClass().add("button");
         backButton.setOnAction(e -> createUI());
 
         Button continueButton = new Button("Weiter");
@@ -61,10 +79,14 @@ public class VotingView {
     private VBox createMainUI(String title, List<Candidate> candidates, int maxPoints) {
         VBox main = new VBox(10);
         main.setPadding(new Insets(20));
-        main.getStyleClass().add("main-container");
+//        main.getStyleClass().add("main-container");
 
         Label titleLabel = new Label("Digitale Schulwahl - Wahl");
         titleLabel.getStyleClass().add("title-label");
+
+        Region line = new Region();
+        line.setPrefHeight(1);
+        line.setStyle("-fx-background-color: white;");
 
         Label sectionLabel = new Label(title);
         sectionLabel.getStyleClass().add("section-label");
@@ -78,12 +100,14 @@ public class VotingView {
 
         for (int i = 0; i < candidates.size(); i++) {
             Candidate candidate = candidates.get(i);
-            HBox candidateBox = new HBox(10);
+            HBox candidateBox = new HBox(25);
             candidateBox.getStyleClass().add("candidate-box");
 
-            ImageView profileImage = new ImageView(new Image("profile-placeholder.png"));
-            profileImage.setFitWidth(50);
-            profileImage.setFitHeight(50);
+           // System.out.println(getClass().getClassLoader().getResource("img/placeholder.jpg").toExternalForm());
+           // ImageView profileImage = new ImageView(new Image(getClass().getClassLoader().getResource("placeholder.jpg").toExternalForm()));
+
+           // profileImage.setFitWidth(50);
+            // profileImage.setFitHeight(50);
 
             VBox infoBox = new VBox(new Label(candidate.getName()), new Label(candidate.getClassName()));
 
@@ -97,7 +121,7 @@ public class VotingView {
                 radioButtons.getChildren().add(radioButton);
             }
 
-            candidateBox.getChildren().addAll(profileImage, infoBox, radioButtons);
+            candidateBox.getChildren().addAll( infoBox, radioButtons);
             main.getChildren().add(candidateBox);
         }
 

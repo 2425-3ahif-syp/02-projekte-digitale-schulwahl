@@ -18,22 +18,21 @@ public class VotingApplicationTemp extends Application {
             var votingController = new VotingController();
 
             var votingView = new VotingView(votingController);
-            String css = getClass().getResource("../../styles/votingPageStyle.css").toExternalForm();
-
-          //  String css = getClass().getResource("../../../styles/votingPageStyle.css").toExternalForm();
 
 
+            String css = getClass().getClassLoader().getResource("votingPageStyle.css").toExternalForm();
 
-            /* Die scene wird erst durch einen button-click oder so angezeigt.
+           /* Die scene wird erst durch einen button-click oder so angezeigt.
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
-               einmal für Abteilungssprecher ... wird dann noch gehandelt!
-             */
+               einmal für Abteilungssprecher ... wird dann noch gehandelt!*/
+
             var votingScene = new Scene(votingView.getRoot(),900,600);
             votingScene.getStylesheets().add(css);
 
             primaryStage.setTitle("Digitale Schulwahl");
             primaryStage.setScene(votingScene);
             primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
