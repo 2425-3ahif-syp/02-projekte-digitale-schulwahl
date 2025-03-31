@@ -3,32 +3,38 @@ package at.htl.digitaleschulwahl.view;
 import at.htl.digitaleschulwahl.controller.VotingController;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-// Java-FX Oberfläche fürs Abstimmen
 
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-    private int numOfPoints;
     private List<Candidate> candidates;
-    private ToggleGroup[] departmentGroups;
-    private ToggleGroup[] studentCouncilGroups;
+    /* private ToggleGroup[] departmentGroups;
+     private ToggleGroup[] studentCouncilGroups;*/
+    private boolean isCouncil = false; //true = Schülervertretung
+    private Button backButton = new Button("Zurück");
 
     public VotingView(VotingController controller) {
         this.controller = controller;
+        backButton.setVisible(false);
         createUI();
     }
 
@@ -37,155 +43,262 @@ public class VotingView {
     }
 
     public void createUI() {
-        numOfPoints = 2;
-        List<Candidate> sortedCandidates = controller.getCandidates().stream()
-                .filter(c -> c.getType() == "Abteilungsvertreter")  // Normaler String-Vergleich
-                .collect(Collectors.toList());;
 
-        int numOfDepartments = sortedCandidates.size();
-        System.out.println(numOfDepartments);
+        VBox main = new VBox();
+        HBox toolBar = new HBox();
 
-        var toolbar = new HBox(10);
-        toolbar.setPadding(new Insets(10));
-        var main = createMainUI("Abteilungvertretung", sortedCandidates, numOfPoints);
-        Button continueButton = new Button("Weiter");
-        continueButton.setOnAction(e -> createUiForStudentCouncil());
-        main.getChildren().add(continueButton);
-        continueButton.getStyleClass().add("button");
-        root.setCenter(main);
-    }
+        toolBar.getStyleClass().add("tool-bar");
 
-    public void createUiForStudentCouncil() {
-        numOfPoints = 6;
-        List<Candidate> studentCouncilCandidate = controller.getCandidates().stream().
-                filter(c -> Objects.equals(c.getType(), "Schülersprecher"))
-              .collect(Collectors.toList());
+        ImageView imageView = new ImageView(new Image("file:htl_leonding_logo.png"));
 
-        var main = createMainUI("Schülervertretung", studentCouncilCandidate, numOfPoints);
-        Button backButton = new Button("Zurück");
-        backButton.getStyleClass().add("button");
-        backButton.setOnAction(e -> createUI());
+        imageView.setFitHeight(60);
 
-        Button continueButton = new Button("Weiter");
+        imageView.setFitWidth(260);
 
-        HBox buttons = new HBox();
-        buttons.setSpacing(10);
-        buttons.setPadding(new Insets(10));
-        main.getChildren().add(buttons);
+        toolBar.getChildren().add(imageView);
+
+        root.setTop(toolBar);
+
+        isCouncil = false;
+        main = createVotingUI(true);
 
         root.setCenter(main);
+
+        VBox bottomBox = new VBox();
+        bottomBox.setSpacing(10);
+        bottomBox.getStyleClass().add("bottom-button-container");
+
+        Button continueButton = new Button("Weiter");
+        continueButton.getStyleClass().add("bottom-button");
+
+        bottomBox.getChildren().addAll(continueButton, backButton);
+        continueButton.setOnAction(event -> {
+
+            isCouncil = true;
+            root.setCenter(createVotingUI(false));
+            backButton.setVisible(true);
+            backButton.getStyleClass().add("bottom-button");
+            bottomBox.getChildren().add(backButton);
+        });
+
+        backButton.setOnAction(event -> {
+            root.setCenter(createVotingUI(true));
+            backButton.setVisible(false);
+        });
+
+        root.setBottom(bottomBox);
     }
 
-    private VBox createMainUI(String title, List<Candidate> candidates, int maxPoints) {
-        VBox main = new VBox(10);
-        main.setPadding(new Insets(20));
-//        main.getStyleClass().add("main-container");
+    private VBox createVotingUI(boolean isCouncil) {
+        VBox mainContainer = new VBox();
 
-        Label titleLabel = new Label("Digitale Schulwahl - Wahl");
-        titleLabel.getStyleClass().add("title-label");
+        VBox headingContent = new VBox();
+        headingContent.getStyleClass().add("content");
 
-        Region line = new Region();
-        line.setPrefHeight(1);
-        line.setStyle("-fx-background-color: white;");
+        HBox headingTitle = new HBox();
+        headingTitle.setAlignment(Pos.CENTER);
 
-        Label sectionLabel = new Label(title);
-        sectionLabel.getStyleClass().add("section-label");
+        Label firstHeading = new Label("Digitale Schulwahl - Wahl");
+        firstHeading.getStyleClass().add("first-heading");
 
-        main.getChildren().addAll(titleLabel, sectionLabel);
+        Line line = new Line();
+        line.getStyleClass().add("underline");
 
-        ToggleGroup[] pointGroups = new ToggleGroup[candidates.size()];
-        for (int i = 0; i < candidates.size(); i++) {
-            pointGroups[i] = new ToggleGroup();
+        VBox headingBox = new VBox();
+        headingBox.setAlignment(Pos.CENTER);
+        headingBox.getChildren().addAll(firstHeading, line);
+
+        firstHeading.widthProperty().addListener((_, _, newWidth) -> {
+            line.setStartX(-40);
+            line.setEndX(newWidth.doubleValue() + 40);
+        });
+
+        Label secondHeading = new Label(getSecondHeading(isCouncil));
+        secondHeading.getStyleClass().add("second-heading");
+        headingBox.getChildren().add(secondHeading);
+
+        headingContent.getChildren().add(headingBox);
+
+      /*  var candidates = controller.getCandidates();
+
+        if (!isCouncil) {
+            candidates = candidates.stream()
+                    .filter(candidate -> candidate.getType() != null && candidate.getType().trim().equalsIgnoreCase("Schülervertreter"))
+                    .toList();
+        } else {
+            candidates = candidates.stream()
+                    .filter(candidate -> candidate.getType() != null && candidate.getType().trim().equalsIgnoreCase("Abteilungsvertreter"))
+                    .toList();
+        }
+        */
+
+        var testListOfCandidates = new ArrayList<Candidate>();
+        testListOfCandidates.add(new Candidate(1, "Anna Schmidt", "4AHITM", "Schülersprecher"));
+        testListOfCandidates.add(new Candidate(2, "Felix Bauer", "3BHIF", "Abteilungsvertreter"));
+        testListOfCandidates.add(new Candidate(3, "Julia Fischer", "5BHITM", "Abteilungsvertreter"));
+        testListOfCandidates.add(new Candidate(4, "Lukas Meier", "5AHIF", "Schülersprecher"));
+
+        List<Candidate> testCandidates;
+        if (isCouncil) {
+            testCandidates = testListOfCandidates.stream().filter(candidate -> candidate.getType().equals("Schülersprecher")).toList();
+        } else {
+            testCandidates = testListOfCandidates.stream().filter(candidate -> candidate.getType().equals("Abteilungsvertreter")).toList();
         }
 
+
+        VBox votingSection = new VBox();
+        votingSection.getStyleClass().add("voting-content");
+
+        HBox candidatesAndVotingBox = new HBox();
+        candidatesAndVotingBox.setSpacing(200);
+        candidatesAndVotingBox.setAlignment(Pos.CENTER);
+
+        VBox candidateInfoSection = new VBox(10);
+        candidateInfoSection.setAlignment(Pos.CENTER_LEFT);
+        candidateInfoSection.getChildren().addAll(createCandidateInfoSection(testCandidates));
+
+        VBox pointsSection;
+
+        if (isCouncil) {
+            pointsSection = createPointsSection(2, testCandidates);
+
+        } else {
+            pointsSection = createPointsSection(6, testCandidates);
+        }
+        pointsSection.setAlignment(Pos.CENTER);
+
+        candidatesAndVotingBox.getChildren().addAll(candidateInfoSection, pointsSection);
+        votingSection.getChildren().add(candidatesAndVotingBox);
+
+        mainContainer.getChildren().addAll(headingContent, votingSection);
+
+        return mainContainer;
+    }
+
+    private String getSecondHeading(boolean isCouncil) {
+        String heading = "";
+        if (!isCouncil) {
+            heading = "Schülervertretung";
+        } else {
+            heading = "Abteilungsvertretung [Abteilung]";
+        }
+        return heading;
+    }
+
+    private VBox createCandidateInfoSection(List<Candidate> candidates) {
+        VBox candidateInfoSection = new VBox(10);
+
         for (int i = 0; i < candidates.size(); i++) {
-            Candidate candidate = candidates.get(i);
-            HBox candidateBox = new HBox(25);
-            candidateBox.getStyleClass().add("candidate-box");
+            HBox currentBox = new HBox(15);
+            currentBox.setAlignment(Pos.CENTER);
 
-           // System.out.println(getClass().getClassLoader().getResource("img/placeholder.jpg").toExternalForm());
-           // ImageView profileImage = new ImageView(new Image(getClass().getClassLoader().getResource("placeholder.jpg").toExternalForm()));
+            ImageView img = new ImageView(new Image("file:src/resources/img/placeholder.jpg")); //
+            img.setFitWidth(100);
+            img.setFitHeight(100);
+            img.setPreserveRatio(true);
+            img.getStyleClass().add("img");
 
-           // profileImage.setFitWidth(50);
-            // profileImage.setFitHeight(50);
+            Circle clip = new Circle(50, 50, 50);
+            img.setClip(clip);
 
-            VBox infoBox = new VBox(new Label(candidate.getName()), new Label(candidate.getClassName()));
+            Line verticalLine = new Line(0, 0, 0, 100);
+            verticalLine.setStroke(Color.WHITE);
+            verticalLine.setStrokeWidth(2);
 
-            ToggleGroup group = pointGroups[i];
-            HBox radioButtons = new HBox(5);
+            VBox textSection = new VBox(5);
+            Label name = new Label(candidates.get(i).getName());
+            name.getStyleClass().add("candidateLabel");
+            name.setStyle("-fx-font-weight: bold");
+            Label _class = new Label(candidates.get(i).getClassName());
+            _class.getStyleClass().add("candidateLabel");
+            textSection.getChildren().addAll(name, _class);
 
-            for (int j = maxPoints; j > 0; j--) {
+
+            currentBox.getChildren().addAll(img, verticalLine, textSection);
+
+            candidateInfoSection.getChildren().add(currentBox);
+        }
+        return candidateInfoSection;
+    }
+
+    private VBox createPointsSection(int maxPoints, List<Candidate> candidates) {
+        VBox mainVBox = new VBox();
+        mainVBox.setAlignment(Pos.CENTER);
+
+        HBox pointsHeader = new HBox(10);
+        pointsHeader.setAlignment(Pos.CENTER);
+        pointsHeader.getStyleClass().add("points-header");
+
+        if (maxPoints == 6) {
+            pointsHeader.setSpacing(38);
+        } else {
+            pointsHeader.setSpacing(20);
+        }
+
+        for (int i = maxPoints; i >= 1; i--) {
+            Label label = new Label("" + i);
+            label.getStyleClass().add("label");
+            pointsHeader.getChildren().add(label);
+        }
+
+        VBox pointsSection = new VBox(10);
+        pointsSection.setAlignment(Pos.CENTER);
+        pointsSection.setMinHeight(110 * candidates.size());
+
+        for (Candidate candidate : candidates) {
+            HBox pointsBox = new HBox(10);
+            pointsBox.setMinHeight(110); // Genauso hoch wie candidateBox
+            pointsBox.setAlignment(Pos.CENTER);
+
+            ToggleGroup group = new ToggleGroup();
+
+            for (int i = maxPoints; i >= 1; i--) {
                 RadioButton radioButton = new RadioButton();
+                radioButton.getStyleClass().add("radio-button");
                 radioButton.setToggleGroup(group);
-                radioButton.setUserData(j);
-                radioButtons.getChildren().add(radioButton);
+                radioButton.setUserData(i);
+
+                StackPane radioButtonWrapper = new StackPane();
+                radioButtonWrapper.setAlignment(Pos.CENTER);
+                radioButtonWrapper.getChildren().add(radioButton);
+
+
+                pointsBox.getChildren().add(radioButtonWrapper);
             }
-
-            candidateBox.getChildren().addAll( infoBox, radioButtons);
-            main.getChildren().add(candidateBox);
+            pointsSection.getChildren().add(pointsBox);
         }
+        mainVBox.getChildren().addAll(pointsHeader, pointsSection);
 
-        if (maxPoints == 2) {
-            this.departmentGroups = pointGroups;
-        } else {
-            this.studentCouncilGroups = pointGroups;
-        }
-
-        return main;
+        return mainVBox;
     }
-
-   /* public HBox createMainUI(String title, List<Candidate> candidates, int maxPoints) {
-        HBox main = new HBox();
-        main.setSpacing(10);
-        main.setPadding(new Insets(10));
-        main.getChildren().add(new Label("Digitale Schulwahl - Wahl"));
-
-        Region line = new Region();
-        line.setPrefHeight(1);
-        line.setStyle("-fx-background-color: black;");
-
-        main.getChildren().add(new Label(title));
-
-        ToggleGroup[] pointGroups = new ToggleGroup[candidates.size()];
-        for (int i = 0; i < candidates.size(); i++) {
-            pointGroups[i] = new ToggleGroup();
-        }
-
-        for (int i = 0; i < candidates.size(); i++) {
-            Candidate candidate = candidates.get(i);
-            HBox candidateBox = new HBox(new Label(candidate.getName()));
-            ToggleGroup group = pointGroups[i];
-
-            for (int j = maxPoints; j > 0; j--) {
-                RadioButton radioButton = new RadioButton(String.valueOf(j));
-                radioButton.setToggleGroup(group);
-                radioButton.setUserData(j);
-                candidateBox.getChildren().add(radioButton);
-            }
-            main.getChildren().add(candidateBox);
-        }
-
-        if (maxPoints == 2) {
-            this.departmentGroups = pointGroups;
-        } else {
-            this.studentCouncilGroups = pointGroups;
-        }
-
-        return main;
-    }
-*/
 
 
     private void saveVotes(ToggleGroup[] groups, String type) {
         int points = 0;
-        for (int i = 0; i < candidates.size(); i++) {
-            Candidate candidate = candidates.get(i);
-            if (groups[i].getSelectedToggle() != null) {
-                points = (int) groups[i].getSelectedToggle().getUserData();
+        File file = new File("votes.txt");
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
             }
 
-            Vote vote = new Vote(candidate, points);
-            controller.castVote(vote);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+
+            for (int i = 0; i < candidates.size(); i++) {
+                Candidate candidate = candidates.get(i);
+
+                if (groups[i].getSelectedToggle() != null) {
+                    points = (int) groups[i].getSelectedToggle().getUserData();
+                }
+
+                writer.write(candidate.getName() + ": " + points + " Punkte (" + type + ")\n");
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Fehler beim Speichern der Votes!");
         }
     }
 }

@@ -5,6 +5,7 @@ module at.htl.digitaleschulwahl {
     requires java.sql;
     requires org.postgresql.jdbc;
     requires org.apache.pdfbox;
+    requires java.desktop;
 
     exports at.htl.digitaleschulwahl.app to javafx.graphics;
     opens at.htl.digitaleschulwahl.app to javafx.graphics;

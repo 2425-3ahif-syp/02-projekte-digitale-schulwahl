@@ -32,7 +32,7 @@ public class VotingController {
     }
 
     public List<Candidate> getCandidates() {
-        List<Candidate> candidates = new ArrayList<Candidate>();
+        List<Candidate> candidates = new ArrayList<>();
         String query = "Select id, name, class, role from candidate";
         try (PreparedStatement statement = connection.prepareStatement(query);
              var resultSet = statement.executeQuery();
