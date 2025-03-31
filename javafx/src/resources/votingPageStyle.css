@@ -1,13 +1,59 @@
 /* Allgemeine Styles */
 .root {
+    /**-fx-background-color: #333;*/
     -fx-background-color: #333;
-    -fx-padding: 20px;
 }
+
+.tool-bar {
+    -fx-pref-height: 40px;
+    -fx-padding: 10 10 10 10;
+}
+
+.logo {
+    -fx-pref-height: 35px;
+    -fx-pref-width: 2px;
+}
+
+.first-heading {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+}
+
+.underline {
+    -fx-stroke: white bold;
+}
+
+.second-heading {
+    -fx-font-size: 20px;
+    -fx-font-weight: 5px;
+    -fx-padding: 5 0 0 0;
+}
+
+.content {
+    -fx-background-color: #333;
+    -fx-padding: 20 0 0 10;
+}
+
+.voting-content {
+    -fx-padding: 30 0 0 30;
+}
+
 
 .label {
     -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+}
+
+.candidateBox {
+    -fx-pref-height: 10px;
+}
+
+.candidateLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.img {
+    -fx-border-color: white;
 }
 
 .button {
@@ -22,17 +68,80 @@
     -fx-background-color: #cccccc;
 }
 
-.hbox {
-    -fx-spacing: 15px;
-    -fx-alignment: center;
+.radio-button .radio {
+    -fx-background-color: #333;
+    -fx-border-color: white;
+    -fx-border-radius: 100px;
+
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
 }
 
-/* Radiobutton Styles */
+.radio-button:selected .radio {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-border-color: white;
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: white;
+}
+
+
+.points-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-padding: 5px 0 2px 0;
+    -fx-pref-height: 10px;
+}
+
+
+.line {
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
+    -fx-end-x: 100%;
+}
+
+
+.radioButtonBox {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+
 .radio-button {
     -fx-text-fill: white;
     -fx-font-size: 14px;
+    -fx-padding: 0 10px 5px 5px;
+    -fx-margin: 0;
+    -fx-alignment: center;
 }
 
-.radio-button:selected {
-    -fx-mark-color: #ffcc00;
+
+
+.candidatesAndVotingBox {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+.continue-button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+
+.bottom-button-container {
+    -fx-alignment: center;
+    -fx-padding: 20px 0 30px 0;
+}
+
+.bottom-button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 150px;
+    -fx-border-radius: 50px;
 }
