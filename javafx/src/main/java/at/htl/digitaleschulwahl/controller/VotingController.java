@@ -30,7 +30,6 @@ public class VotingController {
             e.printStackTrace();
         }
     }
-
     public List<Candidate> getCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         String query = "Select id, name, class, role from candidate";
