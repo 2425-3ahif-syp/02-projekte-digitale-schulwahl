@@ -26,7 +26,7 @@ public class VotingApplicationTemp extends Application {
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
                einmal für Abteilungssprecher ... wird dann noch gehandelt!*/
 
-            var votingScene = new Scene(votingView.getRoot(),900,800);
+            var votingScene = new Scene(votingView.getRoot(),900,700);
              votingScene.getStylesheets().add(css);
 
             primaryStage.setTitle("Digitale Schulwahl");

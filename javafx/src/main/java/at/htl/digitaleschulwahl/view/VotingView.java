@@ -26,9 +26,7 @@ import java.util.stream.Collectors;
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-    private List<Candidate> candidates;
-    /* private ToggleGroup[] departmentGroups;
-     private ToggleGroup[] studentCouncilGroups;*/
+//    private List<Candidate> candidates;
     private boolean isCouncil = false; //true = Schülervertretung
     private Button backButton = new Button("Zurück");
 
@@ -273,7 +271,9 @@ public class VotingView {
     }
 
 
-    private void saveVotes(ToggleGroup[] groups, String type) {
+
+
+    /*private void saveVotes(ToggleGroup[] groups, String type) {
         int points = 0;
         File file = new File("votes.txt");
 
@@ -300,5 +300,7 @@ public class VotingView {
             e.printStackTrace();
             System.out.println("Fehler beim Speichern der Votes!");
         }
-    }
+    }*/
+
+
 }
