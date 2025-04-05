@@ -5,7 +5,9 @@ import at.htl.digitaleschulwahl.model.Student;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +35,35 @@ public class MainView {
     }
 
     private void createUI() {
+        VBox main = new VBox();
+        main.setAlignment(Pos.CENTER);
+        main.setSpacing(10);
+
+
+        ComboBox<String> classDropdown = new ComboBox<>();
+        classDropdown.getStyleClass().add("class-dropdown");
+        classDropdown.getItems().addAll("1AHIF", "1BHIF", "2AHIF", "2BHIF"); // Beispielklassen
+        classDropdown.setPromptText("Klasse auswählen");
+        classDropdown.setMaxWidth(300);
+
+        root.setCenter(classDropdown);
+
+        VBox bottomBox = new VBox();
+        bottomBox.setSpacing(10);
+        bottomBox.getStyleClass().add("bottom-button-container");
+
+        Button generateButton = new Button("Codes generieren");
+        generateButton.getStyleClass().add("bottom-button");
+
+        bottomBox.getChildren().addAll(generateButton);
+        generateButton.setOnAction(event -> {
+            controller.generateAndSaveCodesForAllStudents();
+            loadData();
+            controller.getCodesIntoPDF(1);
+        });
+
+        root.setBottom(bottomBox);
+
         /*var toolbar = new HBox(10);
         toolbar.setPadding(new Insets(10));
 
