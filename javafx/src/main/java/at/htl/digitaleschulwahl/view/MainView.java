@@ -72,45 +72,6 @@ public class MainView {
 
         root.setBottom(bottomBox);
 
-        /*var toolbar = new HBox(10);
-        toolbar.setPadding(new Insets(10));
-
-        var generateButton = new Button("Generate Codes");
-        generateButton.setOnAction(e -> {
-            controller.generateAndSaveCodesForAllStudents();
-            loadData();
-            controller.getCodesIntoPDF(1);
-        });
-
-        toolbar.getChildren().add(generateButton);
-
-        TableColumn<Student, String> nameCol = new TableColumn<>("Full Name");
-        nameCol.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFullName())
-        );
-        nameCol.setMinWidth(80);
-
-        TableColumn<Student, String> classCol = new TableColumn<>("Class");
-        classCol.setCellValueFactory(cellData ->
-                new SimpleStringProperty(
-                        "%d%s".formatted(
-                                cellData.getValue().getGrade(),
-                                cellData.getValue().getClassName()
-                        )
-                )
-        );
-        classCol.setMinWidth(80);
-
-        TableColumn<Student, String> codeCol = new TableColumn<>("Login Code");
-        codeCol.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLoginCode())
-        );
-        codeCol.setMinWidth(80);
-
-        tableView.getColumns().addAll(nameCol, classCol, codeCol);
-
-        root.setTop(toolbar);
-        root.setCenter(tableView);*/
     }
 
 
