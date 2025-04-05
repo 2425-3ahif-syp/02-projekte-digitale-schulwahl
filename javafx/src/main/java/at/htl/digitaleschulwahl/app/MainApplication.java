@@ -13,14 +13,19 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+
             var databaseManager = DatabaseManager.getInstance();
             var mainController = new MainController();
             var votingController = new VotingController();
 
             var mainView = new MainView(mainController);
             var votingView = new VotingView(votingController);
+            String css = VotingApplicationTemp.class.getResource("/votingPageStyle.css").toExternalForm();
+
 
             var mainScene = new Scene(mainView.getRoot(), 900, 600);
+            mainScene.getStylesheets().add(css);
+
 
             /* Die scene wird erst durch einen button-click oder so angezeigt.
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und

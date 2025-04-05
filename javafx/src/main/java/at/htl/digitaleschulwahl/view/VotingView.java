@@ -29,9 +29,12 @@ public class VotingView {
 //    private List<Candidate> candidates;
     private boolean isCouncil = false; //true = Schülervertretung
     private Button backButton = new Button("Zurück");
+    BaseStructureView baseStruct = new BaseStructureView(root);
+
 
     public VotingView(VotingController controller) {
         this.controller = controller;
+        baseStruct.createNavBar();
         backButton.setVisible(false);
         createUI();
     }
@@ -43,20 +46,6 @@ public class VotingView {
     public void createUI() {
 
         VBox main = new VBox();
-        HBox toolBar = new HBox();
-
-        toolBar.getStyleClass().add("tool-bar");
-
-        ImageView imageView = new ImageView(new Image("file:htl_leonding_logo.png"));
-
-        imageView.setFitHeight(60);
-
-        imageView.setFitWidth(260);
-
-        toolBar.getChildren().add(imageView);
-
-        root.setTop(toolBar);
-
         isCouncil = false;
         main = createVotingUI(true);
 
