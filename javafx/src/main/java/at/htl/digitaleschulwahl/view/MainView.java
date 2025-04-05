@@ -22,6 +22,7 @@ public class MainView {
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
     BaseStructureView baseStruct = new BaseStructureView(root);
+    private Integer classId;
 
     public MainView(MainController controller) {
         this.controller = controller;
@@ -35,6 +36,7 @@ public class MainView {
     }
 
     private void createUI() {
+
         VBox main = new VBox();
         main.setAlignment(Pos.CENTER);
         main.setSpacing(10);
@@ -42,9 +44,14 @@ public class MainView {
 
         ComboBox<String> classDropdown = new ComboBox<>();
         classDropdown.getStyleClass().add("class-dropdown");
-        classDropdown.getItems().addAll("1AHIF", "1BHIF", "2AHIF", "2BHIF"); // Beispielklassen
-        classDropdown.setPromptText("Klasse auswählen");
+        classDropdown.getItems().addAll("1AHIF", "1BHIF", "2AHIF", "2BHIF", "3AHIF", "3BHIF"); // Beispielklassen
+        classDropdown.setPromptText("1AHIF");
         classDropdown.setMaxWidth(300);
+
+        classDropdown.setOnAction(event -> {
+            String selectedClass = classDropdown.getValue();
+            classId = controller.getClassId(selectedClass);
+        });
 
         root.setCenter(classDropdown);
 
@@ -59,7 +66,7 @@ public class MainView {
         generateButton.setOnAction(event -> {
             controller.generateAndSaveCodesForAllStudents();
             loadData();
-            controller.getCodesIntoPDF(1);
+            controller.getCodesIntoPDF(classId);
         });
 
         root.setBottom(bottomBox);

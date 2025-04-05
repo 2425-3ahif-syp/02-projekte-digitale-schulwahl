@@ -178,6 +178,28 @@ public class MainController {
 
         return null;
     }
+
+    public Integer getClassId(String className) {
+        var query = """
+                SELECT id
+                FROM class
+                WHERE ((EXTRACT(YEAR FROM CURRENT_DATE) - start_year + (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name) = ?;
+                """;
+
+        try (var statement = connection.prepareStatement(query)) {
+            statement.setString(1, className);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                } else {
+                    return null; // oder -1, oder Fehler werfen, falls keine Klasse gefunden
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
+        }
+    }
 }
 
 
