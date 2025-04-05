@@ -200,6 +200,30 @@ public class MainController {
             throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
         }
     }
+
+    public String[] getAllClasses() {
+        String query = """
+            SELECT distinct 
+                (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS full_class
+            FROM class
+            ORDER BY full_class;
+            """;
+
+        List<String> classList = new ArrayList<>();
+
+        try (var statement = connection.prepareStatement(query);
+             var resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                classList.add(resultSet.getString("full_class"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim Abrufen der Klassen: " + e.getMessage(), e);
+        }
+
+        return classList.toArray(new String[0]);
+    }
+
 }
 
 

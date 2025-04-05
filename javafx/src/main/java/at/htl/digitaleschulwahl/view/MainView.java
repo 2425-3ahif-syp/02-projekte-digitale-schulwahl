@@ -23,6 +23,7 @@ public class MainView {
     private final TableView<Student> tableView = new TableView<>();
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Integer classId;
+    private String[] allClasses;
 
     public MainView(MainController controller) {
         this.controller = controller;
@@ -40,12 +41,12 @@ public class MainView {
         VBox main = new VBox();
         main.setAlignment(Pos.CENTER);
         main.setSpacing(10);
-
+        allClasses = controller.getAllClasses();
 
         ComboBox<String> classDropdown = new ComboBox<>();
         classDropdown.getStyleClass().add("class-dropdown");
-        classDropdown.getItems().addAll("1AHIF", "1BHIF", "2AHIF", "2BHIF", "3AHIF", "3BHIF"); // Beispielklassen
-        classDropdown.setPromptText("1AHIF");
+        classDropdown.getItems().addAll(allClasses);
+        classDropdown.setPromptText("Klasse auswählen");
         classDropdown.setMaxWidth(300);
 
         classDropdown.setOnAction(event -> {
