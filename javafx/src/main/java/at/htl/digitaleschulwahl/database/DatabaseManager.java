@@ -79,7 +79,9 @@ public class DatabaseManager {
                 id SERIAL PRIMARY KEY,
                 candidate_id INTEGER NOT NULL,
                 ranking INTEGER NOT NULL,
+                class_id_of_voter not null,
                 FOREIGN KEY (candidate_id) REFERENCES candidate(id)
+                foreign key (class_id_of_voter) references student(class_id)
             )
             """
         };

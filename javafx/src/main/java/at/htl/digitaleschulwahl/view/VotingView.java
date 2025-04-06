@@ -89,7 +89,12 @@ public class VotingView {
 
                 if (group.getSelectedToggle() != null) {
                     int ranking = (int) group.getSelectedToggle().getUserData();
-                    var vote = new Vote(candidate.getId(), ranking);
+                    //TODO
+                    // ACHTUNG
+                    // später muss auf die Klasse des Wählenden zugegriffen werden, 111 ist nur ein Platzhalter
+                    // wird erstmal so gelassen, bis es soweit ist
+                    
+                    var vote = new Vote(candidate.getId(), ranking,111);
                    // var vote = new Vote(candidate_id, ranking);
 
                     controller.castVote(vote); // Vote wird in der DB gespeichert
