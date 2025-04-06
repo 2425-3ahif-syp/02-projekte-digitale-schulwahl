@@ -42,6 +42,11 @@ public class VotingView {
         createUI();
     }
 
+    //TODO
+    // Das mit der Vergebung von Punkten muss noch gehandelt werden.
+    // Wenn ich bei einem Kandidaten die 6 anklicke, dann soll ich gar nicht die Möglichkeit
+    // haben, einem anderen Kandidaten auch 6 Punkte zu geben
+
     public BorderPane getRoot() {
         return root;
     }
@@ -71,7 +76,7 @@ public class VotingView {
         var submitButton = new Button("Abschicken");
         submitButton.getStyleClass().add("bottom-button");
 
-        // TODO
+        //TODO
         // vor dem Abschicken soll eine warnung erfolgen, dass man nach dem Abschicken seine Wahl nicht mehr rückgängig machen kann .
         // und ob man halt sicher ist, dass man das will, aber darum wird erst später gekümmert
         // weil sind halt Kleinigkeiten
@@ -111,7 +116,7 @@ public class VotingView {
             backButton.setVisible(true);
             backButton.getStyleClass().add("bottom-button");
 
-            // TODO
+            //TODO
             // bei der Schülervertretungsansicht muss es einen
             // ZURÜCK & ABSCHICKEN - Button geben
             bottomBox.getChildren().add(backButton);
@@ -210,7 +215,7 @@ public class VotingView {
             HBox currentBox = new HBox(15);
             currentBox.setAlignment(Pos.CENTER);
 
-            // TODO
+            //TODO
             // Später werden die Bilder aus der DB geholt
             // benötigte Methode wird dann in der Candidate Klasse verfügbar sein
 
