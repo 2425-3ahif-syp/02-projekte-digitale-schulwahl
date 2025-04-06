@@ -7,10 +7,13 @@ public class Candidate {
     private String className;
 
     public Candidate(int id, String name, String className, String type) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.className = className;
     }
+
+    public int getId() { return id; }
 
     public String getName() {
         return name;

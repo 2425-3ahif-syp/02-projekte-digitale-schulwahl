@@ -26,11 +26,14 @@ import java.util.stream.Collectors;
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-//    private List<Candidate> candidates;
-    private boolean isCouncil = false; //true = Schülervertretung
-    private Button backButton = new Button("Zurück");
+    private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungvertretung
+    private final Button backButton = new Button("Zurück");
     BaseStructureView baseStruct = new BaseStructureView(root);
 
+    // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige ToggleGroups zu speichern.
+    // Diese werden benötigt, um beim Absenden (Submit) die ausgewählten Rankings den richtigen Kandidaten zuzuordnen.
+    private List<ToggleGroup> currentToggleGroups = new ArrayList<>();
+    private List<Candidate> currentCandidates = new ArrayList<>();
 
     public VotingView(VotingController controller) {
         this.controller = controller;
@@ -45,9 +48,14 @@ public class VotingView {
 
     public void createUI() {
 
-        VBox main = new VBox();
+        var main = new VBox();
+
+        // Zunächst wird die Ansicht für den ersten "Wahlmodus" erstellt (Abteilungsvertretung)
         isCouncil = false;
-        main = createVotingUI(true);
+
+        //main = createVotingUI(true);
+        main = createVotingUI(isCouncil);
+        //      main = createVotingUI(false);
 
         root.setCenter(main);
 
@@ -59,17 +67,60 @@ public class VotingView {
         continueButton.getStyleClass().add("bottom-button");
 
         bottomBox.getChildren().addAll(continueButton, backButton);
+
+        var submitButton = new Button("Abschicken");
+        submitButton.getStyleClass().add("bottom-button");
+
+        // TODO
+        // vor dem Abschicken soll eine warnung erfolgen, dass man nach dem Abschicken seine Wahl nicht mehr rückgängig machen kann .
+        // und ob man halt sicher ist, dass man das will, aber darum wird erst später gekümmert
+        // weil sind halt Kleinigkeiten
+
+        submitButton.setOnAction(event -> {
+
+            for (int i = 0; i < currentCandidates.size(); i++) {
+                var candidate = currentCandidates.get(i);
+                var group = currentToggleGroups.get(i);
+
+                if (group.getSelectedToggle() != null) {
+                    int ranking = (int) group.getSelectedToggle().getUserData();
+                    var vote = new Vote(candidate.getId(), ranking);
+                   // var vote = new Vote(candidate_id, ranking);
+
+                    controller.castVote(vote); // Vote wird in der DB gespeichert
+                } else {
+                    // eigentlich muss eh nicht jeder eine Wahl bekommen
+                    // ich denke, der else-Zweig bleibt fürs Erste leer ...
+                }
+            }
+
+            // Feedback an den Benutzer
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Stimmabgabe");
+            alert.setHeaderText(null);
+            alert.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
+            alert.showAndWait();
+        });
+        bottomBox.getChildren().add(submitButton);
+
         continueButton.setOnAction(event -> {
 
             isCouncil = true;
-            root.setCenter(createVotingUI(false));
+            root.setCenter(createVotingUI(isCouncil));
+            //    root.setCenter(createVotingUI(false));
             backButton.setVisible(true);
             backButton.getStyleClass().add("bottom-button");
+
+            // TODO
+            // bei der Schülervertretungsansicht muss es einen
+            // ZURÜCK & ABSCHICKEN - Button geben
             bottomBox.getChildren().add(backButton);
         });
 
         backButton.setOnAction(event -> {
-            root.setCenter(createVotingUI(true));
+            isCouncil = false;
+            root.setCenter(createVotingUI(isCouncil));
+            //  root.setCenter(createVotingUI(true));
             backButton.setVisible(false);
         });
 
@@ -78,6 +129,15 @@ public class VotingView {
 
     private VBox createVotingUI(boolean isCouncil) {
         VBox mainContainer = new VBox();
+
+        List<Candidate> allCandidates = controller.getCandidates();
+
+        String typeToFilter = isCouncil ? "Schülersprecher" : "Abteilungsvertreter";
+
+        currentCandidates = allCandidates.stream()
+                .filter(candidate -> candidate.getType() != null
+                        && candidate.getType().trim().equalsIgnoreCase(typeToFilter))
+                .toList();
 
         VBox headingContent = new VBox();
         headingContent.getStyleClass().add("content");
@@ -106,33 +166,6 @@ public class VotingView {
 
         headingContent.getChildren().add(headingBox);
 
-      /*  var candidates = controller.getCandidates();
-
-        if (!isCouncil) {
-            candidates = candidates.stream()
-                    .filter(candidate -> candidate.getType() != null && candidate.getType().trim().equalsIgnoreCase("Schülervertreter"))
-                    .toList();
-        } else {
-            candidates = candidates.stream()
-                    .filter(candidate -> candidate.getType() != null && candidate.getType().trim().equalsIgnoreCase("Abteilungsvertreter"))
-                    .toList();
-        }
-        */
-
-        var testListOfCandidates = new ArrayList<Candidate>();
-        testListOfCandidates.add(new Candidate(1, "Anna Schmidt", "4AHITM", "Schülersprecher"));
-        testListOfCandidates.add(new Candidate(2, "Felix Bauer", "3BHIF", "Abteilungsvertreter"));
-        testListOfCandidates.add(new Candidate(3, "Julia Fischer", "5BHITM", "Abteilungsvertreter"));
-        testListOfCandidates.add(new Candidate(4, "Lukas Meier", "5AHIF", "Schülersprecher"));
-
-        List<Candidate> testCandidates;
-        if (isCouncil) {
-            testCandidates = testListOfCandidates.stream().filter(candidate -> candidate.getType().equals("Schülersprecher")).toList();
-        } else {
-            testCandidates = testListOfCandidates.stream().filter(candidate -> candidate.getType().equals("Abteilungsvertreter")).toList();
-        }
-
-
         VBox votingSection = new VBox();
         votingSection.getStyleClass().add("voting-content");
 
@@ -142,16 +175,20 @@ public class VotingView {
 
         VBox candidateInfoSection = new VBox(10);
         candidateInfoSection.setAlignment(Pos.CENTER_LEFT);
-        candidateInfoSection.getChildren().addAll(createCandidateInfoSection(testCandidates));
+        candidateInfoSection.getChildren().addAll(createCandidateInfoSection(currentCandidates));
+        //candidateInfoSection.getChildren().addAll(createCandidateInfoSection(testCandidates));
 
+        currentToggleGroups.clear();
         VBox pointsSection;
 
-        if (isCouncil) {
+      /*  if (isCouncil) {
             pointsSection = createPointsSection(2, testCandidates);
 
         } else {
             pointsSection = createPointsSection(6, testCandidates);
-        }
+        }*/
+
+        pointsSection = createPointsSection(isCouncil ? 2 : 6, currentCandidates);
         pointsSection.setAlignment(Pos.CENTER);
 
         candidatesAndVotingBox.getChildren().addAll(candidateInfoSection, pointsSection);
@@ -163,13 +200,7 @@ public class VotingView {
     }
 
     private String getSecondHeading(boolean isCouncil) {
-        String heading = "";
-        if (!isCouncil) {
-            heading = "Schülervertretung";
-        } else {
-            heading = "Abteilungsvertretung [Abteilung]";
-        }
-        return heading;
+        return isCouncil ? "Schülervertretung" : "Abteilungsvertretung [Abteilung]";
     }
 
     private VBox createCandidateInfoSection(List<Candidate> candidates) {
@@ -179,7 +210,11 @@ public class VotingView {
             HBox currentBox = new HBox(15);
             currentBox.setAlignment(Pos.CENTER);
 
-            ImageView img = new ImageView(new Image("file:src/resources/img/placeholder.jpg")); //
+            // TODO
+            // Später werden die Bilder aus der DB geholt
+            // benötigte Methode wird dann in der Candidate Klasse verfügbar sein
+
+            ImageView img = new ImageView(new Image("file:src/resources/img/placeholder.jpg"));
             img.setFitWidth(100);
             img.setFitHeight(100);
             img.setPreserveRatio(true);
@@ -200,9 +235,7 @@ public class VotingView {
             _class.getStyleClass().add("candidateLabel");
             textSection.getChildren().addAll(name, _class);
 
-
             currentBox.getChildren().addAll(img, verticalLine, textSection);
-
             candidateInfoSection.getChildren().add(currentBox);
         }
         return candidateInfoSection;
@@ -232,23 +265,23 @@ public class VotingView {
         pointsSection.setAlignment(Pos.CENTER);
         pointsSection.setMinHeight(110 * candidates.size());
 
-        for (Candidate candidate : candidates) {
+        for (int i = 0; i < candidates.size(); i++) {
             HBox pointsBox = new HBox(10);
             pointsBox.setMinHeight(110); // Genauso hoch wie candidateBox
             pointsBox.setAlignment(Pos.CENTER);
 
             ToggleGroup group = new ToggleGroup();
+            currentToggleGroups.add(group);
 
-            for (int i = maxPoints; i >= 1; i--) {
+            for (int j = maxPoints; j >= 1; j--) {
                 RadioButton radioButton = new RadioButton();
                 radioButton.getStyleClass().add("radio-button");
                 radioButton.setToggleGroup(group);
-                radioButton.setUserData(i);
+                radioButton.setUserData(j);
 
                 StackPane radioButtonWrapper = new StackPane();
                 radioButtonWrapper.setAlignment(Pos.CENTER);
                 radioButtonWrapper.getChildren().add(radioButton);
-
 
                 pointsBox.getChildren().add(radioButtonWrapper);
             }

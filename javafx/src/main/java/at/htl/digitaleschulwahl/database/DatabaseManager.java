@@ -64,6 +64,8 @@ public class DatabaseManager {
                 FOREIGN KEY (class_id) REFERENCES class(id)
             )
             """,
+                "  drop table votes;",
+                "  drop table candidate;",
                 """
             CREATE TABLE IF NOT EXISTS candidate (
                 id SERIAL PRIMARY KEY,
@@ -72,13 +74,11 @@ public class DatabaseManager {
                 role VARCHAR(50) NOT NULL CHECK (role IN ('Schülersprecher', 'Abteilungsvertreter'))
             )
             """,
-                """
+                """      
             CREATE TABLE IF NOT EXISTS votes (
                 id SERIAL PRIMARY KEY,
-                student_id INTEGER NOT NULL,
                 candidate_id INTEGER NOT NULL,
                 ranking INTEGER NOT NULL,
-                FOREIGN KEY (student_id) REFERENCES student(id),
                 FOREIGN KEY (candidate_id) REFERENCES candidate(id)
             )
             """
@@ -127,14 +127,14 @@ public class DatabaseManager {
                         ('Hannah', 'Müller', 6)
                         """;
                 var insertCandidateQuery = """
-                    INSERT INTO candidate (name,class, role) VALUES
-                    ('Lukas Meier','5ahif', 'Schülersprecher'),
-                    ('Anna Schmidt','4ahitm', 'Schülersprecher'),
-                    ('Felix Bauer', '3bhif','Abteilungsvertreter'),
-                    ('Julia Fischer','5bhitm', 'Abteilungsvertreter')
-                """;
+                            INSERT INTO candidate (name,class, role) VALUES
+                            ('Lukas Meier','5ahif', 'Schülersprecher'),
+                            ('Anna Schmidt','4ahitm', 'Schülersprecher'),
+                            ('Felix Bauer', '3bhif','Abteilungsvertreter'),
+                            ('Julia Fischer','5bhitm', 'Abteilungsvertreter')
+                        """;
 
-                var insertVotesQuery = """
+             /*   var insertVotesQuery = """
                     INSERT INTO votes (student_id, candidate_id, ranking) VALUES
                     (1, 1, 5),
                     (2, 1, 4),
@@ -142,12 +142,13 @@ public class DatabaseManager {
                     (4, 3, 2),
                     (5, 3, 1),
                     (6, 4, 2)
-                """;
+                """`*/
+                ;
 
                 statement.execute(insertClassQuery);
                 statement.execute(insertStudentQuery);
                 statement.execute(insertCandidateQuery);
-                statement.execute(insertVotesQuery);
+                //  statement.execute(insertVotesQuery);
             }
         } catch (SQLException e) {
             System.err.println("Fehler beim Ausführen der SQL-Anweisung: " + e.getMessage());
