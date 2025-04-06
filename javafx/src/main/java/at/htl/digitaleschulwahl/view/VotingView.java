@@ -19,8 +19,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class VotingView {
@@ -82,34 +81,59 @@ public class VotingView {
         // weil sind halt Kleinigkeiten
 
         submitButton.setOnAction(event -> {
+            Stage stage = (Stage) submitButton.getScene().getWindow();
 
-            for (int i = 0; i < currentCandidates.size(); i++) {
-                var candidate = currentCandidates.get(i);
-                var group = currentToggleGroups.get(i);
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Wahl bestätigen");
+            confirmation.setHeaderText(null);
+            confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimme abgeben möchten? " +
+                    "Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden");
 
-                if (group.getSelectedToggle() != null) {
-                    int ranking = (int) group.getSelectedToggle().getUserData();
-                    //TODO
-                    // ACHTUNG
-                    // später muss auf die Klasse des Wählenden zugegriffen werden, 111 ist nur ein Platzhalter
-                    // wird erstmal so gelassen, bis es soweit ist
-                    
-                    var vote = new Vote(candidate.getId(), ranking,111);
-                   // var vote = new Vote(candidate_id, ranking);
 
-                    controller.castVote(vote); // Vote wird in der DB gespeichert
-                } else {
-                    // eigentlich muss eh nicht jeder eine Wahl bekommen
-                    // ich denke, der else-Zweig bleibt fürs Erste leer ...
-                }
+            Button okButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.OK);
+            Button cancelButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+            if (okButton != null) {
+                okButton.setText("Ja");
+            }
+            if (cancelButton != null) {
+                cancelButton.setText("Nein");
             }
 
-            // Feedback an den Benutzer
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Stimmabgabe");
-            alert.setHeaderText(null);
-            alert.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
-            alert.showAndWait();
+            Optional<ButtonType> result = confirmation.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                for (int i = 0; i < currentCandidates.size(); i++) {
+                    var candidate = currentCandidates.get(i);
+                    var group = currentToggleGroups.get(i);
+
+                    if (group.getSelectedToggle() != null) {
+                        int ranking = (int) group.getSelectedToggle().getUserData();
+                        //TODO
+                        // ACHTUNG
+                        // später muss auf die Klasse des Wählenden zugegriffen werden, 111 ist nur ein Platzhalter
+                        // wird erstmal so gelassen, bis es soweit ist
+
+                        var vote = new Vote(candidate.getId(), ranking,111);
+                        // var vote = new Vote(candidate_id, ranking);
+
+                        controller.castVote(vote); // Vote wird in der DB gespeichert
+                    } else {
+                        // eigentlich muss eh nicht jeder eine Wahl bekommen
+                        // ich denke, der else-Zweig bleibt fürs Erste leer ...
+                    }
+                }
+                // Feedback an den Benutzer
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Stimmabgabe");
+                alert.setHeaderText(null);
+                alert.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
+                alert.showAndWait();
+            } else {
+                confirmation.close();
+                stage.close();
+            }
+
         });
         bottomBox.getChildren().add(submitButton);
 
@@ -121,9 +145,8 @@ public class VotingView {
             backButton.setVisible(true);
             backButton.getStyleClass().add("bottom-button");
 
-            //TODO
-            // bei der Schülervertretungsansicht muss es einen
-            // ZURÜCK & ABSCHICKEN - Button geben
+
+            continueButton.setVisible(false);
             bottomBox.getChildren().add(backButton);
         });
 
@@ -198,7 +221,7 @@ public class VotingView {
             pointsSection = createPointsSection(6, testCandidates);
         }*/
 
-        pointsSection = createPointsSection(isCouncil ? 2 : 6, currentCandidates);
+        pointsSection = createPointsSection(isCouncil ? 6 : 2, currentCandidates);
         pointsSection.setAlignment(Pos.CENTER);
 
         candidatesAndVotingBox.getChildren().addAll(candidateInfoSection, pointsSection);
@@ -251,6 +274,57 @@ public class VotingView {
         return candidateInfoSection;
     }
 
+//    private VBox createPointsSection(int maxPoints, List<Candidate> candidates) {
+//        VBox mainVBox = new VBox();
+//        mainVBox.setAlignment(Pos.CENTER);
+//
+//        HBox pointsHeader = new HBox(10);
+//        pointsHeader.setAlignment(Pos.CENTER);
+//        pointsHeader.getStyleClass().add("points-header");
+//
+//        if (maxPoints == 6) {
+//            pointsHeader.setSpacing(38);
+//        } else {
+//            pointsHeader.setSpacing(20);
+//        }
+//
+//        for (int i = maxPoints; i >= 1; i--) {
+//            Label label = new Label("" + i);
+//            label.getStyleClass().add("label");
+//            pointsHeader.getChildren().add(label);
+//        }
+//
+//        VBox pointsSection = new VBox(10);
+//        pointsSection.setAlignment(Pos.CENTER);
+//        pointsSection.setMinHeight(110 * candidates.size());
+//
+//        for (int i = 0; i < candidates.size(); i++) {
+//            HBox pointsBox = new HBox(10);
+//            pointsBox.setMinHeight(110); // Genauso hoch wie candidateBox
+//            pointsBox.setAlignment(Pos.CENTER);
+//
+//            ToggleGroup group = new ToggleGroup();
+//            currentToggleGroups.add(group);
+//
+//            for (int j = maxPoints; j >= 1; j--) {
+//                RadioButton radioButton = new RadioButton();
+//                radioButton.getStyleClass().add("radio-button");
+//                radioButton.setToggleGroup(group);
+//                radioButton.setUserData(j);
+//
+//                StackPane radioButtonWrapper = new StackPane();
+//                radioButtonWrapper.setAlignment(Pos.CENTER);
+//                radioButtonWrapper.getChildren().add(radioButton);
+//
+//                pointsBox.getChildren().add(radioButtonWrapper);
+//            }
+//            pointsSection.getChildren().add(pointsBox);
+//        }
+//        mainVBox.getChildren().addAll(pointsHeader, pointsSection);
+//
+//        return mainVBox;
+//    }
+
     private VBox createPointsSection(int maxPoints, List<Candidate> candidates) {
         VBox mainVBox = new VBox();
         mainVBox.setAlignment(Pos.CENTER);
@@ -275,9 +349,12 @@ public class VotingView {
         pointsSection.setAlignment(Pos.CENTER);
         pointsSection.setMinHeight(110 * candidates.size());
 
+        currentToggleGroups.clear();
+        List<List<RadioButton>> columnButtons = new ArrayList<>();
+
         for (int i = 0; i < candidates.size(); i++) {
             HBox pointsBox = new HBox(10);
-            pointsBox.setMinHeight(110); // Genauso hoch wie candidateBox
+            pointsBox.setMinHeight(110);
             pointsBox.setAlignment(Pos.CENTER);
 
             ToggleGroup group = new ToggleGroup();
@@ -289,17 +366,49 @@ public class VotingView {
                 radioButton.setToggleGroup(group);
                 radioButton.setUserData(j);
 
-                StackPane radioButtonWrapper = new StackPane();
-                radioButtonWrapper.setAlignment(Pos.CENTER);
-                radioButtonWrapper.getChildren().add(radioButton);
+                while (columnButtons.size() < maxPoints) {
+                    columnButtons.add(new ArrayList<>());
+                }
+                columnButtons.get(maxPoints - j).add(radioButton);
 
-                pointsBox.getChildren().add(radioButtonWrapper);
+                // Listener delegiert an Methode
+                radioButton.setOnAction(e -> updateButtonStates(maxPoints, columnButtons));
+
+                StackPane wrapper = new StackPane(radioButton);
+                wrapper.setAlignment(Pos.CENTER);
+                pointsBox.getChildren().add(wrapper);
             }
+
             pointsSection.getChildren().add(pointsBox);
         }
-        mainVBox.getChildren().addAll(pointsHeader, pointsSection);
 
+        mainVBox.getChildren().addAll(pointsHeader, pointsSection);
         return mainVBox;
+    }
+
+    private void updateButtonStates(int maxPoints, List<List<RadioButton>> columnButtons) {
+        Map<Integer, ToggleGroup> usedValuesMap = new HashMap<>();
+
+        for (ToggleGroup tg : currentToggleGroups) {
+            if (tg.getSelectedToggle() != null) {
+                int val = (int) tg.getSelectedToggle().getUserData();
+                usedValuesMap.put(val, tg);
+            }
+        }
+
+        for (int col = 0; col < columnButtons.size(); col++) {
+            int val = maxPoints - col;
+            ToggleGroup groupUsingThisVal = usedValuesMap.get(val);
+
+            for (RadioButton btn : columnButtons.get(col)) {
+                ToggleGroup btnGroup = btn.getToggleGroup();
+                boolean isSelected = btnGroup.getSelectedToggle() == btn;
+
+                boolean disable = groupUsingThisVal != null && groupUsingThisVal != btnGroup;
+
+                btn.setDisable(disable && !isSelected);
+            }
+        }
     }
 
 
