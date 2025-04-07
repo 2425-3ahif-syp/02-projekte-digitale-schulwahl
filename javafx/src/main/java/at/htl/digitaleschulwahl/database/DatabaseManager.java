@@ -47,6 +47,10 @@ public class DatabaseManager {
 
     public void initializeDatabase() throws SQLException {
         var createTableStatements = new String[]{
+                "  drop table if exists student;",
+                "  drop table if exists class;",
+                "  drop table if exists votes;",
+                "  drop table if exists candidate;",
                 """
             CREATE TABLE IF NOT EXISTS class (
                 id SERIAL PRIMARY KEY,
@@ -61,11 +65,9 @@ public class DatabaseManager {
                 last_name VARCHAR(100) NOT NULL,
                 class_id INTEGER NOT NULL,
                 login_code VARCHAR(20),
-                FOREIGN KEY (class_id) REFERENCES class(id)
+                FOREIGN KEY (class_id) REFERENCES class(id) ON DELETE CASCADE
             )
             """,
-                "  drop table if exists votes;",
-                "  drop table if exists candidate;",
                 """
             CREATE TABLE IF NOT EXISTS candidate (
                 id SERIAL PRIMARY KEY,
@@ -79,9 +81,9 @@ public class DatabaseManager {
                 id SERIAL PRIMARY KEY,
                 candidate_id INTEGER NOT NULL,
                 ranking INTEGER NOT NULL,
-                class_id_of_voter not null,
-                FOREIGN KEY (candidate_id) REFERENCES candidate(id)
-                foreign key (class_id_of_voter) references student(class_id)
+                class_id_of_voter INTEGER not null,
+                FOREIGN KEY (candidate_id) REFERENCES candidate(id) ON DELETE CASCADE,
+                foreign key (class_id_of_voter) references class(id) ON DELETE CASCADE
             )
             """
         };
