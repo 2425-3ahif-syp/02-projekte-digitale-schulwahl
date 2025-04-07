@@ -94,7 +94,6 @@
     -fx-text-fill: white;
     -fx-alignment: center;
     -fx-padding: 5px 0 2px 0;
-    -fx-pref-height: 10px;
 }
 
 
@@ -105,19 +104,6 @@
 }
 
 
-.radioButtonBox {
-    -fx-alignment: center;
-    -fx-spacing: 10px;
-}
-
-
-.radio-button {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 0 10px 5px 5px;
-    -fx-margin: 0;
-    -fx-alignment: center;
-}
 
 
 
@@ -145,3 +131,51 @@
     -fx-padding: 10px 150px;
     -fx-border-radius: 50px;
 }
+
+.submit-button {
+    -fx-background-color: #4CAF50;  /* Grüner Hintergrund */
+    -fx-text-fill: white;
+    -fx-font-size: 18px;  /* Gleiche Schriftgröße wie andere Bottom-Buttons */
+    -fx-font-weight: bold;
+    -fx-padding: 10px 150px;  /* Gleiche Polsterung wie für .bottom-button */
+    -fx-border-radius: 50px;  /* Runde Ecken wie bei .bottom-button */
+    -fx-alignment: center;
+    -fx-cursor: hand;  /* Hand-Cursor beim Überfahren */
+}
+
+.submit-button:hover {
+    -fx-background-color: #45a049;  /* Etwas dunkleres Grün beim Hover */
+}
+
+.submit-button:pressed {
+    -fx-background-color: #388E3C;  /* Noch dunkleres Grün beim Drücken */
+    -fx-transform: scale(0.98);  /* Kleinere Skalierung beim Klicken */
+}
+
+
+
+.point-button {
+    -fx-background-radius: 100px;
+    -fx-border-radius: 100px;
+
+    -fx-min-width: 36px;
+    -fx-min-height: 36px;
+    -fx-max-width: 36px;
+    -fx-max-height: 36px;
+
+    -fx-background-color: #333;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 4, 0.5, 0, 0);
+    -fx-padding: 0;
+}
+
+.point-button:selected {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.3, 0, 2);
+}
+

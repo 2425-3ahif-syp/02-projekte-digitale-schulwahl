@@ -27,6 +27,7 @@ public class VotingView {
     private final BorderPane root = new BorderPane();
     private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungsvertretung
     private final Button backButton = new Button("Zurück");
+    private final Button continueButton = new Button("Weiter");
     BaseStructureView baseStruct = new BaseStructureView(root);
 
     // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige ToggleGroups zu speichern.
@@ -41,10 +42,6 @@ public class VotingView {
         createUI();
     }
 
-    //TODO
-    // Das mit der Vergebung von Punkten muss noch gehandelt werden.
-    // Wenn ich bei einem Kandidaten die 6 anklicke, dann soll ich gar nicht die Möglichkeit
-    // haben, einem anderen Kandidaten auch 6 Punkte zu geben
 
     public BorderPane getRoot() {
         return root;
@@ -72,13 +69,11 @@ public class VotingView {
 
         bottomBox.getChildren().addAll(continueButton, backButton);
 
-        var submitButton = new Button("Abschicken");
-        submitButton.getStyleClass().add("bottom-button");
 
-        //TODO
-        // vor dem Abschicken soll eine warnung erfolgen, dass man nach dem Abschicken seine Wahl nicht mehr rückgängig machen kann .
-        // und ob man halt sicher ist, dass man das will, aber darum wird erst später gekümmert
-        // weil sind halt Kleinigkeiten
+        var submitButton = new Button("Stimmen abgeben");
+        submitButton.getStyleClass().add("submit-button");
+
+        submitButton.setVisible(false);
 
         submitButton.setOnAction(event -> {
             Stage stage = (Stage) submitButton.getScene().getWindow();
@@ -86,7 +81,7 @@ public class VotingView {
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
             confirmation.setTitle("Wahl bestätigen");
             confirmation.setHeaderText(null);
-            confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimme abgeben möchten? " +
+            confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimmen abgeben möchten? " +
                     "Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden");
 
 
@@ -145,14 +140,17 @@ public class VotingView {
             backButton.setVisible(true);
             backButton.getStyleClass().add("bottom-button");
 
-
             continueButton.setVisible(false);
+
+            submitButton.setVisible(true);
             bottomBox.getChildren().add(backButton);
         });
 
         backButton.setOnAction(event -> {
             isCouncil = false;
             root.setCenter(createVotingUI(isCouncil));
+            continueButton.setVisible(true);
+            submitButton.setVisible(false);
             //  root.setCenter(createVotingUI(true));
             backButton.setVisible(false);
         });
@@ -203,7 +201,7 @@ public class VotingView {
         votingSection.getStyleClass().add("voting-content");
 
         HBox candidatesAndVotingBox = new HBox();
-        candidatesAndVotingBox.setSpacing(200);
+        candidatesAndVotingBox.setSpacing(100);
         candidatesAndVotingBox.setAlignment(Pos.CENTER);
 
         VBox candidateInfoSection = new VBox(10);
@@ -236,12 +234,14 @@ public class VotingView {
         return isCouncil ? "Schülervertretung" : "Abteilungsvertretung [Abteilung]";
     }
 
+
     private VBox createCandidateInfoSection(List<Candidate> candidates) {
-        VBox candidateInfoSection = new VBox(10);
+        VBox candidateInfoSection = new VBox(15);
+        candidateInfoSection.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < candidates.size(); i++) {
             HBox currentBox = new HBox(15);
-            currentBox.setAlignment(Pos.CENTER);
+            currentBox.setAlignment(Pos.CENTER_LEFT);
 
             //TODO
             // Später werden die Bilder aus der DB geholt
@@ -262,9 +262,10 @@ public class VotingView {
 
             VBox textSection = new VBox(5);
             Label name = new Label(candidates.get(i).getName());
+
             name.getStyleClass().add("candidateLabel");
             name.setStyle("-fx-font-weight: bold");
-            Label _class = new Label(candidates.get(i).getClassName());
+            Label _class = new Label(candidates.get(i).getClassName().toUpperCase());
             _class.getStyleClass().add("candidateLabel");
             textSection.getChildren().addAll(name, _class);
 
@@ -274,56 +275,6 @@ public class VotingView {
         return candidateInfoSection;
     }
 
-//    private VBox createPointsSection(int maxPoints, List<Candidate> candidates) {
-//        VBox mainVBox = new VBox();
-//        mainVBox.setAlignment(Pos.CENTER);
-//
-//        HBox pointsHeader = new HBox(10);
-//        pointsHeader.setAlignment(Pos.CENTER);
-//        pointsHeader.getStyleClass().add("points-header");
-//
-//        if (maxPoints == 6) {
-//            pointsHeader.setSpacing(38);
-//        } else {
-//            pointsHeader.setSpacing(20);
-//        }
-//
-//        for (int i = maxPoints; i >= 1; i--) {
-//            Label label = new Label("" + i);
-//            label.getStyleClass().add("label");
-//            pointsHeader.getChildren().add(label);
-//        }
-//
-//        VBox pointsSection = new VBox(10);
-//        pointsSection.setAlignment(Pos.CENTER);
-//        pointsSection.setMinHeight(110 * candidates.size());
-//
-//        for (int i = 0; i < candidates.size(); i++) {
-//            HBox pointsBox = new HBox(10);
-//            pointsBox.setMinHeight(110); // Genauso hoch wie candidateBox
-//            pointsBox.setAlignment(Pos.CENTER);
-//
-//            ToggleGroup group = new ToggleGroup();
-//            currentToggleGroups.add(group);
-//
-//            for (int j = maxPoints; j >= 1; j--) {
-//                RadioButton radioButton = new RadioButton();
-//                radioButton.getStyleClass().add("radio-button");
-//                radioButton.setToggleGroup(group);
-//                radioButton.setUserData(j);
-//
-//                StackPane radioButtonWrapper = new StackPane();
-//                radioButtonWrapper.setAlignment(Pos.CENTER);
-//                radioButtonWrapper.getChildren().add(radioButton);
-//
-//                pointsBox.getChildren().add(radioButtonWrapper);
-//            }
-//            pointsSection.getChildren().add(pointsBox);
-//        }
-//        mainVBox.getChildren().addAll(pointsHeader, pointsSection);
-//
-//        return mainVBox;
-//    }
 
     private VBox createPointsSection(int maxPoints, List<Candidate> candidates) {
         VBox mainVBox = new VBox();
@@ -332,9 +283,10 @@ public class VotingView {
         HBox pointsHeader = new HBox(10);
         pointsHeader.setAlignment(Pos.CENTER);
         pointsHeader.getStyleClass().add("points-header");
+        pointsHeader.setPrefHeight(2);
 
         if (maxPoints == 6) {
-            pointsHeader.setSpacing(38);
+            pointsHeader.setSpacing(35);
         } else {
             pointsHeader.setSpacing(20);
         }
@@ -345,40 +297,44 @@ public class VotingView {
             pointsHeader.getChildren().add(label);
         }
 
-        VBox pointsSection = new VBox(10);
+        VBox pointsSection = new VBox(5);
         pointsSection.setAlignment(Pos.CENTER);
         pointsSection.setMinHeight(110 * candidates.size());
 
-        currentToggleGroups.clear();
-        List<List<RadioButton>> columnButtons = new ArrayList<>();
+        List<List<ToggleButton>> columnButtons = new ArrayList<>();
+        List<List<ToggleButton>> rowButtons = new ArrayList<>();
 
         for (int i = 0; i < candidates.size(); i++) {
             HBox pointsBox = new HBox(10);
             pointsBox.setMinHeight(110);
             pointsBox.setAlignment(Pos.CENTER);
 
-            ToggleGroup group = new ToggleGroup();
-            currentToggleGroups.add(group);
+            List<ToggleButton> currentRow = new ArrayList<>();
 
             for (int j = maxPoints; j >= 1; j--) {
-                RadioButton radioButton = new RadioButton();
-                radioButton.getStyleClass().add("radio-button");
-                radioButton.setToggleGroup(group);
-                radioButton.setUserData(j);
+                ToggleButton btn = new ToggleButton();
+                btn.getStyleClass().add("point-button");
+                btn.setUserData(j); // Punktewert
 
+                // Spaltenliste initialisieren
                 while (columnButtons.size() < maxPoints) {
                     columnButtons.add(new ArrayList<>());
                 }
-                columnButtons.get(maxPoints - j).add(radioButton);
 
-                // Listener delegiert an Methode
-                radioButton.setOnAction(e -> updateButtonStates(maxPoints, columnButtons));
+                columnButtons.get(maxPoints - j).add(btn);
+                currentRow.add(btn);
 
-                StackPane wrapper = new StackPane(radioButton);
+                int finalRowIndex = i;
+                int finalColIndex = maxPoints - j;
+
+                btn.setOnAction(e -> updateButtonStates(columnButtons, rowButtons, finalRowIndex, finalColIndex));
+
+                StackPane wrapper = new StackPane(btn);
                 wrapper.setAlignment(Pos.CENTER);
                 pointsBox.getChildren().add(wrapper);
             }
 
+            rowButtons.add(currentRow);
             pointsSection.getChildren().add(pointsBox);
         }
 
@@ -386,30 +342,64 @@ public class VotingView {
         return mainVBox;
     }
 
-    private void updateButtonStates(int maxPoints, List<List<RadioButton>> columnButtons) {
-        Map<Integer, ToggleGroup> usedValuesMap = new HashMap<>();
 
-        for (ToggleGroup tg : currentToggleGroups) {
-            if (tg.getSelectedToggle() != null) {
-                int val = (int) tg.getSelectedToggle().getUserData();
-                usedValuesMap.put(val, tg);
+
+    private void updateButtonStates(
+            List<List<ToggleButton>> columnButtons,
+            List<List<ToggleButton>> rowButtons,
+            int rowIndex,
+            int newColIndex) {
+
+        // Der angeklickte Button
+        ToggleButton clicked = rowButtons.get(rowIndex).get(newColIndex);
+        boolean isSelectedNow = clicked.isSelected();
+
+        // Wenn der Button jetzt selektiert ist
+        if (isSelectedNow) {
+            // Alle Buttons in der gleichen Reihe abwählen
+            for (int i = 0; i < rowButtons.get(rowIndex).size(); i++) {
+                ToggleButton btn = rowButtons.get(rowIndex).get(i);
+                if (btn != clicked && btn.isSelected()) {
+                    btn.setSelected(false);  // Alle anderen in der Reihe abwählen
+                }
             }
-        }
 
-        for (int col = 0; col < columnButtons.size(); col++) {
-            int val = maxPoints - col;
-            ToggleGroup groupUsingThisVal = usedValuesMap.get(val);
+            // Wenn der Button in der gleichen Spalte in der vorherigen Reihe selektiert ist, abwählen
+            if (rowIndex > 0) {
+                ToggleButton prevRowButton = rowButtons.get(rowIndex - 1).get(newColIndex);
+                if (prevRowButton.isSelected()) {
+                    prevRowButton.setSelected(false); // Den Button in der vorherigen Reihe abwählen
+                }
+            }
 
-            for (RadioButton btn : columnButtons.get(col)) {
-                ToggleGroup btnGroup = btn.getToggleGroup();
-                boolean isSelected = btnGroup.getSelectedToggle() == btn;
+            // Wenn der Button in der gleichen Spalte in der nächsten Reihe selektiert ist, abwählen
+            if (rowIndex < rowButtons.size() - 1) {
+                ToggleButton nextRowButton = rowButtons.get(rowIndex + 1).get(newColIndex);
+                if (nextRowButton.isSelected()) {
+                    nextRowButton.setSelected(false); // Den Button in der nächsten Reihe abwählen
+                }
+            }
+        } else {
+            // Wenn der Button abgewählt wird, überprüfe, ob in der gleichen Spalte in einer anderen Reihe noch einer selektiert ist
+            boolean anySelectedInSameCol = false;
+            for (int i = 0; i < rowButtons.size(); i++) {
+                if (i != rowIndex && rowButtons.get(i).get(newColIndex).isSelected()) {
+                    anySelectedInSameCol = true;
+                    break;
+                }
+            }
 
-                boolean disable = groupUsingThisVal != null && groupUsingThisVal != btnGroup;
-
-                btn.setDisable(disable && !isSelected);
+            // Wenn kein Button in dieser Spalte mehr selektiert ist, alle Buttons in dieser Spalte wieder aktivieren
+            if (!anySelectedInSameCol) {
+                for (int i = 0; i < rowButtons.size(); i++) {
+                    if (i != rowIndex) {
+                        rowButtons.get(i).get(newColIndex).setDisable(false);
+                    }
+                }
             }
         }
     }
+
 
 
 
