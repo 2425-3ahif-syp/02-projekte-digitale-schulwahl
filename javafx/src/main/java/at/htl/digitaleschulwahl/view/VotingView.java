@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class VotingView {
     private final VotingController controller;
     private final BorderPane root = new BorderPane();
-    private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungvertretung
+    private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungsvertretung
     private final Button backButton = new Button("Zurück");
     BaseStructureView baseStruct = new BaseStructureView(root);
 

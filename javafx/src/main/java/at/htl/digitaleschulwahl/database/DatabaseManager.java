@@ -64,8 +64,8 @@ public class DatabaseManager {
                 FOREIGN KEY (class_id) REFERENCES class(id)
             )
             """,
-                "  drop table votes;",
-                "  drop table candidate;",
+                "  drop table if exists votes;",
+                "  drop table if exists candidate;",
                 """
             CREATE TABLE IF NOT EXISTS candidate (
                 id SERIAL PRIMARY KEY,
