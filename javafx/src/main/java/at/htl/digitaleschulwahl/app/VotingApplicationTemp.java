@@ -19,7 +19,7 @@ public class VotingApplicationTemp extends Application {
 
             var votingView = new VotingView(votingController);
            // scene.getStylesheets().add(MainViewController.class.getResource("/syp/htlfragebogenapplication/Base.css").toExternalForm());
-            String css = VotingApplicationTemp.class.getResource("/votingPageStyle.css").toExternalForm();
+            String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
 
            /* Die scene wird erst durch einen button-click oder so angezeigt.
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und

@@ -20,8 +20,7 @@ public class MainApplication extends Application {
 
             var mainView = new MainView(mainController);
             var votingView = new VotingView(votingController);
-            String css = VotingApplicationTemp.class.getResource("/votingPageStyle.css").toExternalForm();
-
+            String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
 
             var mainScene = new Scene(mainView.getRoot(), 900, 600);
             mainScene.getStylesheets().add(css);

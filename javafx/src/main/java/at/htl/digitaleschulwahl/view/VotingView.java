@@ -247,7 +247,7 @@ public class VotingView {
             // Später werden die Bilder aus der DB geholt
             // benötigte Methode wird dann in der Candidate Klasse verfügbar sein
 
-            ImageView img = new ImageView(new Image("file:src/resources/img/placeholder.jpg"));
+            ImageView img = new ImageView(new Image(getClass().getResource("/img/placeholder.jpg").toExternalForm()));
             img.setFitWidth(100);
             img.setFitHeight(100);
             img.setPreserveRatio(true);

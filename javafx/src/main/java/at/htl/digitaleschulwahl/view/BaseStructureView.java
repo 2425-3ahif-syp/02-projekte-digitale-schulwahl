@@ -18,7 +18,7 @@ public class BaseStructureView {
 
         toolBar.getStyleClass().add("tool-bar");
 
-        ImageView imageView = new ImageView(new Image("file:htl_leonding_logo.png"));
+        ImageView imageView = new ImageView(new Image(getClass().getResource("/img/htl_leonding_logo.png").toExternalForm()));
 
         imageView.setFitHeight(60);
 
