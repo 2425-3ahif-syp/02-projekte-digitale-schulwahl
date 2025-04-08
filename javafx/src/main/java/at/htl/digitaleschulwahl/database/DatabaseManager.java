@@ -47,10 +47,10 @@ public class DatabaseManager {
 
     public void initializeDatabase() throws SQLException {
         var createTableStatements = new String[]{
-                "  drop table if exists student;",
-                "  drop table if exists class;",
                 "  drop table if exists votes;",
                 "  drop table if exists candidate;",
+                "  drop table if exists student;",
+                "  drop table if exists class;",
                 """
             CREATE TABLE IF NOT EXISTS class (
                 id SERIAL PRIMARY KEY,
