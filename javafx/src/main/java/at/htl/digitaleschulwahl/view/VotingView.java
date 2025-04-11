@@ -27,7 +27,6 @@ public class VotingView {
     private final BorderPane root = new BorderPane();
     private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungsvertretung
     private final Button backButton = new Button("Zurück");
-    private final Button continueButton = new Button("Weiter");
     BaseStructureView baseStruct = new BaseStructureView(root);
 
     // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige ToggleGroups zu speichern.
@@ -64,10 +63,14 @@ public class VotingView {
         bottomBox.setSpacing(10);
         bottomBox.getStyleClass().add("bottom-button-container");
 
+        backButton.setVisible(false);
+        backButton.setManaged(false);
+
         Button continueButton = new Button("Weiter");
         continueButton.getStyleClass().add("bottom-button");
 
-        bottomBox.getChildren().addAll(continueButton, backButton);
+
+        bottomBox.getChildren().addAll( backButton, continueButton);
 
 
         var submitButton = new Button("Stimmen abgeben");
@@ -134,12 +137,17 @@ public class VotingView {
 
         continueButton.setOnAction(event -> {
 
+            backButton.setVisible(true);
+            backButton.setManaged(true);
+
+
             isCouncil = true;
             root.setCenter(createVotingUI(isCouncil));
             //    root.setCenter(createVotingUI(false));
             backButton.setVisible(true);
             backButton.getStyleClass().add("bottom-button");
 
+            continueButton.setManaged(false);
             continueButton.setVisible(false);
 
             submitButton.setVisible(true);

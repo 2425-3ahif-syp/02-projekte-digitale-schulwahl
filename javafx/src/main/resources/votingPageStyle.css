@@ -62,6 +62,8 @@
     -fx-font-size: 16px;
     -fx-padding: 10px 30px;
     -fx-border-radius: 5px;
+    -fx-cursor: hand;
+
 }
 
 .button:hover {
@@ -115,12 +117,15 @@
 .continue-button {
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-cursor: hand;
+
 }
 
 
 .bottom-button-container {
     -fx-alignment: center;
     -fx-padding: 20px 0 30px 0;
+    /*-fx-padding: 50px 0 40px 0;*/
 }
 
 .bottom-button {
@@ -133,23 +138,23 @@
 }
 
 .submit-button {
-    -fx-background-color: #4CAF50;  /* Grüner Hintergrund */
+    -fx-background-color: #4CAF50;
     -fx-text-fill: white;
-    -fx-font-size: 18px;  /* Gleiche Schriftgröße wie andere Bottom-Buttons */
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-padding: 10px 150px;  /* Gleiche Polsterung wie für .bottom-button */
-    -fx-border-radius: 50px;  /* Runde Ecken wie bei .bottom-button */
+    -fx-padding: 10px 150px;
+    -fx-border-radius: 50px;
     -fx-alignment: center;
-    -fx-cursor: hand;  /* Hand-Cursor beim Überfahren */
+    -fx-cursor: hand;
 }
 
 .submit-button:hover {
-    -fx-background-color: #45a049;  /* Etwas dunkleres Grün beim Hover */
+    -fx-background-color: #45a049;
 }
 
 .submit-button:pressed {
-    -fx-background-color: #388E3C;  /* Noch dunkleres Grün beim Drücken */
-    -fx-transform: scale(0.98);  /* Kleinere Skalierung beim Klicken */
+    -fx-background-color: #388E3C;
+    -fx-transform: scale(0.98);
 }
 
 
