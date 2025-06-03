@@ -1,6 +1,7 @@
 package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.DatabaseManager;
+import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.model.Student;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -23,69 +24,17 @@ import java.util.stream.Collectors;
 
 
 public class PdfPresenter {
-    private final Connection connection;
+    private final StudentRepository studentRepository;
     private final Random random = new Random();
+    private final Connection connection;
+
 
     public PdfPresenter() {
+        studentRepository = new StudentRepository();
         connection = DatabaseManager.getInstance().getConnection();
     }
 
-    public List<Student> getAllStudents() {
-        var students = new ArrayList<Student>();
-        var query = """
-                    SELECT
-                        student.id,
-                        first_name,
-                        last_name,
-                        login_code,
-                        class_name,
-                        EXTRACT(YEAR FROM CURRENT_DATE) - start_year + (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int AS grade
-                    FROM student
-                    JOIN class ON student.class_id = class.id;
-                """;
-
-        try (
-                var preparedStatement = connection.prepareStatement(query);
-                var resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-                students.add(new Student(
-                        resultSet.getInt("id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("class_name"),
-                        resultSet.getString("login_code"),
-                        resultSet.getInt("grade")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return students;
-    }
-
-    public void generateAndSaveCodesForAllStudents() {
-        try {
-            var query = "UPDATE student SET login_code = ? WHERE id = ?";
-
-            try (var statement = connection.prepareStatement(query)) {
-                for (var student : getAllStudents()) {
-                    var code = generateRandomCode();
-                    statement.setString(1, code);
-                    statement.setInt(2, student.getId());
-                    statement.addBatch();
-                    student.setLoginCode(code);
-                }
-
-                statement.executeBatch();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String generateRandomCode() {
+    public String generateRandomCode() {
         var characters = "abcdefghijklmnopqrstuvwxyz0123456789";
         var codeLength = 8;
 
@@ -103,7 +52,7 @@ public class PdfPresenter {
                 """;
         StringBuilder pdfContent = new StringBuilder();
 
-        pdfContent.append(getClass(classId)).append("\n\n");
+        pdfContent.append(studentRepository.getClass(classId)).append("\n\n");
 
         try (var statement = connection.prepareStatement(query)) {
             statement.setInt(1, classId);
@@ -132,7 +81,7 @@ public class PdfPresenter {
                 Files.createDirectories(pdfDir);
             }
 
-            String filePath = PDF_DIRECTORY + File.separator + getClass(classId) + "_codes.pdf";
+            String filePath = PDF_DIRECTORY + File.separator + studentRepository.getClass(classId) + "_codes.pdf";
             try (PDDocument document = new PDDocument()) {
                 PDPage page = new PDPage();
                 document.addPage(page);
@@ -155,74 +104,7 @@ public class PdfPresenter {
         }
     }
 
-    private String getClass(Integer classId) {
-        var query = """
-                SELECT 
-                    (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
-                    (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS grade
-                FROM class
-                WHERE id = ?;
-                """;
 
-        try (var statement = connection.prepareStatement(query)) {
-            statement.setInt(1, classId);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getString("grade");
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
-        }
-
-        return null;
-    }
-
-    public Integer getClassId(String className) {
-        var query = """
-                SELECT id
-                FROM class
-                WHERE ((EXTRACT(YEAR FROM CURRENT_DATE) - start_year + (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name) = ?;
-                """;
-
-        try (var statement = connection.prepareStatement(query)) {
-            statement.setString(1, className);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt("id");
-                } else {
-                    return null; // oder -1, oder Fehler werfen, falls keine Klasse gefunden
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
-        }
-    }
-
-    public String[] getAllClasses() {
-        String query = """
-            SELECT distinct 
-                (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
-                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS full_class
-            FROM class
-            ORDER BY full_class;
-            """;
-
-        List<String> classList = new ArrayList<>();
-
-        try (var statement = connection.prepareStatement(query);
-             var resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                classList.add(resultSet.getString("full_class"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Fehler beim Abrufen der Klassen: " + e.getMessage(), e);
-        }
-
-        return classList.toArray(new String[0]);
-    }
 
 }
 

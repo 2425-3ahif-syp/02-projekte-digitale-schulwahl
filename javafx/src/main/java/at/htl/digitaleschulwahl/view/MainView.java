@@ -1,5 +1,6 @@
 package at.htl.digitaleschulwahl.view;
 
+import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.presenter.PdfPresenter;
 import at.htl.digitaleschulwahl.model.Student;
 import javafx.collections.FXCollections;
@@ -14,9 +15,11 @@ public class MainView {
     private final PdfPresenter controller;
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
+    private final StudentRepository studentRepository = new StudentRepository();
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Integer classId;
     private String[] allClasses;
+
 
     public MainView(PdfPresenter controller) {
         this.controller = controller;
@@ -34,7 +37,7 @@ public class MainView {
         VBox main = new VBox();
         main.setAlignment(Pos.CENTER);
         main.setSpacing(10);
-        allClasses = controller.getAllClasses();
+        allClasses = studentRepository.getAllClasses();
 
         ComboBox<String> classDropdown = new ComboBox<>();
         classDropdown.getStyleClass().add("class-dropdown");
@@ -44,7 +47,7 @@ public class MainView {
 
         classDropdown.setOnAction(event -> {
             String selectedClass = classDropdown.getValue();
-            classId = controller.getClassId(selectedClass);
+            classId = studentRepository.getClassId(selectedClass);
         });
 
         root.setCenter(classDropdown);
@@ -58,7 +61,7 @@ public class MainView {
 
         bottomBox.getChildren().addAll(generateButton);
         generateButton.setOnAction(event -> {
-            controller.generateAndSaveCodesForAllStudents();
+            studentRepository.generateAndSaveCodesForAllStudents();
             loadData();
             controller.getCodesIntoPDF(classId);
         });
@@ -70,6 +73,6 @@ public class MainView {
 
 
     private void loadData() {
-        tableView.setItems(FXCollections.observableArrayList(controller.getAllStudents()));
+        tableView.setItems(FXCollections.observableArrayList(studentRepository.getAllStudents()));
     }
 }
