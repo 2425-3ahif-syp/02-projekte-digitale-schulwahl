@@ -61,7 +61,7 @@ public class MainView {
 
         bottomBox.getChildren().addAll(generateButton);
         generateButton.setOnAction(event -> {
-            studentRepository.generateAndSaveCodesForAllStudents();
+            controller.generateAndSaveCodesForAllStudents();
             loadData();
             controller.getCodesIntoPDF(classId);
         });

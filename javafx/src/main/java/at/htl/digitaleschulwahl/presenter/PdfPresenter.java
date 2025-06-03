@@ -1,6 +1,5 @@
 package at.htl.digitaleschulwahl.presenter;
 
-import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.model.Student;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -14,11 +13,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -26,12 +22,15 @@ import java.util.stream.Collectors;
 public class PdfPresenter {
     private final StudentRepository studentRepository;
     private final Random random = new Random();
-    private final Connection connection;
 
 
     public PdfPresenter() {
         studentRepository = new StudentRepository();
-        connection = DatabaseManager.getInstance().getConnection();
+    }
+
+    public void generateAndSaveCodesForAllStudents(){
+        String code = generateRandomCode();
+        studentRepository.saveCodesForAllStudents(code);
     }
 
     public String generateRandomCode() {

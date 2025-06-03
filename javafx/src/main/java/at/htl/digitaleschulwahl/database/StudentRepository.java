@@ -12,8 +12,6 @@ import java.util.Random;
 
 public class StudentRepository {
     private final Connection connection;
-    private final Random random = new Random();
-    private final PdfPresenter pdfPresenter = new PdfPresenter();
 
     public StudentRepository() {
         connection = DatabaseManager.getInstance().getConnection();
@@ -56,13 +54,12 @@ public class StudentRepository {
         return students;
     }
 
-    public void generateAndSaveCodesForAllStudents() {
+    public void saveCodesForAllStudents(String code) {
         try {
             var query = "UPDATE student SET login_code = ? WHERE id = ?";
 
             try (var statement = connection.prepareStatement(query)) {
                 for (var student : getAllStudents()) {
-                    var code = pdfPresenter.generateRandomCode();
                     statement.setString(1, code);
                     statement.setInt(2, student.getId());
                     statement.addBatch();
