@@ -1,5 +1,6 @@
 package at.htl.digitaleschulwahl.view;
 
+import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
@@ -23,6 +24,9 @@ public class VotingView {
     private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungsvertretung
     private final Button backButton = new Button("Zurück");
     BaseStructureView baseStruct = new BaseStructureView(root);
+
+    // temporär
+    private final VoteRepository voteRepository = new VoteRepository();
 
     // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige ToggleGroups zu speichern.
     // Diese werden benötigt, um beim Absenden (Submit) die ausgewählten Rankings den richtigen Kandidaten zuzuordnen.
@@ -110,7 +114,7 @@ public class VotingView {
                         var vote = new Vote(candidate.getId(), ranking,111);
                         // var vote = new Vote(candidate_id, ranking);
 
-                        controller.castVote(vote); // Vote wird in der DB gespeichert
+                        voteRepository.castVote(vote); // Vote wird in der DB gespeichert
                     } else {
                         // eigentlich muss eh nicht jeder eine Wahl bekommen
                         // ich denke, der else-Zweig bleibt fürs Erste leer ...
@@ -164,7 +168,7 @@ public class VotingView {
     private VBox createVotingUI(boolean isCouncil) {
         VBox mainContainer = new VBox();
 
-        List<Candidate> allCandidates = controller.getCandidates();
+        List<Candidate> allCandidates = voteRepository.getCandidates();
 
         String typeToFilter = isCouncil ? "Schülersprecher" : "Abteilungsvertreter";
 
