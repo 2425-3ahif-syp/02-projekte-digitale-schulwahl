@@ -1,4 +1,4 @@
-package at.htl.digitaleschulwahl.controller;
+package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VotingController {
+public class VotingPresenter {
 
     private final Connection connection;
 
-    public VotingController() {
+    public VotingPresenter() {
         this.connection = DatabaseManager.getInstance().getConnection();
     }
 

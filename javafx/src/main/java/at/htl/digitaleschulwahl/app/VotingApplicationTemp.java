@@ -1,9 +1,7 @@
 package at.htl.digitaleschulwahl.app;
 
-import at.htl.digitaleschulwahl.controller.VotingController;
+import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import at.htl.digitaleschulwahl.database.DatabaseManager;
-import at.htl.digitaleschulwahl.view.MainView;
-import at.htl.digitaleschulwahl.controller.MainController;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,7 +13,7 @@ public class VotingApplicationTemp extends Application {
         try {
             var databaseManager = DatabaseManager.getInstance();
 
-            var votingController = new VotingController();
+            var votingController = new VotingPresenter();
 
             var votingView = new VotingView(votingController);
            // scene.getStylesheets().add(MainViewController.class.getResource("/syp/htlfragebogenapplication/Base.css").toExternalForm());

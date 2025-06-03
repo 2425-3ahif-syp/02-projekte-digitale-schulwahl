@@ -1,6 +1,6 @@
 package at.htl.digitaleschulwahl.view;
 
-import at.htl.digitaleschulwahl.controller.VotingController;
+import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
 import javafx.geometry.Pos;
@@ -15,15 +15,10 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class VotingView {
-    private final VotingController controller;
+    private final VotingPresenter controller;
     private final BorderPane root = new BorderPane();
     private boolean isCouncil = false; //true = Schülervertretung, false= Abteilungsvertretung
     private final Button backButton = new Button("Zurück");
@@ -34,7 +29,7 @@ public class VotingView {
     private List<ToggleGroup> currentToggleGroups = new ArrayList<>();
     private List<Candidate> currentCandidates = new ArrayList<>();
 
-    public VotingView(VotingController controller) {
+    public VotingView(VotingPresenter controller) {
         this.controller = controller;
         baseStruct.createNavBar();
         backButton.setVisible(false);

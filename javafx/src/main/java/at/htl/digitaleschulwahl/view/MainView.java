@@ -1,31 +1,24 @@
 package at.htl.digitaleschulwahl.view;
 
-import at.htl.digitaleschulwahl.controller.MainController;
+import at.htl.digitaleschulwahl.presenter.PdfPresenter;
 import at.htl.digitaleschulwahl.model.Student;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MainView {
-    private final MainController controller;
+    private final PdfPresenter controller;
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Integer classId;
     private String[] allClasses;
 
-    public MainView(MainController controller) {
+    public MainView(PdfPresenter controller) {
         this.controller = controller;
         createUI();
         baseStruct.createNavBar();

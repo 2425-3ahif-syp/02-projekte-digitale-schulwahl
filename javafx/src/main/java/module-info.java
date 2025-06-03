@@ -9,7 +9,7 @@ module at.htl.digitaleschulwahl {
 
     exports at.htl.digitaleschulwahl.app to javafx.graphics;
     opens at.htl.digitaleschulwahl.app to javafx.graphics;
-    opens at.htl.digitaleschulwahl.controller to javafx.base;
+    opens at.htl.digitaleschulwahl.presenter to javafx.base;
     opens at.htl.digitaleschulwahl to javafx.fxml;
     opens at.htl.digitaleschulwahl.model to java.base;
 }

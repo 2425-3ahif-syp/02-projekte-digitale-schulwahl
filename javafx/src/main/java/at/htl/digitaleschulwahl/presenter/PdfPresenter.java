@@ -1,4 +1,4 @@
-package at.htl.digitaleschulwahl.controller;
+package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.model.Student;
@@ -22,11 +22,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 
-public class MainController {
+public class PdfPresenter {
     private final Connection connection;
     private final Random random = new Random();
 
-    public MainController() {
+    public PdfPresenter() {
         connection = DatabaseManager.getInstance().getConnection();
     }
 

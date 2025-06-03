@@ -1,9 +1,9 @@
 package at.htl.digitaleschulwahl.app;
 
-import at.htl.digitaleschulwahl.controller.VotingController;
+import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.view.MainView;
-import at.htl.digitaleschulwahl.controller.MainController;
+import at.htl.digitaleschulwahl.presenter.PdfPresenter;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,8 +15,8 @@ public class MainApplication extends Application {
         try {
 
             var databaseManager = DatabaseManager.getInstance();
-            var mainController = new MainController();
-            var votingController = new VotingController();
+            var mainController = new PdfPresenter();
+            var votingController = new VotingPresenter();
 
             var mainView = new MainView(mainController);
             var votingView = new VotingView(votingController);
