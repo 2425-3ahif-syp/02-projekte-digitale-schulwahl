@@ -144,4 +144,35 @@ public class StudentRepository {
 
         return classList.toArray(new String[0]);
     }
+
+    public ArrayList<Student> getStudentsByClass(Integer classId) {
+        String query = """
+                SELECT s.id, first_name, last_name, login_code, (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) as grade, class_name
+                FROM STUDENT s
+                join CLASS c ON student.class_id = class.id;
+                WHERE class_id = ?;
+                """;
+        ArrayList<Student> students = new ArrayList<>();
+
+        try (var statement = connection.prepareStatement(query)) {
+            statement.setInt(1, classId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Integer id = resultSet.getInt("id");
+                    String firstName = resultSet.getString("first_name");
+                    String lastName = resultSet.getString("last_name");
+                    String loginCode = resultSet.getString("login_code");
+                    Integer grade = resultSet.getInt("grade");
+                    String className = resultSet.getString("class_name");
+                    students.add(new Student(id, firstName, lastName, className, loginCode, grade));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim Abrufen des Students: " + e.getMessage(), e);
+
+        } finally {
+            return students;
+        }
+    }
 }

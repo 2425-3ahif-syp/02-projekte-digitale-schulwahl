@@ -45,28 +45,16 @@ public class PdfPresenter {
     }
 
     public void getCodesIntoPDF(Integer classId) {
-        String query = """
-                SELECT first_name, last_name, login_code
-                FROM STUDENT
-                WHERE class_id = ?;
-                """;
+        ArrayList<Student> students = studentRepository.getStudentsByClass(classId);
+
         StringBuilder pdfContent = new StringBuilder();
 
         pdfContent.append(studentRepository.getClass(classId)).append("\n\n");
 
-        try (var statement = connection.prepareStatement(query)) {
-            statement.setInt(1, classId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    String firstName = resultSet.getString("first_name");
-                    String lastName = resultSet.getString("last_name");
-                    String loginCode = resultSet.getString("login_code");
-                    pdfContent.append(firstName).append(" ").append(lastName)
-                            .append(" - Login Code: ").append(loginCode).append("\n");
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
+
+        for(Student student : students) {
+            pdfContent.append(student.getFirstName()).append(" ").append(student.getLastName())
+                    .append(" - Login Code: ").append(student.getLoginCode()).append("\n");
         }
 
         savePDF(classId, pdfContent.toString());

@@ -37,9 +37,7 @@ public class Student {
         return loginCode;
     }
 
-    public int getGrade() {
-        return grade;
-    }
+    public int getGrade() {return grade;}
 
     public void setLoginCode(String loginCode) {
         this.loginCode = loginCode;
