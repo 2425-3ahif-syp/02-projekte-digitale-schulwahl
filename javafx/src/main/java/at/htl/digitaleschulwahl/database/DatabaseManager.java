@@ -106,57 +106,96 @@ public class DatabaseManager {
     public void insertDummyData() {
         try {
             try (var statement = connection.createStatement()) {
-                var insertClassQuery = """
-                            INSERT INTO class (start_year, class_name) VALUES
-                            (2022, 'AHIF'),
-                            (2022, 'BHIF'),
-                            (2023, 'AHIF'),
-                            (2023, 'BHIF'),
-                            (2020, 'AHIF'),
-                            (2020, 'BHIF')
-                        """;
-                var insertStudentQuery = """
-                        INSERT INTO student (first_name, last_name, class_id) VALUES
-                        ('Max', 'Mustermann', 1),
-                        ('Anna', 'Berger', 1),
-                        ('Felix', 'Hofer', 1),
-                        ('Julia', 'Mayer', 2),
-                        ('David', 'Gruber', 2),
-                        ('Emma', 'Schmid', 3),
-                        ('Jakob', 'Fischer', 3),
-                        ('Sophie', 'Wagner', 4),
-                        ('Lukas', 'Huber', 4),
-                        ('Lena', 'Steiner', 5),
-                        ('Paul', 'Bauer', 5),
-                        ('Hannah', 'Müller', 6)
-                        """;
-                var insertCandidateQuery = """
-                            INSERT INTO candidate (name,class, role) VALUES
-                            ('Lukas Meier','5ahif', 'Schülersprecher'),
-                            ('Anna Schmidt','4ahitm', 'Schülersprecher'),
-                            ('Felix Bauer', '3bhif','Abteilungsvertreter'),
-                            ('Julia Fischer','5bhitm', 'Abteilungsvertreter')
-                        """;
 
-             /*   var insertVotesQuery = """
-                    INSERT INTO votes (student_id, candidate_id, ranking) VALUES
-                    (1, 1, 5),
-                    (2, 1, 4),
-                    (3, 2, 6),
-                    (4, 3, 2),
-                    (5, 3, 1),
-                    (6, 4, 2)
-                """`*/
-                ;
-
+                // 1) Beispiel-Klassen
+                String insertClassQuery = """
+                    INSERT INTO class (start_year, class_name) VALUES
+                      (2022, 'AHIF'),
+                      (2022, 'BHIF'),
+                      (2023, 'AHIF'),
+                      (2023, 'BHIF'),
+                      (2020, 'AHIF'),
+                      (2020, 'BHIF');
+                    """;
                 statement.execute(insertClassQuery);
+
+                // 2) Beispiel-Schüler (je Klasse eine Handvoll)
+                String insertStudentQuery = """
+                    INSERT INTO student (first_name, last_name, class_id) VALUES
+                      ('Max', 'Mustermann', 1),
+                      ('Anna', 'Berger',      1),
+                      ('Felix', 'Hofer',      1),
+                      ('Julia', 'Mayer',      2),
+                      ('David', 'Gruber',     2),
+                      ('Emma', 'Schmid',      3),
+                      ('Jakob', 'Fischer',    3),
+                      ('Sophie', 'Wagner',    4),
+                      ('Lukas', 'Huber',      4),
+                      ('Lena', 'Steiner',     5),
+                      ('Paul', 'Bauer',       5),
+                      ('Hannah', 'Müller',    6);
+                    """;
                 statement.execute(insertStudentQuery);
+
+                // 3) Beispiel-Kandidaten (zwei Schülersprecher, zwei Abteilungsvertreter)
+                //    Wir erwarten, dass diese vier Kandidaten IDs 1, 2, 3 und 4 bekommen.
+                String insertCandidateQuery = """
+                    INSERT INTO candidate (name, class, role) VALUES
+                      ('Lukas Meier',   '5AHIF',  'Schülersprecher'),
+                      ('Anna Schmidt',  '4AHITM', 'Schülersprecher'),
+                      ('Felix Bauer',   '3BHIF',  'Abteilungsvertreter'),
+                      ('Julia Fischer', '5BHITM', 'Abteilungsvertreter');
+                    """;
                 statement.execute(insertCandidateQuery);
-                //  statement.execute(insertVotesQuery);
+
+                // 4) Beispiel-Votes
+                //    Wir referenzieren candidate_id 1–4 und class_id_of_voter 1–6.
+                //    Der Wert „ranking“ setzen wir hier jeweils zu 1,
+                //    da er in unserer Auswertung nicht verwendet wird.
+                //
+                //    Schülersprecher (candidate_id = 1 und 2):
+                String insertVotesQuery = """
+                    INSERT INTO votes VALUES
+                      -- Schülersprecher, Klasse 1 (ID=1, AHIF 2022):
+                      (default,1, 1, 1),
+                      (default,1, 1, 1),
+                      (default,2, 1, 1),
+
+                      -- Schülersprecher, Klasse 2 (ID=2, BHIF 2022):
+                      (default,1, 1, 2),
+                      (default,2, 1, 2),
+                      (default,2, 1, 2),
+
+                      -- Schülersprecher, Klasse 3 (ID=3, AHIF 2023):
+                      (default,2, 1, 3),
+                      (default,2, 1, 3),
+                      (default,2, 1, 3),
+
+                      -- Schülersprecher, Klasse 5 (ID=5, AHIF 2020):
+                      (default,1, 1, 5),
+
+                      -- Abteilungsvertreter (candidate_id = 3 und 4):
+                      -- Klasse 2 (BHIF 2022, ID=2):
+                      (default,3, 1, 2),
+                      (default,3, 1, 2),
+                      (default,4, 1, 2),
+
+                      -- Klasse 3 (AHIF 2023, ID=3):
+                      (default,3, 1, 3),
+                      (default,4, 1, 3),
+                      (default,4, 1, 3),
+
+                      -- Klasse 4 (BHIF 2023, ID=4):
+                      (default,4, 1, 4),
+
+                      -- Klasse 6 (BHIF 2020, ID=6):
+                      (default,3, 1, 6),
+                      (default,3, 1, 6);
+                    """;
+                statement.execute(insertVotesQuery);
             }
         } catch (SQLException e) {
             System.err.println("Fehler beim Ausführen der SQL-Anweisung: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-}
+    }}
