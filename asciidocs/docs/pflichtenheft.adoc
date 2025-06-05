@@ -65,12 +65,12 @@ Zum Schluss soll noch eine Möglichkeit zum Abschluss der Stimmenabgabe zur Verf
 .Nicht-Ziele
 * Verwaltung von der Liste der Schülerinnen und Schüler
 * Verwaltung von Klassenlisten
-* Plausilibitätsprüfungen
+* Plausibilitätsprüfungen
 
 === Mengengerüst
 
 Die Wahl für die Schülervertretung findet einmal im Jahr statt.
-Einzurechnen sind dabei ca. 1000 Wählerinnnen und Wähler, die alle am selben Tag innerhalb kurzer Zeit abstimmen wollen. Dabei müssen diese
+Einzurechnen sind dabei ca. 1000 Wählerinnen und Wähler, die alle am selben Tag innerhalb kurzer Zeit abstimmen wollen. Dabei müssen diese
 jeweils maximal 6 Punkte-Blöcke abgeben.
 
 === Rahmenbedingungen

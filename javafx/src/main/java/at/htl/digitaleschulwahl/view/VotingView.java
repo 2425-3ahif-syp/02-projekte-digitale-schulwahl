@@ -77,7 +77,7 @@ public class VotingView {
 
         submitButton.setVisible(false);
 
-        submitButton.setOnAction(event -> {
+        submitButton.setOnAction(_ -> {
             Stage stage = (Stage) submitButton.getScene().getWindow();
 
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -108,10 +108,10 @@ public class VotingView {
                         int ranking = (int) group.getSelectedToggle().getUserData();
                         //TODO
                         // ACHTUNG
-                        // später muss auf die Klasse des Wählenden zugegriffen werden, 111 ist nur ein Platzhalter
+                        // später muss auf die Klasse des Wählenden zugegriffen werden, 1 ist nur ein Platzhalter
                         // wird erstmal so gelassen, bis es soweit ist
 
-                        var vote = new Vote(candidate.getId(), ranking,111);
+                        var vote = new Vote(candidate.getId(), ranking,1);
                         // var vote = new Vote(candidate_id, ranking);
 
                         voteRepository.castVote(vote); // Vote wird in der DB gespeichert

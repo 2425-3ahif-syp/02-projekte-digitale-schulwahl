@@ -78,7 +78,7 @@ public class DatabaseManager {
             """,
                 """      
             CREATE TABLE IF NOT EXISTS votes (
-                id SERIAL PRIMARY KEY,
+                id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 candidate_id INTEGER NOT NULL,
                 ranking INTEGER NOT NULL,
                 class_id_of_voter INTEGER not null,
