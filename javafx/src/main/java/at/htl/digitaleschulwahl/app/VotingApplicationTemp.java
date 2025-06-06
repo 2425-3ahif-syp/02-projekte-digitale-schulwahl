@@ -12,8 +12,8 @@ public class VotingApplicationTemp extends Application {
     public void start(Stage primaryStage) {
         try {
             var databaseManager = DatabaseManager.getInstance();
-
             var votingController = new VotingPresenter();
+        Scene votingScene = new Scene(votingController.getView().getRoot(),900,700);
 
             var votingView = new VotingView(votingController);
            // scene.getStylesheets().add(MainViewController.class.getResource("/syp/htlfragebogenapplication/Base.css").toExternalForm());
@@ -23,9 +23,9 @@ public class VotingApplicationTemp extends Application {
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
                einmal für Abteilungssprecher ... wird dann noch gehandelt!*/
 
-            var votingScene = new Scene(votingView.getRoot(),900,700);
+           // var votingScene = new Scene(votingView.getRoot(),900,700);
 
-             votingScene.getStylesheets().add(css);
+            votingScene.getStylesheets().add(css);
 
             primaryStage.setTitle("Digitale Schulwahl");
             primaryStage.setScene(votingScene);

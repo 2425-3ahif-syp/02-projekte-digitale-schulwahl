@@ -2,26 +2,217 @@ package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
-import at.htl.digitaleschulwahl.model.Vote;
-import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.view.VotingView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class VotingPresenter {
 
     private final VoteRepository voteRepository;
+    private final VotingView view;
+    private boolean isCouncil = false; //false: Abteilungsvertretung, true: Schülervertretung.
+
+    // private List<Candidate> currentCandidates;
 
     public VotingPresenter() {
+        this.view = new VotingView(this);
         this.voteRepository = new VoteRepository();
+        init();
+    }
+
+    public void init() {
+        changeSpacingForPointsHeader();
+        view.getRoot().setCenter(view.createVotingUI());
+        view.createUI();
+        getCurrentCandidatesByType();
+        updateMaxPoints();
+        attachListener();
+    }
+
+    public void toggleCouncilMode() {
+        isCouncil = !isCouncil;
+        getCurrentCandidatesByType();
+        updateVotingUI();
+    }
+
+    public void attachListener() {
+        view.getSubmitButton().setOnAction(event -> {
+            handleSubmitButton();
+        });
+        view.getContinueButton().setOnAction(event -> {
+            handleContinueButton();
+        });
+
+        view.getBackButton().setOnAction(event -> {
+            handleBackButton();
+        });
     }
 
 
+    public void updateVotingUI() {
+        view.getPointsHeader().getChildren().clear();
+        view.getRoot().setCenter(view.createVotingUI());
+        view.setSecondHeading(getSecondHeading());
+        view.setMaxPoints(updateMaxPoints());
+        changeSpacingForPointsHeader();
+    }
+
+
+    public List<Candidate> getCurrentCandidatesByType() {
+        String typeToFilter = isCouncil ? "Schülersprecher" : "Abteilungsvertreter";
+        return voteRepository.getCandidates().stream()
+                .filter(candidate -> candidate.getType() != null &&
+                        candidate.getType().trim().equalsIgnoreCase(typeToFilter))
+                .toList();
+    }
+
+    public String getSecondHeading() {
+        return this.isCouncil ? "Schülervertretung" : "Abteilungsvertretung [Abteilung]";
+    }
+
+    public int updateMaxPoints() {
+        return this.isCouncil ? 6 : 2;
+    }
+
+    public void registerPointButtonHandlers(List<List<ToggleButton>> columns, List<List<ToggleButton>> rows) {
+        for (int row = 0; row < rows.size(); row++) {
+            for (int col = 0; col < columns.size(); col++) {
+                ToggleButton btn = rows.get(row).get(col);
+                final int finalRow = row;
+                final int finalCol = col;
+
+                btn.setOnAction(e -> updateButtonStates(columns, rows, finalRow, finalCol));
+            }
+        }
+    }
+
+    public void changeSpacingForPointsHeader() {
+        if (updateMaxPoints() == 6) {
+            view.getPointsHeader().setSpacing(35);
+        } else {
+            view.getPointsHeader().setSpacing(20);
+        }
+    }
+
+    public void handleBackButton(/*Button backButton, Button continueButton, Button submitButton*/) {
+        view.getBackButton().setVisible(false);
+        view.getContinueButton().setVisible(true);
+        view.getSubmitButton().setVisible(false);
+        toggleCouncilMode();
+        updateVotingUI();
+    }
+
+    public void handleContinueButton() {
+        view.getBackButton().setVisible(true);
+        view.getBackButton().setManaged(true);
+        view.getContinueButton().setVisible(false);
+        view.getContinueButton().setManaged(false);
+        view.getSubmitButton().setVisible(true);
+        toggleCouncilMode();
+        updateVotingUI();
+    }
+
+    public void handleSubmitButton() {
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Wahl bestätigen");
+        confirmation.setHeaderText(null);
+        confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimmen abgeben möchten? Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden.");
+
+        Button okButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.OK);
+        Button cancelButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+        if (okButton != null) okButton.setText("Ja");
+        if (cancelButton != null) cancelButton.setText("Nein");
+
+        Optional<ButtonType> result = confirmation.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Hier ist die Ursache warum sich die Stage nicht schliessen ließ T_T ...
+            /* for (int i = 0; i < candidates.size(); i++) {
+                Candidate candidate = candidates.get(i);
+                for (ToggleButton btn : rowButtons.get(i)) {
+                    if (btn.isSelected()) {
+                        int ranking = (int) btn.getUserData();
+                        Vote vote = new Vote(candidate.getId(), ranking, 111); // TODO: Replace with actual user class
+                        voteRepository.castVote(vote);
+                        break;
+                    }
+                }
+            }*/
+
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Stimmabgabe");
+            info.setHeaderText(null);
+            info.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
+            info.showAndWait();
+            //   stage.close();
+            Stage stage = (Stage) view.getSubmitButton().getScene().getWindow();
+            stage.close();
+
+        } else {
+            confirmation.close();
+        }
+    }
+
+    public void setRowButtons(List<List<ToggleButton>> rowButtons) {
+    }
+
+    public void updateButtonStates(List<List<ToggleButton>> columnButtons, List<List<ToggleButton>> rowButtons,
+                                   int rowIndex, int newColIndex) {
+        ToggleButton clicked = rowButtons.get(rowIndex).get(newColIndex);
+        boolean isSelectedNow = clicked.isSelected();
+
+        if (isSelectedNow) {
+            for (int i = 0; i < rowButtons.get(rowIndex).size(); i++) {
+                ToggleButton btn = rowButtons.get(rowIndex).get(i);
+                if (btn != clicked && btn.isSelected()) {
+                    btn.setSelected(false);
+                }
+            }
+
+            if (rowIndex > 0) {
+                ToggleButton prevRowButton = rowButtons.get(rowIndex - 1).get(newColIndex);
+                if (prevRowButton.isSelected()) {
+                    prevRowButton.setSelected(false);
+                }
+            }
+
+            if (rowIndex < rowButtons.size() - 1) {
+                ToggleButton nextRowButton = rowButtons.get(rowIndex + 1).get(newColIndex);
+                if (nextRowButton.isSelected()) {
+                    nextRowButton.setSelected(false);
+                }
+            }
+        } else {
+            boolean anySelectedInSameCol = false;
+            for (int i = 0; i < rowButtons.size(); i++) {
+                if (i != rowIndex && rowButtons.get(i).get(newColIndex).isSelected()) {
+                    anySelectedInSameCol = true;
+                    break;
+                }
+            }
+
+            if (!anySelectedInSameCol) {
+                for (int i = 0; i < rowButtons.size(); i++) {
+                    if (i != rowIndex) {
+                        rowButtons.get(i).get(newColIndex).setDisable(false);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public VotingView getView() {
+        return view;
+    }
 
 
 }
