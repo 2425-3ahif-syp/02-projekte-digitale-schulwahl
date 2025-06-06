@@ -1,6 +1,7 @@
 package at.htl.digitaleschulwahl.view;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
+import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -23,16 +24,12 @@ public class VotingView {
     private final Button submitButton = new Button("Stimmen abgeben");
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Label secondHeading = new Label();
-    private HBox pointsHeader = new HBox(10);
-    private int maxPoints;
+    private final HBox pointsHeader = new HBox(10);
 
     public HBox getPointsHeader() {
         return pointsHeader;
     }
 
-    public void setPointsHeader(HBox pointsHeader) {
-        this.pointsHeader = pointsHeader;
-    }
 
     // temporär
     private final VoteRepository voteRepository = new VoteRepository();
@@ -136,7 +133,7 @@ public class VotingView {
         VBox candidateInfoSection = new VBox(15);
         candidateInfoSection.setAlignment(Pos.CENTER);
 
-        for (int i = 0; i < list.size(); i++) {
+        for (Candidate candidate : list) {
             HBox currentBox = new HBox(15);
             currentBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -158,11 +155,11 @@ public class VotingView {
             verticalLine.setStrokeWidth(2);
 
             VBox textSection = new VBox(5);
-            Label name = new Label(list.get(i).getName());
+            Label name = new Label(candidate.getName());
 
             name.getStyleClass().add("candidateLabel");
             name.setStyle("-fx-font-weight: bold");
-            Label _class = new Label(list.get(i).getClassName().toUpperCase());
+            Label _class = new Label(candidate.getClassName().toUpperCase());
             _class.getStyleClass().add("candidateLabel");
             textSection.getChildren().addAll(name, _class);
 
@@ -216,10 +213,6 @@ public class VotingView {
                 columnButtons.get(maxPoints - j).add(btn);
                 currentRow.add(btn);
 
-                int finalRowIndex = i;
-                int finalColIndex = maxPoints - j;
-
-
                 StackPane wrapper = new StackPane(btn);
                 wrapper.setAlignment(Pos.CENTER);
                 pointsBox.getChildren().add(wrapper);
@@ -251,6 +244,5 @@ public class VotingView {
     }
 
     public void setMaxPoints(int maxPoints) {
-        this.maxPoints = maxPoints;
     }
 }
