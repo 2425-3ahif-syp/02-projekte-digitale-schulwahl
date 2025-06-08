@@ -13,7 +13,9 @@ public class Candidate {
         this.className = className;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -37,5 +39,20 @@ public class Candidate {
 
     public void setClassName(String _class) {
         this.className = _class;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Candidate candidate = (Candidate) obj;
+        return id == candidate.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
     }
 }
