@@ -26,6 +26,9 @@ public class VotingPresenter {
 
     // private List<Candidate> currentCandidates;
 
+    private Map<Candidate, Integer> tempVotes1 = new HashMap<>();
+    private Map<Candidate, Integer> tempVotes2 = new HashMap<>();
+
     private List<List<ToggleButton>> rowButtons;
     private List<Candidate> currentCandidates;
 
@@ -111,6 +114,8 @@ public class VotingPresenter {
     }
 
     public void handleBackButton(/*Button backButton, Button continueButton, Button submitButton*/) {
+        tempVotes2.clear();
+        tempVotes2 = getSelectedVotes();
         view.getBackButton().setVisible(false);
         view.getContinueButton().setVisible(true);
         view.getSubmitButton().setVisible(false);
@@ -119,6 +124,11 @@ public class VotingPresenter {
     }
 
     public void handleContinueButton() {
+        tempVotes1 = getSelectedVotes();
+        for (Map.Entry<Candidate, Integer> entry : tempVotes1.entrySet()) {
+            System.out.println(entry.getKey().getName() + " has got " + entry.getValue());
+        }
+
         view.getBackButton().setVisible(true);
         view.getBackButton().setManaged(true);
         view.getContinueButton().setVisible(false);
@@ -143,8 +153,9 @@ public class VotingPresenter {
         Optional<ButtonType> result = confirmation.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            Map<Candidate, Integer> votes = getSelectedVotes();
-            for (Map.Entry<Candidate, Integer> entry : votes.entrySet()) {
+            tempVotes2.clear();
+            tempVotes2 = getSelectedVotes();
+            for (Map.Entry<Candidate, Integer> entry : tempVotes2.entrySet()) {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
                 // TODO: class id richtig getten
                 voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
