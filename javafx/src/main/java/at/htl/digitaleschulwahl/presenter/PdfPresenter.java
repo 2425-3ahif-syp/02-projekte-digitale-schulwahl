@@ -20,12 +20,21 @@ import java.util.stream.Collectors;
 
 
 public class PdfPresenter {
+    public interface PdfSaveCallback {
+        void onPdfSaved(String filePath);
+    }
+    
     private final StudentRepository studentRepository;
     private final Random random = new Random();
+    private PdfSaveCallback pdfSaveCallback;
 
 
     public PdfPresenter() {
         studentRepository = new StudentRepository();
+    }
+    
+    public void setPdfSaveCallback(PdfSaveCallback callback) {
+        this.pdfSaveCallback = callback;
     }
 
     public void generateAndSaveCodesForAllStudents(){
@@ -84,16 +93,12 @@ public class PdfPresenter {
                     contentStream.endText();
                 }
                 document.save(filePath);
-                System.out.println("PDF gespeichert unter: " + filePath);
+                if (pdfSaveCallback != null) {
+                    pdfSaveCallback.onPdfSaved(filePath);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("Fehler beim Speichern der PDF: " + e.getMessage(), e);
         }
     }
-
-
-
 }
-
-
-

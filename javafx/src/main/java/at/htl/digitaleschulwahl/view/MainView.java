@@ -10,6 +10,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import java.io.File;
 
 public class MainView {
     private final PdfPresenter controller;
@@ -19,13 +21,26 @@ public class MainView {
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Integer classId;
     private String[] allClasses;
-
+    private Stage primaryStage;
 
     public MainView(PdfPresenter controller) {
         this.controller = controller;
         createUI();
         baseStruct.createNavBar();
         loadData();
+
+        controller.setPdfSaveCallback(this::showPdfSavedToast);
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    private void showPdfSavedToast(String filePath) {
+        if (primaryStage != null) {
+            String fileName = filePath.substring(filePath.lastIndexOf(File.separatorChar) + 1);
+            ToastNotification.show(primaryStage, "PDF gespeichert: " + fileName);
+        }
     }
 
     public BorderPane getRoot() {
@@ -69,8 +84,6 @@ public class MainView {
         root.setBottom(bottomBox);
 
     }
-
-
 
     private void loadData() {
         tableView.setItems(FXCollections.observableArrayList(studentRepository.getAllStudents()));
