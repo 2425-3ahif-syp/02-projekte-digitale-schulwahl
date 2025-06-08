@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.File;
 
-public class MainView {
+public class PdfView {
     private final PdfPresenter controller;
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
@@ -23,7 +23,7 @@ public class MainView {
     private String[] allClasses;
     private Stage primaryStage;
 
-    public MainView(PdfPresenter controller) {
+    public PdfView(PdfPresenter controller) {
         this.controller = controller;
         createUI();
         baseStruct.createNavBar();

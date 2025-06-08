@@ -1,7 +1,5 @@
-// TODO
-/*package at.htl.digitaleschulwahl.app;
+package at.htl.digitaleschulwahl.app;
 
-import at.htl.digitaleschulwahl.presenter.MainPresenter;
 import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.view.PdfView;
@@ -11,18 +9,16 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainApplication extends Application {
+public class PdfApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
 
             var databaseManager = DatabaseManager.getInstance();
-            var mainController = new MainPresenter();
-            var pdfController = new PdfPresenter();
+            var mainController = new PdfPresenter();
             var votingController = new VotingPresenter();
 
-            var mainView = new MainView(mainController);
-            mainView.setPrimaryStage(primaryStage);
+            var mainView = new PdfView(mainController);
             var votingView = new VotingView(votingController);
             String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
 
@@ -53,4 +49,4 @@ public class MainApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}*/
+}

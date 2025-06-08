@@ -1,7 +1,9 @@
 package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
+import at.htl.digitaleschulwahl.database.CandidateRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
+import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,21 +11,30 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
 
 public class VotingPresenter {
 
     private final VoteRepository voteRepository;
+    private final CandidateRepository candidateRepository;
     private final VotingView view;
-    private boolean isCouncil = false; //false: Abteilungsvertretung, true: Schülervertretung.
+    private boolean isCouncil = false; // false: Abteilungsvertretung, true: Schülervertretung.
 
     // private List<Candidate> currentCandidates;
+
+    private static Map<Candidate, Integer> tempVotes1 = new HashMap<>();
+    private static Map<Candidate, Integer> tempVotes2 = new HashMap<>();
+
+    private List<List<ToggleButton>> rowButtons;
+    private List<Candidate> currentCandidates;
 
     public VotingPresenter() {
         this.view = new VotingView(this);
         this.voteRepository = new VoteRepository();
+        this.candidateRepository = new CandidateRepository();
         init();
     }
 
@@ -55,7 +66,6 @@ public class VotingPresenter {
         });
     }
 
-
     public void updateVotingUI() {
         view.getPointsHeader().getChildren().clear();
         view.getRoot().setCenter(view.createVotingUI());
@@ -64,10 +74,17 @@ public class VotingPresenter {
         changeSpacingForPointsHeader();
     }
 
+    public void updateVotingUIAndRestore(Map<Candidate, Integer> votesToRestore) {
+        updateVotingUI();
+        // Restore votes after UI has been fully recreated
+        if (votesToRestore != null && !votesToRestore.isEmpty()) {
+            restoreSelectedVotes(votesToRestore);
+        }
+    }
 
     public List<Candidate> getCurrentCandidatesByType() {
         String typeToFilter = isCouncil ? "Schülersprecher" : "Abteilungsvertreter";
-        return voteRepository.getCandidates().stream()
+        return candidateRepository.getCandidates().stream()
                 .filter(candidate -> candidate.getType() != null &&
                         candidate.getType().trim().equalsIgnoreCase(typeToFilter))
                 .toList();
@@ -101,58 +118,62 @@ public class VotingPresenter {
         }
     }
 
-    public void handleBackButton(/*Button backButton, Button continueButton, Button submitButton*/) {
+    public void handleBackButton(/* Button backButton, Button continueButton, Button submitButton */) {
+        VotingPresenter.tempVotes2.clear();
+        VotingPresenter.tempVotes2 = getSelectedVotes();
         view.getBackButton().setVisible(false);
         view.getContinueButton().setVisible(true);
         view.getSubmitButton().setVisible(false);
         toggleCouncilMode();
-        updateVotingUI();
+        updateVotingUIAndRestore(VotingPresenter.tempVotes1);
     }
 
     public void handleContinueButton() {
+        VotingPresenter.tempVotes1.clear();
+        VotingPresenter.tempVotes1 = getSelectedVotes();
+
         view.getBackButton().setVisible(true);
         view.getBackButton().setManaged(true);
         view.getContinueButton().setVisible(false);
         view.getContinueButton().setManaged(false);
         view.getSubmitButton().setVisible(true);
         toggleCouncilMode();
-        updateVotingUI();
+        updateVotingUIAndRestore(VotingPresenter.tempVotes2);
     }
 
     public void handleSubmitButton() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Wahl bestätigen");
         confirmation.setHeaderText(null);
-        confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimmen abgeben möchten? Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden.");
+        confirmation.setContentText(
+                "Sind Sie sicher, dass Sie Ihre Stimmen abgeben möchten? Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden.");
 
         Button okButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.OK);
         Button cancelButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
 
-        if (okButton != null) okButton.setText("Ja");
-        if (cancelButton != null) cancelButton.setText("Nein");
+        if (okButton != null)
+            okButton.setText("Ja");
+        if (cancelButton != null)
+            cancelButton.setText("Nein");
 
         Optional<ButtonType> result = confirmation.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Hier ist die Ursache warum sich die Stage nicht schliessen ließ T_T ...
-            /* for (int i = 0; i < candidates.size(); i++) {
-                Candidate candidate = candidates.get(i);
-                for (ToggleButton btn : rowButtons.get(i)) {
-                    if (btn.isSelected()) {
-                        int ranking = (int) btn.getUserData();
-                        Vote vote = new Vote(candidate.getId(), ranking, 111); // TODO: Replace with actual user class
-                        voteRepository.castVote(vote);
-                        break;
-                    }
-                }
-            }*/
+            VotingPresenter.tempVotes2.clear();
+            VotingPresenter.tempVotes2 = getSelectedVotes();
+            for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes2.entrySet()) {
+                Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
+                // TODO: class id richtig getten
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
+                System.out.println("Kandidat: " + entry.getKey().getName() + " => Punkte: " + entry.getValue());
+            }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Stimmabgabe");
             info.setHeaderText(null);
             info.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
             info.showAndWait();
-            //   stage.close();
+            // stage.close();
             Stage stage = (Stage) view.getSubmitButton().getScene().getWindow();
             stage.close();
 
@@ -162,10 +183,58 @@ public class VotingPresenter {
     }
 
     public void setRowButtons(List<List<ToggleButton>> rowButtons) {
+        this.rowButtons = rowButtons;
+        this.currentCandidates = getCurrentCandidatesByType(); // Aktuelle Kandidaten zwischenspeichern
+    }
+
+    public Map<Candidate, Integer> getSelectedVotes() {
+        Map<Candidate, Integer> selectedVotes = new HashMap<>();
+        if (rowButtons == null || currentCandidates == null) {
+            return selectedVotes;
+        }
+
+        for (int i = 0; i < currentCandidates.size(); i++) {
+            Candidate candidate = currentCandidates.get(i);
+            List<ToggleButton> buttonRow = rowButtons.get(i);
+
+            for (ToggleButton btn : buttonRow) {
+                if (btn.isSelected()) {
+                    Object userData = btn.getUserData();
+                    if (userData instanceof Integer) {
+                        selectedVotes.put(candidate, (Integer) userData);
+                    }
+                    break;
+                }
+            }
+        }
+
+        return selectedVotes;
+    }
+
+    private void restoreSelectedVotes(Map<Candidate, Integer> savedVotes) {
+        if (rowButtons == null || currentCandidates == null || savedVotes == null || savedVotes.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < currentCandidates.size(); i++) {
+            Candidate candidate = currentCandidates.get(i);
+            Integer savedPoint = savedVotes.get(candidate);
+            if (savedPoint == null) {
+                continue;
+            }
+
+            List<ToggleButton> buttonRow = rowButtons.get(i);
+            for (ToggleButton btn : buttonRow) {
+                if (btn.getUserData() instanceof Integer point && point.equals(savedPoint)) {
+                    btn.setSelected(true);
+                    break;
+                }
+            }
+        }
     }
 
     public void updateButtonStates(List<List<ToggleButton>> columnButtons, List<List<ToggleButton>> rowButtons,
-                                   int rowIndex, int newColIndex) {
+            int rowIndex, int newColIndex) {
         ToggleButton clicked = rowButtons.get(rowIndex).get(newColIndex);
         boolean isSelectedNow = clicked.isSelected();
 
@@ -209,10 +278,8 @@ public class VotingPresenter {
         }
     }
 
-
     public VotingView getView() {
         return view;
     }
-
 
 }
