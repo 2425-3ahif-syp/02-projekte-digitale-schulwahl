@@ -26,6 +26,7 @@ public class VotingView {
     private Label secondHeading = new Label();
     private final HBox pointsHeader = new HBox(10);
 
+
     public HBox getPointsHeader() {
         return pointsHeader;
     }

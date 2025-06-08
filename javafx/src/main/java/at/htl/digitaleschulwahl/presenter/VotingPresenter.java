@@ -2,6 +2,7 @@ package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
+import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,7 +10,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -20,6 +23,9 @@ public class VotingPresenter {
     private boolean isCouncil = false; //false: Abteilungsvertretung, true: Schülervertretung.
 
     // private List<Candidate> currentCandidates;
+
+    private List<List<ToggleButton>> rowButtons;
+    private List<Candidate> currentCandidates;
 
     public VotingPresenter() {
         this.view = new VotingView(this);
@@ -134,18 +140,13 @@ public class VotingPresenter {
         Optional<ButtonType> result = confirmation.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Hier ist die Ursache warum sich die Stage nicht schliessen ließ T_T ...
-            /* for (int i = 0; i < candidates.size(); i++) {
-                Candidate candidate = candidates.get(i);
-                for (ToggleButton btn : rowButtons.get(i)) {
-                    if (btn.isSelected()) {
-                        int ranking = (int) btn.getUserData();
-                        Vote vote = new Vote(candidate.getId(), ranking, 111); // TODO: Replace with actual user class
-                        voteRepository.castVote(vote);
-                        break;
-                    }
-                }
-            }*/
+            Map<Candidate, Integer> votes = getSelectedVotes();
+            for (Map.Entry<Candidate, Integer> entry : votes.entrySet()) {
+                Integer candidate_id = voteRepository.getCandidateIdByName(entry.getKey().getName());
+                // TODO: class id richtig getten
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
+                System.out.println("Kandidat: " + entry.getKey().getName() + " => Punkte: " + entry.getValue());
+            }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Stimmabgabe");
@@ -162,7 +163,33 @@ public class VotingPresenter {
     }
 
     public void setRowButtons(List<List<ToggleButton>> rowButtons) {
+        this.rowButtons = rowButtons;
+        this.currentCandidates = getCurrentCandidatesByType(); // Aktuelle Kandidaten zwischenspeichern
     }
+
+    public Map<Candidate, Integer> getSelectedVotes() {
+        Map<Candidate, Integer> selectedVotes = new HashMap<>();
+        if (rowButtons == null || currentCandidates == null) return selectedVotes;
+
+        for (int i = 0; i < currentCandidates.size(); i++) {
+            Candidate candidate = currentCandidates.get(i);
+            List<ToggleButton> buttonRow = rowButtons.get(i);
+
+            for (ToggleButton btn : buttonRow) {
+                if (btn.isSelected()) {
+                    Object userData = btn.getUserData();
+                    if (userData instanceof Integer) {
+                        selectedVotes.put(candidate, (Integer) userData);
+                    }
+                    break;
+                }
+            }
+        }
+
+        return selectedVotes;
+    }
+
+
 
     public void updateButtonStates(List<List<ToggleButton>> columnButtons, List<List<ToggleButton>> rowButtons,
                                    int rowIndex, int newColIndex) {

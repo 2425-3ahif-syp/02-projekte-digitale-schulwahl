@@ -5,6 +5,7 @@ import at.htl.digitaleschulwahl.model.Vote;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +57,23 @@ public class VoteRepository {
         }
 
         return candidates;
+    }
+
+    public Integer getCandidateIdByName(String candidateName) {
+        String query = "SELECT id FROM candidate WHERE name = ?";
+        Integer id = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, candidateName); // 🟢 Setze Parameter
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    id = resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 }

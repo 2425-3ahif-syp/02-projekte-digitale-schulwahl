@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class MainView {
+public class PdfView {
     private final PdfPresenter controller;
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
@@ -21,7 +21,7 @@ public class MainView {
     private String[] allClasses;
 
 
-    public MainView(PdfPresenter controller) {
+    public PdfView(PdfPresenter controller) {
         this.controller = controller;
         createUI();
         baseStruct.createNavBar();
