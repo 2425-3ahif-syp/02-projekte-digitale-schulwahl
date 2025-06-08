@@ -1,6 +1,7 @@
 package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
+import at.htl.digitaleschulwahl.database.CandidateRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.view.VotingView;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class VotingPresenter {
 
     private final VoteRepository voteRepository;
+    private final CandidateRepository candidateRepository;
     private final VotingView view;
     private boolean isCouncil = false; //false: Abteilungsvertretung, true: Schülervertretung.
 
@@ -30,6 +32,7 @@ public class VotingPresenter {
     public VotingPresenter() {
         this.view = new VotingView(this);
         this.voteRepository = new VoteRepository();
+        this.candidateRepository = new CandidateRepository();
         init();
     }
 
@@ -73,7 +76,7 @@ public class VotingPresenter {
 
     public List<Candidate> getCurrentCandidatesByType() {
         String typeToFilter = isCouncil ? "Schülersprecher" : "Abteilungsvertreter";
-        return voteRepository.getCandidates().stream()
+        return candidateRepository.getCandidates().stream()
                 .filter(candidate -> candidate.getType() != null &&
                         candidate.getType().trim().equalsIgnoreCase(typeToFilter))
                 .toList();
@@ -142,7 +145,7 @@ public class VotingPresenter {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Map<Candidate, Integer> votes = getSelectedVotes();
             for (Map.Entry<Candidate, Integer> entry : votes.entrySet()) {
-                Integer candidate_id = voteRepository.getCandidateIdByName(entry.getKey().getName());
+                Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
                 // TODO: class id richtig getten
                 voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
                 System.out.println("Kandidat: " + entry.getKey().getName() + " => Punkte: " + entry.getValue());
