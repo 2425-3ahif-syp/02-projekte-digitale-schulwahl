@@ -26,8 +26,8 @@ public class VotingPresenter {
 
     // private List<Candidate> currentCandidates;
 
-    private Map<Candidate, Integer> tempVotes1 = new HashMap<>();
-    private Map<Candidate, Integer> tempVotes2 = new HashMap<>();
+    private static Map<Candidate, Integer> tempVotes1 = new HashMap<>();
+    private static Map<Candidate, Integer> tempVotes2 = new HashMap<>();
 
     private List<List<ToggleButton>> rowButtons;
     private List<Candidate> currentCandidates;
@@ -114,18 +114,21 @@ public class VotingPresenter {
     }
 
     public void handleBackButton(/*Button backButton, Button continueButton, Button submitButton*/) {
-        tempVotes2.clear();
-        tempVotes2 = getSelectedVotes();
+        VotingPresenter.tempVotes2.clear();
+        VotingPresenter.tempVotes2 = getSelectedVotes();
         view.getBackButton().setVisible(false);
         view.getContinueButton().setVisible(true);
         view.getSubmitButton().setVisible(false);
         toggleCouncilMode();
         updateVotingUI();
+        setRowButtons(rowButtons);
+        restoreSelectedVotes(VotingPresenter.tempVotes1);
     }
 
     public void handleContinueButton() {
-        tempVotes1 = getSelectedVotes();
-        for (Map.Entry<Candidate, Integer> entry : tempVotes1.entrySet()) {
+        VotingPresenter.tempVotes1.clear();
+        VotingPresenter.tempVotes1 = getSelectedVotes();
+        for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes1.entrySet()) {
             System.out.println(entry.getKey().getName() + " has got " + entry.getValue());
         }
 
@@ -136,6 +139,8 @@ public class VotingPresenter {
         view.getSubmitButton().setVisible(true);
         toggleCouncilMode();
         updateVotingUI();
+        setRowButtons(rowButtons);
+        restoreSelectedVotes(VotingPresenter.tempVotes2);
     }
 
     public void handleSubmitButton() {
@@ -153,9 +158,9 @@ public class VotingPresenter {
         Optional<ButtonType> result = confirmation.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            tempVotes2.clear();
-            tempVotes2 = getSelectedVotes();
-            for (Map.Entry<Candidate, Integer> entry : tempVotes2.entrySet()) {
+            VotingPresenter.tempVotes2.clear();
+            VotingPresenter.tempVotes2 = getSelectedVotes();
+            for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes2.entrySet()) {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
                 // TODO: class id richtig getten
                 voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
@@ -203,7 +208,31 @@ public class VotingPresenter {
         return selectedVotes;
     }
 
+    private void restoreSelectedVotes(Map<Candidate, Integer> savedVotes) {
+        if (rowButtons == null || currentCandidates == null){
+            return;
+        }
 
+        for (int i = 0; i < currentCandidates.size(); i++) {
+            Candidate candidate = currentCandidates.get(i);
+            Integer savedPoint = savedVotes.get(candidate);
+            if (savedPoint == null){
+                System.out.println(savedVotes);
+                continue;
+            }
+
+            List<ToggleButton> buttonRow = rowButtons.get(i);
+            System.out.println("abc");
+            for (ToggleButton btn : buttonRow) {
+                System.out.println(btn.getUserData().toString());
+                if (btn.getUserData() instanceof Integer point && point == savedPoint) {
+                    System.out.println(point + " => " + savedPoint);
+                    btn.setSelected(true);
+                    break;
+                }
+            }
+        }
+    }
 
     public void updateButtonStates(List<List<ToggleButton>> columnButtons, List<List<ToggleButton>> rowButtons,
                                    int rowIndex, int newColIndex) {
