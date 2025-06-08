@@ -92,7 +92,7 @@ public class VotingView {
         headingBox.setAlignment(Pos.CENTER);
         headingBox.getChildren().addAll(firstHeading, line);
 
-        firstHeading.widthProperty().addListener((_, _, newWidth) -> {
+        firstHeading.widthProperty().addListener((a, b, newWidth) -> {
             line.setStartX(-40);
             line.setEndX(newWidth.doubleValue() + 40);
         });
