@@ -34,6 +34,7 @@
     -fx-padding: 20 0 0 10;
 }
 
+
 .voting-content {
     -fx-padding: 30 0 0 30;
 }
@@ -106,10 +107,6 @@
     -fx-end-x: 100%;
 }
 
-
-
-
-
 .candidatesAndVotingBox {
     -fx-alignment: center;
     -fx-spacing: 20px;
@@ -121,7 +118,6 @@
     -fx-cursor: hand;
 
 }
-
 
 .bottom-button-container {
     -fx-alignment: center;
@@ -158,8 +154,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0.3, 0, 1);
 }
 
-
-
 .point-button {
     -fx-background-radius: 100px;
     -fx-border-radius: 100px;
@@ -185,3 +179,21 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.3, 0, 2);
 }
 
+/* Code generation page*/
+.class-dropdown{
+    -fx-pref-width: 450px;
+    -fx-font-size: 16px;
+}
+
+.combo-box-popup .list-view {
+    -fx-cell-horizontal-padding: 10px;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: black;
+    -fx-padding: 5px 10px;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-text-fill: white;
+}
