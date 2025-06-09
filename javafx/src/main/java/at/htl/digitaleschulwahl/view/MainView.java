@@ -18,6 +18,7 @@ public class MainView {
     private final ToggleButton teacherToggle = new ToggleButton("Lehrkraft");
     private final TextField codeField = new TextField();
     private final Button loginButton = new Button("Login");
+    private final VBox formBox = new VBox(15);
 
     public MainView(MainPresenter controller) {
         this.controller = controller;
@@ -73,15 +74,35 @@ public class MainView {
         studentToggle.getStyleClass().add("user-toggle");
         teacherToggle.getStyleClass().add("user-toggle");
 
-        codeField.setPromptText("Code");
-        codeField.setMaxWidth(400);
-        codeField.setPrefWidth(Double.MAX_VALUE);
-        codeField.getStyleClass().add("code-input");
+        studentToggle.setOnAction(e -> {
+            if (studentToggle.isSelected()) {
+                teacherToggle.setSelected(false);
+                updateForm("student");
+            } else {
+                studentToggle.setSelected(true); // Immer eine Auswahl aktiv
+            }
+        });
+
+        teacherToggle.setOnAction(e -> {
+            if (teacherToggle.isSelected()) {
+                studentToggle.setSelected(false);
+                updateForm("teacher");
+            } else {
+                teacherToggle.setSelected(true);
+            }
+        });
+
 
         Region spacer = new Region();
-        spacer.setMinHeight(20);
+        spacer.setMinHeight(10);
 
-        centerBox.getChildren().addAll(toggleBox, spacer, codeField);
+        formBox.setAlignment(Pos.CENTER);
+        formBox.setMaxWidth(400);
+        formBox.setPrefWidth(Double.MAX_VALUE);
+        updateForm("student"); // Start mit Schüler:in
+
+        centerBox.getChildren().addAll(toggleBox,spacer, formBox);
+
 
 
         //Content-Box unter der NavBar
@@ -103,5 +124,36 @@ public class MainView {
         root.setBottom(bottomBox);
         root.getStyleClass().add("main-root");
     }
+
+
+    private void updateForm(String userType) {
+        formBox.getChildren().clear();
+
+        if (userType.equals("teacher")) {
+            TextField nameField = new TextField();
+            nameField.setPromptText("Name");
+
+            PasswordField passwordField = new PasswordField();
+            passwordField.setPromptText("Passwort");
+
+            TextField classField = new TextField();
+            classField.setPromptText("Klasse");
+
+            formBox.getChildren().addAll(nameField, passwordField, classField);
+
+            // Falls du die Felder an MainPresenter übergeben willst:
+            controller.setTeacherFormFields(nameField, passwordField, classField);
+
+        } else {
+            TextField codeField = new TextField();
+            codeField.setPromptText("Code");
+
+            formBox.getChildren().add(codeField);
+
+            controller.setStudentFormField(codeField);
+        }
+    }
+
+
 
 }
