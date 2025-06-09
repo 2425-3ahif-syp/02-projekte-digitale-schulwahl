@@ -50,22 +50,25 @@ public class PdfView {
     private void createUI() {
 
         VBox main = new VBox();
-        main.setAlignment(Pos.CENTER);
-        main.setSpacing(10);
+        main.setAlignment(Pos.TOP_CENTER);
+        main.setSpacing(45);
         allClasses = studentRepository.getAllClasses();
+
+        String secondHeading = "Codes für gewählte Klasse erstellen";
+        VBox headingContent = baseStruct.createHeadingSection(secondHeading);
 
         ComboBox<String> classDropdown = new ComboBox<>();
         classDropdown.getStyleClass().add("class-dropdown");
         classDropdown.getItems().addAll(allClasses);
         classDropdown.setPromptText("Klasse auswählen");
-        classDropdown.setMaxWidth(300);
 
         classDropdown.setOnAction(event -> {
             String selectedClass = classDropdown.getValue();
             classId = studentRepository.getClassId(selectedClass);
         });
 
-        root.setCenter(classDropdown);
+        main.getChildren().addAll(headingContent, classDropdown);
+        root.setCenter(main);
 
         VBox bottomBox = new VBox();
         bottomBox.setSpacing(10);

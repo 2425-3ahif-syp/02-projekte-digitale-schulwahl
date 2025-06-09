@@ -1,5 +1,7 @@
+import javafx.scene.Scene;
+/*
 // TODO
-/*package at.htl.digitaleschulwahl.app;
+package at.htl.digitaleschulwahl.app;
 
 import at.htl.digitaleschulwahl.presenter.MainPresenter;
 import at.htl.digitaleschulwahl.presenter.VotingPresenter;
@@ -34,7 +36,7 @@ public class MainApplication extends Application {
                Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
                einmal für Abteilungssprecher ... wird dann noch gehandelt!
              */
-            var votingScene = new Scene(votingView.getRoot(),900,600);
+           /* var votingScene = new Scene(votingView.getRoot(),900,600);
 
 
             primaryStage.setTitle("Digitale Schulwahl");

@@ -77,32 +77,8 @@ public class VotingView {
     public VBox createVotingUI() {
         VBox mainContainer = new VBox();
 
-        VBox headingContent = new VBox();
-        headingContent.getStyleClass().add("content");
-
-        HBox headingTitle = new HBox();
-        headingTitle.setAlignment(Pos.CENTER);
-
-        Label firstHeading = new Label("Digitale Schulwahl - Wahl");
-        firstHeading.getStyleClass().add("first-heading");
-
-        Line line = new Line();
-        line.getStyleClass().add("underline");
-
-        VBox headingBox = new VBox();
-        headingBox.setAlignment(Pos.CENTER);
-        headingBox.getChildren().addAll(firstHeading, line);
-
-        firstHeading.widthProperty().addListener((a, b, newWidth) -> {
-            line.setStartX(-40);
-            line.setEndX(newWidth.doubleValue() + 40);
-        });
-
-        secondHeading = new Label(controller.getSecondHeading());
-        secondHeading.getStyleClass().add("second-heading");
-        headingBox.getChildren().add(secondHeading);
-
-        headingContent.getChildren().add(headingBox);
+        String secondHeading = controller.getSecondHeading();
+        VBox headingContent = baseStruct.createHeadingSection(secondHeading);
 
         VBox votingSection = new VBox();
         votingSection.getStyleClass().add("voting-content");
