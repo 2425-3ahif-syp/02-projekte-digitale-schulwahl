@@ -61,7 +61,7 @@
     -fx-background-color: #ffffff;
     -fx-pref-width: 450px;
     -fx-text-fill: black;
-    -fx-font-size: 14px;
+    -fx-font-size: 18px;
     -fx-padding: 10px 30px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
@@ -128,9 +128,7 @@
 .bottom-button {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-padding: 10px 150px;
     -fx-border-radius: 50px;
 }
 
