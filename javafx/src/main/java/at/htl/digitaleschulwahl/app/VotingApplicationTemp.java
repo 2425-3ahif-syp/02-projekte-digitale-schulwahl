@@ -29,6 +29,7 @@ public class VotingApplicationTemp extends Application {
 
             primaryStage.setTitle("Digitale Schulwahl");
             primaryStage.setScene(votingScene);
+            primaryStage.setResizable(true);
             primaryStage.show();
 
         } catch (Exception e) {
