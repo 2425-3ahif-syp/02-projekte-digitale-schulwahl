@@ -60,6 +60,14 @@ public class MainPresenter {
         bind();
     }
 
+    public void navigateToVotingView(){
+        VotingPresenter presenter = new VotingPresenter();
+        presenter.show(stage);
+    }
+
+    public void navigateToPdfGenerationView(){
+
+    }
 
 
     public void tryLogin(){
@@ -69,6 +77,7 @@ public class MainPresenter {
             if(code.isEmpty()){
                 ToastNotification.show(stage, "Bitte gib deinen Code ein!", "error");
             } else{
+                navigateToVotingView();
             }
         } else{
             ToastNotification.show(stage, "Lehrer login noch nicht in Arbeit", "warning");
