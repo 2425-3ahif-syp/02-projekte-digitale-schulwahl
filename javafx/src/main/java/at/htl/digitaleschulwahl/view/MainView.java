@@ -138,6 +138,8 @@ public class MainView {
 
             ComboBox<String> classField = new ComboBox<>();
             classField.setPromptText("Klasse");
+            classField.getStyleClass().add("combo-box");
+            classField.setPrefWidth(1000);
 
             formBox.getChildren().addAll(nameField, passwordField, classField);
 

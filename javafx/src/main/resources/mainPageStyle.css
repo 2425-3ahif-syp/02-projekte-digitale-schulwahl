@@ -60,3 +60,8 @@
     -fx-border-radius: 6;
     -fx-cursor: hand;
 }
+
+.combo-box{
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+}
