@@ -9,16 +9,23 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class MainView {
-    private final MainPresenter controller = new MainPresenter();
     private final BorderPane root = new BorderPane();
     BaseStructureView baseStruct = new BaseStructureView(root);
 
 
     private final ToggleButton studentToggle = new ToggleButton("Schüler:in");
     private final ToggleButton teacherToggle = new ToggleButton("Lehrkraft");
-    private final TextField codeField = new TextField();
     private final Button loginButton = new Button("Login");
     private final VBox formBox = new VBox(15);
+
+
+    private TextField studentCodeField;
+    private TextField teacherNameField;
+    private PasswordField teacherPasswordField;
+    private ComboBox<String> classComboBox;
+
+
+    private final ComboBox<String> classField = new ComboBox<>();
 
     public MainView() {
         createUI();
@@ -135,7 +142,6 @@ public class MainView {
             PasswordField passwordField = new PasswordField();
             passwordField.setPromptText("Passwort");
 
-            ComboBox<String> classField = new ComboBox<>();
             classField.setPromptText("Klasse");
             classField.getStyleClass().add("combo-box");
             classField.setPrefWidth(1000);
@@ -143,7 +149,7 @@ public class MainView {
             formBox.getChildren().addAll(nameField, passwordField, classField);
 
             // Falls du die Felder an MainPresenter übergeben willst:
-            controller.setTeacherFormFields(nameField, passwordField, classField);
+            setTeacherFormFields(nameField, passwordField, classField);
 
         } else {
             TextField codeField = new TextField();
@@ -151,10 +157,35 @@ public class MainView {
 
             formBox.getChildren().add(codeField);
 
-            controller.setStudentFormField(codeField);
+            setStudentFormField(codeField);
         }
     }
 
+    public void setStudentFormField(TextField field) {
+        this.studentCodeField = field;
+    }
 
+    public void setTeacherFormFields(TextField name, PasswordField pw, ComboBox<String> classComboBox) {
+        this.teacherNameField = name;
+        this.teacherPasswordField = pw;
+        this.classComboBox = classComboBox;
+    }
+
+
+    public ComboBox<String> getClassField() {
+        return classField;
+    }
+
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public ToggleButton getTeacherToggle() {
+        return teacherToggle;
+    }
+
+    public ToggleButton getStudentToggle() {
+        return studentToggle;
+    }
 
 }

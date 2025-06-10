@@ -16,19 +16,21 @@ public class MainPresenter {
 
     private static Stage stage;
 
-    private TextField studentCodeField;
-    private TextField teacherNameField;
-    private PasswordField teacherPasswordField;
-    private ComboBox<String> classComboBox;
+
     private final StudentRepository studentRepository = new StudentRepository();
 
-    public void MainPresenter(MainView view) {
+    public MainPresenter(MainView view) {
         this.view = view;
         fillComboBox();
+        bind();
     }
+
+
 
     public static void show(Stage stage){
         MainView view = new MainView();
+        MainPresenter controller = new MainPresenter(view);
+
 
         String css = MainPresenter.class.getResource("/mainPageStyle.css").toExternalForm();
         String css1 = MainPresenter.class.getResource("/votingPageStyle.css").toExternalForm();
@@ -41,26 +43,18 @@ public class MainPresenter {
         stage.show();
         MainPresenter.stage = stage;
 
-
-
     }
 
-    public void setStudentFormField(TextField field) {
-        this.studentCodeField = field;
-    }
 
-    public void setTeacherFormFields(TextField name, PasswordField pw, ComboBox<String> classComboBox) {
-        this.teacherNameField = name;
-        this.teacherPasswordField = pw;
-        this.classComboBox = classComboBox;
-    }
 
     public void bind(){
-
+        view.getClassField().setItems(classList);
     }
 
     public void fillComboBox() {
         classList.clear();
         classList.addAll(studentRepository.getAllClasses());
+        System.out.println(studentRepository.getAllClasses());
+        bind();
     }
 }
