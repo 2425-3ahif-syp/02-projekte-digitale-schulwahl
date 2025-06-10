@@ -1,5 +1,6 @@
 package at.htl.digitaleschulwahl.presenter;
 
+import at.htl.digitaleschulwahl.database.DatabaseManager;
 import at.htl.digitaleschulwahl.database.DiagrammRepository;
 import at.htl.digitaleschulwahl.database.DiagrammRepository.ClassInfo;
 import at.htl.digitaleschulwahl.database.DiagrammRepository.VoteCount;
@@ -8,6 +9,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -20,6 +23,7 @@ import java.util.List;
 public class DiagrammPresenter {
     private final DiagrammView view;
     private final DiagrammRepository repository;
+    private static Stage stage;
 
     // Wir behalten zwei Rollen in einem Array, um zyklisch zwischen ihnen umzuschalten.
     private final String[] roles = { "Schülersprecher", "Abteilungsvertreter" };
@@ -48,6 +52,25 @@ public class DiagrammPresenter {
         // 4) Erstmaliges Zeichnen: globales Diagramm + Kandidatenliste für erste Klasse
         refreshChart();
         refreshCandidateList();
+    }
+
+    public static void show(Stage stage){
+        DiagrammRepository repo = new DiagrammRepository(DatabaseManager.getInstance().getConnection());
+        DiagrammView view = new DiagrammView();
+
+        String css = DiagrammPresenter.class.getResource("/votingPageStyle.css").toExternalForm();
+
+        new DiagrammPresenter(repo, view);
+
+        Scene scene = new Scene(view.getRoot(), 1000, 600);
+        scene.getStylesheets().add(css);
+
+        stage.setTitle("Digitale Schulwahl – Auswertung");
+        stage.setScene(scene);
+        stage.show();
+        DiagrammPresenter.stage=stage;
+
+
     }
 
     /**
