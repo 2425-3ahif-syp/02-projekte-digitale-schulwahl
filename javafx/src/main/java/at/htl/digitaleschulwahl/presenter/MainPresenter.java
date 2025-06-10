@@ -45,8 +45,6 @@ public class MainPresenter {
 
     }
 
-
-
     public void bind(){
         view.getClassField().setItems(classList);
     }
@@ -56,5 +54,9 @@ public class MainPresenter {
         classList.addAll(studentRepository.getAllClasses());
         System.out.println(studentRepository.getAllClasses());
         bind();
+    }
+
+    public void tryLogin(){
+
     }
 }

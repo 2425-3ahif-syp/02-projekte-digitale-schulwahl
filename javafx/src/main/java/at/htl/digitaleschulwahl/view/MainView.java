@@ -19,13 +19,10 @@ public class MainView {
     private final VBox formBox = new VBox(15);
 
 
-    private TextField studentCodeField;
-    private TextField teacherNameField;
-    private PasswordField teacherPasswordField;
-    private ComboBox<String> classComboBox;
-
-
-    private final ComboBox<String> classField = new ComboBox<>();
+    private TextField studentCodeField = new TextField();
+    private TextField teacherNameField = new TextField();
+    private PasswordField teacherPasswordField = new PasswordField();
+    private ComboBox<String> classField = new ComboBox<>();
 
     public MainView() {
         createUI();
@@ -136,28 +133,24 @@ public class MainView {
         formBox.getChildren().clear();
 
         if (userType.equals("teacher")) {
-            TextField nameField = new TextField();
-            nameField.setPromptText("Name");
+            teacherNameField.setPromptText("Name");
 
-            PasswordField passwordField = new PasswordField();
-            passwordField.setPromptText("Passwort");
+            teacherPasswordField.setPromptText("Passwort");
 
             classField.setPromptText("Klasse");
             classField.getStyleClass().add("combo-box");
             classField.setPrefWidth(1000);
 
-            formBox.getChildren().addAll(nameField, passwordField, classField);
+            formBox.getChildren().addAll(teacherNameField, teacherPasswordField, classField);
 
-            // Falls du die Felder an MainPresenter übergeben willst:
-            setTeacherFormFields(nameField, passwordField, classField);
+            setTeacherFormFields(teacherNameField, teacherPasswordField, classField);
 
         } else {
-            TextField codeField = new TextField();
-            codeField.setPromptText("Code");
+            studentCodeField.setPromptText("Code");
 
-            formBox.getChildren().add(codeField);
+            formBox.getChildren().add(studentCodeField);
 
-            setStudentFormField(codeField);
+            setStudentFormField(studentCodeField);
         }
     }
 
@@ -168,7 +161,7 @@ public class MainView {
     public void setTeacherFormFields(TextField name, PasswordField pw, ComboBox<String> classComboBox) {
         this.teacherNameField = name;
         this.teacherPasswordField = pw;
-        this.classComboBox = classComboBox;
+        this.classField = classComboBox;
     }
 
 
