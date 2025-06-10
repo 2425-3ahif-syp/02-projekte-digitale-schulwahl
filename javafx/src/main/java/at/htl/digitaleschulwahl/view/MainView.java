@@ -136,7 +136,7 @@ public class MainView {
             PasswordField passwordField = new PasswordField();
             passwordField.setPromptText("Passwort");
 
-            TextField classField = new TextField();
+            ComboBox<String> classField = new ComboBox<>();
             classField.setPromptText("Klasse");
 
             formBox.getChildren().addAll(nameField, passwordField, classField);
