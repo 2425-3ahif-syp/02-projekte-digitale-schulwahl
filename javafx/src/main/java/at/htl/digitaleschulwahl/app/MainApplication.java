@@ -1,3 +1,5 @@
+import javafx.scene.Scene;
+/*
 // TODO
 package at.htl.digitaleschulwahl.app;
 
@@ -12,7 +14,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         MainPresenter.show(primaryStage);
-    }
+        }
 
     @Override
     public void stop() {

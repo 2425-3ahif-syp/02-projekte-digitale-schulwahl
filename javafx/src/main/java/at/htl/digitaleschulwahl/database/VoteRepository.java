@@ -26,7 +26,6 @@ public class VoteRepository {
             statement.setInt(2, vote.getRanking());
             statement.setInt(3, vote.getClassIdFromVoter());
             statement.executeUpdate();
-            System.out.println("Vote for Candidate  " + vote.getCandidate() + " with ranking " + vote.getRanking() + " recorded.");
         } catch (SQLException e) {
             e.printStackTrace();
         }

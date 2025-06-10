@@ -5,6 +5,7 @@ import at.htl.digitaleschulwahl.database.CandidateRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.view.VotingView;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -165,7 +166,11 @@ public class VotingPresenter {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
                 // TODO: class id richtig getten
                 voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
-                System.out.println("Kandidat: " + entry.getKey().getName() + " => Punkte: " + entry.getValue());
+            }
+            for(Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes1.entrySet()) {
+                Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
+                // TODO: class id richtig getten
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
             }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
@@ -278,8 +283,21 @@ public class VotingPresenter {
         }
     }
 
+    public void show(Stage primaryStage) {
+        Scene scene = new Scene(view.getRoot(), 900, 700);
+        String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        primaryStage.setTitle("Digitale Schulwahl");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
     public VotingView getView() {
         return view;
     }
+
+
 
 }
