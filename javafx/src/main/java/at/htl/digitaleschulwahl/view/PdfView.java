@@ -18,6 +18,9 @@ public class PdfView {
     private final BorderPane root = new BorderPane();
     private final TableView<Student> tableView = new TableView<>();
     private final StudentRepository studentRepository = new StudentRepository();
+
+    private final Button generateButton = new Button("Codes generieren");
+
     BaseStructureView baseStruct = new BaseStructureView(root);
     private Integer classId;
     private String[] allClasses;
@@ -74,7 +77,6 @@ public class PdfView {
         bottomBox.setSpacing(10);
         bottomBox.getStyleClass().add("bottom-button-container");
 
-        Button generateButton = new Button("Codes generieren");
         generateButton.getStyleClass().add("bottom-button");
 
         bottomBox.getChildren().addAll(generateButton);

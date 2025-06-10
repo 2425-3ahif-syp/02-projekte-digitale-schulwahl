@@ -2,6 +2,9 @@ package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.model.Student;
+import at.htl.digitaleschulwahl.view.PdfView;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -23,7 +26,8 @@ public class PdfPresenter {
     public interface PdfSaveCallback {
         void onPdfSaved(String filePath);
     }
-    
+
+    private final PdfView view;
     private final StudentRepository studentRepository;
     private final Random random = new Random();
     private PdfSaveCallback pdfSaveCallback;
@@ -31,6 +35,17 @@ public class PdfPresenter {
 
     public PdfPresenter() {
         studentRepository = new StudentRepository();
+        this.view = new PdfView(this);
+    }
+
+    public void show(Stage primaryStage){
+        Scene scene = new Scene(view.getRoot(), 900, 700);
+        String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        primaryStage.setTitle("Digitale Schulwahl");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
     
     public void setPdfSaveCallback(PdfSaveCallback callback) {
