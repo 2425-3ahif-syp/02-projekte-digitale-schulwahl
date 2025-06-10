@@ -183,6 +183,11 @@
     -fx-font-size: 16px;
 }
 
+.combo-box{
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+}
+
 .combo-box-popup .list-view {
     -fx-cell-horizontal-padding: 10px;
 }
