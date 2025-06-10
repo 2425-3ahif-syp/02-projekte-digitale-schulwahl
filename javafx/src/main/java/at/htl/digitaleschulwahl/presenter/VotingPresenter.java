@@ -284,10 +284,9 @@ public class VotingPresenter {
         }
     }
 
-    public static void show(Stage primaryStage) {
-        VotingView view = new VotingView(new VotingPresenter());
+    public void show(Stage primaryStage) {
         Scene scene = new Scene(view.getRoot(), 900, 700);
-        String css = VotingPresenter.class.getResource("/votingPageStyle.css").toExternalForm();
+        String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Digitale Schulwahl");
