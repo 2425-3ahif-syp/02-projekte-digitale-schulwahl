@@ -1,8 +1,37 @@
 .toast-label {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-font-size: 12px;
-    -fx-padding: 10px 15px;
-    -fx-border-color: #cccccc;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 20px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
     -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 2);
+}
+
+/* Success: Green */
+.toast-success {
+    -fx-background-color: #d4f7dc;
+    -fx-text-fill: #2e7d32;
+    -fx-border-color: #b2dfdb;
+}
+
+/* Info: Blue */
+.toast-info {
+    -fx-background-color: #d0f0fd;
+    -fx-text-fill: #0277bd;
+    -fx-border-color: #81d4fa;
+}
+
+/* Warning: Yellow */
+.toast-warning {
+    -fx-background-color: #fff4d0;
+    -fx-text-fill: #ff8f00;
+    -fx-border-color: #ffe082;
+}
+
+/* Error: Red */
+.toast-error {
+    -fx-background-color: #ffdadb;
+    -fx-text-fill: #c62828;
+    -fx-border-color: #ef9a9a;
 }

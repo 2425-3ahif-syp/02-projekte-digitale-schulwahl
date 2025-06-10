@@ -39,7 +39,7 @@ public class PdfView {
     private void showPdfSavedToast(String filePath) {
         if (primaryStage != null) {
             String fileName = filePath.substring(filePath.lastIndexOf(File.separatorChar) + 1);
-            ToastNotification.show(primaryStage, "PDF gespeichert: " + fileName);
+            ToastNotification.show(primaryStage, "PDF gespeichert: " + fileName, "success");
         }
     }
 
