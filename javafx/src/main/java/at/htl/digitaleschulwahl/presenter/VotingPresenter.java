@@ -165,7 +165,11 @@ public class VotingPresenter {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
                 // TODO: class id richtig getten
                 voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
-                System.out.println("Kandidat: " + entry.getKey().getName() + " => Punkte: " + entry.getValue());
+            }
+            for(Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes1.entrySet()) {
+                Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
+                // TODO: class id richtig getten
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
             }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
