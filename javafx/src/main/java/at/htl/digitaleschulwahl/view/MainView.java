@@ -18,7 +18,6 @@ public class MainView {
     private final Button loginButton = new Button("Login");
     private final VBox formBox = new VBox(15);
 
-
     private TextField studentCodeField = new TextField();
     private TextField teacherNameField = new TextField();
     private PasswordField teacherPasswordField = new PasswordField();
@@ -179,6 +178,18 @@ public class MainView {
 
     public ToggleButton getStudentToggle() {
         return studentToggle;
+    }
+
+    public TextField getStudentCodeField() {
+        return studentCodeField;
+    }
+
+    public TextField getTeacherNameField() {
+        return teacherNameField;
+    }
+
+    public PasswordField getTeacherPasswordField() {
+        return teacherPasswordField;
     }
 
 }
