@@ -60,6 +60,10 @@ public class MainPresenter {
         bind();
     }
 
+    public void switchToVote(){
+        VotingPresenter.show(stage);
+    }
+
     public void tryLogin(){
         if(view.getStudentToggle().isSelected()){
             String code = view.getStudentCodeField().getText().trim();
@@ -67,10 +71,10 @@ public class MainPresenter {
             if(code.isEmpty()){
                 ToastNotification.show(stage, "Bitte gib deinen Code ein!", "error");
             } else{
-
+                switchToVote();
             }
         } else{
-
+            ToastNotification.show(stage, "Lehrer login noch nicht in Arbeit", "warning");
         }
     }
 }

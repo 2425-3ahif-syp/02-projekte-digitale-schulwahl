@@ -10,7 +10,6 @@ public class VotingApplicationTemp extends Application {
     @Override
     public void start(Stage primaryStage) {
       try {
-          var databaseManager = DatabaseManager.getInstance();
           VotingPresenter presenter = new VotingPresenter();
           presenter.show(primaryStage);
 

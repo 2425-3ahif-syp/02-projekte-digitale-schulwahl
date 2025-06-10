@@ -4,6 +4,7 @@ import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.database.CandidateRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
+import at.htl.digitaleschulwahl.view.MainView;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -283,9 +284,10 @@ public class VotingPresenter {
         }
     }
 
-    public void show(Stage primaryStage) {
+    public static void show(Stage primaryStage) {
+        VotingView view = new VotingView(new VotingPresenter());
         Scene scene = new Scene(view.getRoot(), 900, 700);
-        String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
+        String css = VotingPresenter.class.getResource("/votingPageStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
 
         primaryStage.setTitle("Digitale Schulwahl");
