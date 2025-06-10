@@ -66,7 +66,8 @@ public class MainPresenter {
     }
 
     public void navigateToPdfGenerationView(){
-
+        PdfPresenter presenter = new PdfPresenter();
+        presenter.show(stage);
     }
 
 
@@ -80,7 +81,7 @@ public class MainPresenter {
                 navigateToVotingView();
             }
         } else{
-            ToastNotification.show(stage, "Lehrer login noch nicht in Arbeit", "warning");
+            navigateToPdfGenerationView();
         }
     }
 }
