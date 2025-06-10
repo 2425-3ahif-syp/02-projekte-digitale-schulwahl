@@ -16,11 +16,11 @@ public class PdfApplication extends Application {
 
             var databaseManager = DatabaseManager.getInstance();
             var mainController = new PdfPresenter();
-            var votingController = new VotingPresenter();
+           // var votingController = new VotingPresenter();
 
             var mainView = new PdfView(mainController);
             mainView.setPrimaryStage(primaryStage);
-            var votingView = new VotingView(votingController);
+         //   var votingView = new VotingView(votingController);
             String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
 
             var mainScene = new Scene(mainView.getRoot(), 900, 600);
@@ -31,7 +31,7 @@ public class PdfApplication extends Application {
              * Eine zweite votingScene wird dann noch benötigt, weil einmal für SV und
              * einmal für Abteilungssprecher ... wird dann noch gehandelt!
              */
-            var votingScene = new Scene(votingView.getRoot(), 900, 600);
+            //   var votingScene = new Scene(votingView.getRoot(), 900, 600);
 
             primaryStage.setTitle("Digitale Schulwahl");
             primaryStage.setScene(mainScene);
