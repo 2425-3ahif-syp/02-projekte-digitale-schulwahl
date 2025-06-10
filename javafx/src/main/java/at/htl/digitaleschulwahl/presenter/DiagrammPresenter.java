@@ -24,6 +24,8 @@ public class DiagrammPresenter {
     // Wir behalten zwei Rollen in einem Array, um zyklisch zwischen ihnen umzuschalten.
     private final String[] roles = { "Schülersprecher", "Abteilungsvertreter" };
     private int currentRoleIndex = 0; // 0 = Schülersprecher, 1 = Abteilungsvertreter
+    private boolean showingOverall = false;
+
 
     public DiagrammPresenter(DiagrammRepository repository, DiagrammView view) {
         this.repository = repository;
@@ -39,6 +41,9 @@ public class DiagrammPresenter {
         view.addPrevRoleListener(this::onPrevRoleClicked);
         view.addNextRoleListener(this::onNextRoleClicked);
         view.addClassSelectionListener(this::onClassSelectionChanged);
+        view.addShowOverallListener(this::onShowOverallClicked);
+
+
 
         // 4) Erstmaliges Zeichnen: globales Diagramm + Kandidatenliste für erste Klasse
         refreshChart();
@@ -131,7 +136,28 @@ public class DiagrammPresenter {
             view.updateCandidateList(classCounts);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Optional: hier einen Fehler in der View anzeigen lassen
+
         }
     }
+    private void onShowOverallClicked(ActionEvent event) {
+        String currentRole = roles[currentRoleIndex];
+        try {
+            List<VoteCount> allCounts = repository.getVoteCountsByRole(currentRole);
+            double total = allCounts.stream().mapToDouble(VoteCount::getCount).sum();
+
+            List<String> overallList = allCounts.stream()
+                    .map(vc -> {
+                        double pct = total > 0 ? vc.getCount() / total * 100 : 0;
+                        return vc.getCandidateName() + ": " + String.format("%.1f", pct) + " %";
+                    })
+                    .toList();
+
+            view.updateCandidateListWithPercentages(overallList); // ← NEU
+            showingOverall = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

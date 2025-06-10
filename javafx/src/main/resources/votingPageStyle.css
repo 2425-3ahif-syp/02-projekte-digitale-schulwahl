@@ -184,3 +184,49 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.3, 0, 2);
 }
 
+/* -----------------------------
+   Chart (PieChart) – Dark Theme
+   ----------------------------- */
+
+/* Haupt-Container des Charts */
+.chart {
+    -fx-background-color: #424242;    /* dunkler Hintergrund */
+    -fx-padding: 10;                  /* etwas Innenabstand */
+    -fx-border-color: #555555;        /* optionaler Rahmen */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Titel des Charts (z.B. "Gesamtverteilung") */
+.chart .chart-title {
+    -fx-text-fill: white;             /* Titel in Weiß */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Beschriftungen der einzelnen Pie-Segmente */
+.chart .chart-pie-label {
+    -fx-fill: white;            /* Alternative zu -fx-text-fill */
+    -fx-font-size: 16px;        /* Größer */
+    -fx-font-weight: bold;      /* Optional für mehr Sichtbarkeit */
+}
+
+
+/* Tooltip‐Style (wenn man mit der Maus über ein Segment fährt) */
+.chart .chart-legend-item {
+    -fx-text-fill: black;             /* Legenden-Einträge in Weiß */
+}
+
+/* Legenden‐Container (falls ihr eine Legende anzeigt) */
+.chart .legend {
+    -fx-background-color: transparent; /* transparent, damit nur das Chart selbst dunkel bleibt */
+}
+
+/* Bei Bedarf könnt ihr noch spezifischer werden: */
+/* Labels auf den Slices (z.B. Prozent- oder Werte-Labels) */
+
+/* Optional: Rand des gesamten Charts */
+.chart {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.5, 0, 0);
+}

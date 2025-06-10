@@ -72,7 +72,7 @@ public class DiagrammRepository {
         List<ClassInfo> classes = new ArrayList<>();
 
         String sql = """
-            SELECT id, class_name
+            SELECT id, extract(year from current_date)-start_year||class_name as class_name
               FROM class
              ORDER BY class_name
         """;

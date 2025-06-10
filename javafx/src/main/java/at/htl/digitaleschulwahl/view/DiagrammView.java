@@ -5,6 +5,7 @@ import at.htl.digitaleschulwahl.database.DiagrammRepository.VoteCount;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -14,8 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * DiagrammView: zeigt das Tortendiagramm (links) und rechts
@@ -32,39 +35,91 @@ public class DiagrammView {
     private final Button prevRoleButton;
     private final Button nextRoleButton;
     private final Label roleLabel;
+    private final Button showOverallButton;
     private final ComboBox<ClassInfo> classComboBox;
     private final ListView<String> candidateListView;
+    private final ListView<String> percentageListView;
 
     public DiagrammView() {
         this.baseStruct = new BaseStructureView(root);
-        baseStruct.createNavBar(); // obere Navigationsleiste / Überschrift
+        baseStruct.createNavBar(); // htl leonding logo
+
+        root.getStyleClass().add("content");
+        root.setPadding(new Insets(0, 10, 10, 10));
 
         // ---- UI‐Initialisierung ----
         pieChart = new PieChart();
         pieChart.setTitle("Gesamtverteilung");
-        // Hinweis: Hier könnte noch „– bitte Rolle wählen“ stehen, bis der Presenter initialisiert
+        pieChart.setStyle("-fx-background-color: #424242; -fx-text-fill: white;");
+        pieChart.getStyleClass().add("chart");
+
+        pieChart.setScaleX(1);
+        pieChart.setScaleY(1);
+
 
         prevRoleButton = new Button("←");
+        prevRoleButton.getStyleClass().add("button");
         nextRoleButton = new Button("→");
-        roleLabel = new Label("Schülersprecher");
-        roleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        nextRoleButton.getStyleClass().add("button");
 
-        HBox carouselBox = new HBox(5);
+        roleLabel = new Label("Schülersprecher");
+        roleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
+
+        HBox carouselBox = new HBox(10);
+        carouselBox.setPadding(new Insets(10, 0, 10, 0));
         carouselBox.getChildren().addAll(prevRoleButton, roleLabel, nextRoleButton);
+        carouselBox.setStyle("-fx-alignment: center;");
 
         classComboBox = new ComboBox<>();
         classComboBox.setPromptText("Wähle eine Klasse");
+        classComboBox.setStyle(
+                "-fx-background-color: #555555; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-prompt-text-fill: #cccccc; " +
+                        "-fx-font-size: 14px;"
+        );
+
+
+        showOverallButton = new Button("Gesamt");
+        showOverallButton.getStyleClass().add("button");
+
+        HBox classSelectionBox = new HBox(10, classComboBox, showOverallButton);
+        classSelectionBox.setStyle("-fx-alignment: center-left;");
 
         candidateListView = new ListView<>();
         candidateListView.setPlaceholder(new Label("Kein Ergebnis"));
+        candidateListView.setStyle(
+                "-fx-control-inner-background: #424242; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px;"
+        );
+
+        percentageListView = new ListView<>();
+        percentageListView.setPlaceholder(new Label("Noch keine Daten"));
+        percentageListView.setStyle(
+                "-fx-control-inner-background: #333333; " +
+                        "-fx-text-fill: #00ff99; " +
+                        "-fx-font-size: 14px;"
+        );
+        ((Label) percentageListView.getPlaceholder()).setStyle("-fx-text-fill: #888888;");
+
+
+        ((Label) candidateListView.getPlaceholder()).setStyle("-fx-text-fill: #bbbbbb;");
 
         // Layout: PieChart links, rechts VBox mit Carousel / ComboBox / ListView
         BorderPane.setMargin(pieChart, new Insets(10));
         root.setLeft(pieChart);
 
-        VBox rightVBox = new VBox(10);
+        VBox rightVBox = new VBox(15);
+
+        rightVBox.setPrefWidth(400);
+        rightVBox.setMinWidth(400);
+        rightVBox.setMaxWidth(400);
+
+
         rightVBox.setPadding(new Insets(10));
-        rightVBox.getChildren().addAll(carouselBox, classComboBox, candidateListView);
+        rightVBox.getChildren().addAll(carouselBox, classSelectionBox, candidateListView);
+        rightVBox.setStyle("-fx-background-color: transparent;");
         VBox.setVgrow(candidateListView, Priority.ALWAYS);
         root.setRight(rightVBox);
     }
@@ -120,12 +175,17 @@ public class DiagrammView {
     public void updateChart(String title, List<VoteCount> data) {
         pieChart.setTitle(title);
 
+        double total = data.stream().mapToDouble(VoteCount::getCount).sum();
+
         ObservableList<PieChart.Data> slices = FXCollections.observableArrayList();
         for (VoteCount vc : data) {
+            double pct = total > 0 ? vc.getCount() / total * 100 : 0;
+
             PieChart.Data slice = new PieChart.Data(vc.getCandidateName(), vc.getCount());
             slices.add(slice);
         }
         pieChart.setData(slices);
+
     }
 
     /**
@@ -148,4 +208,14 @@ public class DiagrammView {
     public ClassInfo getSelectedClass() {
         return classComboBox.getSelectionModel().getSelectedItem();
     }
+
+    public void addShowOverallListener(EventHandler<ActionEvent> listener) {
+        showOverallButton.setOnAction(listener);
+    }
+    public void updateCandidateListWithPercentages(List<String> percentageRows) {
+        ObservableList<String> items = FXCollections.observableArrayList(percentageRows);
+        candidateListView.setItems(items);
+    }
+
+
 }
