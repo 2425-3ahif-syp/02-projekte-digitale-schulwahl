@@ -9,7 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class MainView {
-    private final MainPresenter controller;
+    private final MainPresenter controller = new MainPresenter();
     private final BorderPane root = new BorderPane();
     BaseStructureView baseStruct = new BaseStructureView(root);
 
@@ -20,8 +20,7 @@ public class MainView {
     private final Button loginButton = new Button("Login");
     private final VBox formBox = new VBox(15);
 
-    public MainView(MainPresenter controller) {
-        this.controller = controller;
+    public MainView() {
         createUI();
         baseStruct.createNavBar();
     }

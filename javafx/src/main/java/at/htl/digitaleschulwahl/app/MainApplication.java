@@ -11,25 +11,7 @@ import javafx.stage.Stage;
 public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
-        try {
-
-            var mainController = new MainPresenter();
-
-            var mainView = new MainView(mainController);
-            String css = getClass().getResource("/mainPageStyle.css").toExternalForm();
-            String css1 = getClass().getResource("/votingPageStyle.css").toExternalForm();
-
-            var mainScene = new Scene(mainView.getRoot(), 900, 600);
-            mainScene.getStylesheets().addAll(css1, css);
-
-            primaryStage.setTitle("Digitale Schulwahl");
-            primaryStage.setScene(mainScene);
-            primaryStage.setResizable(true);
-            primaryStage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        MainPresenter.show(primaryStage);
     }
 
     @Override
