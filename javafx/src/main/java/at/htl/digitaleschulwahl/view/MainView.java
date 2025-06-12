@@ -12,7 +12,6 @@ public class MainView {
     private final BorderPane root = new BorderPane();
     BaseStructureView baseStruct = new BaseStructureView(root);
 
-
     private final ToggleButton studentToggle = new ToggleButton("Schüler:in");
     private final ToggleButton teacherToggle = new ToggleButton("Lehrkraft");
     private final Button loginButton = new Button("Login");
@@ -26,6 +25,7 @@ public class MainView {
     public MainView() {
         createUI();
         baseStruct.createNavBar();
+        baseStruct.hideHomeButton();
     }
 
     public BorderPane getRoot() {
@@ -33,7 +33,7 @@ public class MainView {
     }
 
     private void createUI() {
-        //Überschrift
+        // Überschrift
         VBox headingBox = new VBox(10);
         headingBox.setAlignment(Pos.CENTER);
         headingBox.setPadding(new Insets(30, 10, 10, 10));
@@ -51,7 +51,7 @@ public class MainView {
 
         headingBox.getChildren().addAll(heading, line);
 
-        //Toggle & Eingabefeld
+        // Toggle & Eingabefeld
         VBox centerBox = new VBox(30);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(0, 40, 0, 40));
@@ -94,7 +94,6 @@ public class MainView {
             }
         });
 
-
         Region spacer = new Region();
         spacer.setMinHeight(10);
 
@@ -103,11 +102,9 @@ public class MainView {
         formBox.setPrefWidth(Double.MAX_VALUE);
         updateForm("student"); // Start mit Schüler:in
 
-        centerBox.getChildren().addAll(toggleBox,spacer, formBox);
+        centerBox.getChildren().addAll(toggleBox, spacer, formBox);
 
-
-
-        //Content-Box unter der NavBar
+        // Content-Box unter der NavBar
         VBox contentBox = new VBox(30);
         contentBox.setAlignment(Pos.TOP_CENTER);
         contentBox.setPadding(new Insets(20, 20, 20, 20));
@@ -115,7 +112,7 @@ public class MainView {
 
         root.setCenter(contentBox);
 
-        //Login-Button ganz unten
+        // Login-Button ganz unten
         VBox bottomBox = new VBox(loginButton);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.setPadding(new Insets(20));
@@ -126,7 +123,6 @@ public class MainView {
         root.setBottom(bottomBox);
         root.getStyleClass().add("main-root");
     }
-
 
     private void updateForm(String userType) {
         formBox.getChildren().clear();
@@ -162,7 +158,6 @@ public class MainView {
         this.teacherPasswordField = pw;
         this.classField = classComboBox;
     }
-
 
     public ComboBox<String> getClassField() {
         return classField;

@@ -30,6 +30,8 @@ public class PdfView {
         this.controller = controller;
         createUI();
         baseStruct.createNavBar();
+        baseStruct.showHomeButton();
+        baseStruct.setHomeButtonAction(e -> controller.navigateToHome());
         loadData();
 
         controller.setPdfSaveCallback(this::showPdfSavedToast);

@@ -43,6 +43,7 @@ public class DiagrammView {
     public DiagrammView() {
         this.baseStruct = new BaseStructureView(root);
         baseStruct.createNavBar(); // htl leonding logo
+        baseStruct.showHomeButton();
 
         root.getStyleClass().add("content");
         root.setPadding(new Insets(0, 10, 10, 10));
@@ -55,7 +56,6 @@ public class DiagrammView {
 
         pieChart.setScaleX(1);
         pieChart.setScaleY(1);
-
 
         prevRoleButton = new Button("←");
         prevRoleButton.getStyleClass().add("button");
@@ -76,9 +76,7 @@ public class DiagrammView {
                 "-fx-background-color: #555555; " +
                         "-fx-text-fill: white; " +
                         "-fx-prompt-text-fill: #cccccc; " +
-                        "-fx-font-size: 14px;"
-        );
-
+                        "-fx-font-size: 14px;");
 
         showOverallButton = new Button("Gesamt");
         showOverallButton.getStyleClass().add("button");
@@ -91,18 +89,15 @@ public class DiagrammView {
         candidateListView.setStyle(
                 "-fx-control-inner-background: #424242; " +
                         "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px;"
-        );
+                        "-fx-font-size: 14px;");
 
         percentageListView = new ListView<>();
         percentageListView.setPlaceholder(new Label("Noch keine Daten"));
         percentageListView.setStyle(
                 "-fx-control-inner-background: #333333; " +
                         "-fx-text-fill: #00ff99; " +
-                        "-fx-font-size: 14px;"
-        );
+                        "-fx-font-size: 14px;");
         ((Label) percentageListView.getPlaceholder()).setStyle("-fx-text-fill: #888888;");
-
 
         ((Label) candidateListView.getPlaceholder()).setStyle("-fx-text-fill: #bbbbbb;");
 
@@ -116,7 +111,6 @@ public class DiagrammView {
         rightVBox.setMinWidth(400);
         rightVBox.setMaxWidth(400);
 
-
         rightVBox.setPadding(new Insets(10));
         rightVBox.getChildren().addAll(carouselBox, classSelectionBox, candidateListView);
         rightVBox.setStyle("-fx-background-color: transparent;");
@@ -126,6 +120,10 @@ public class DiagrammView {
 
     public BorderPane getRoot() {
         return root;
+    }
+
+    public BaseStructureView getBaseStruct() {
+        return baseStruct;
     }
 
     // =========================================
@@ -144,7 +142,6 @@ public class DiagrammView {
         classComboBox.getSelectionModel().selectedItemProperty().addListener(listener);
     }
 
-
     public void setClassList(List<ClassInfo> classes) {
         ObservableList<ClassInfo> obs = FXCollections.observableArrayList(classes);
         classComboBox.setItems(obs);
@@ -154,13 +151,13 @@ public class DiagrammView {
     }
 
     /**
-     * Aktualisiert nur den Text “Rolle” (z.B. “Schülersprecher” oder “Abteilungsvertreter”)
+     * Aktualisiert nur den Text “Rolle” (z.B. “Schülersprecher” oder
+     * “Abteilungsvertreter”)
      * im Label im Carousel.
      */
     public void setRoleLabel(String roleText) {
         roleLabel.setText(roleText);
     }
-
 
     public void updateChart(String title, List<VoteCount> data) {
         pieChart.setTitle(title);
@@ -178,7 +175,6 @@ public class DiagrammView {
 
     }
 
-
     public void updateCandidateList(List<VoteCount> data) {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (VoteCount vc : data) {
@@ -195,10 +191,10 @@ public class DiagrammView {
     public void addShowOverallListener(EventHandler<ActionEvent> listener) {
         showOverallButton.setOnAction(listener);
     }
+
     public void updateCandidateListWithPercentages(List<String> percentageRows) {
         ObservableList<String> items = FXCollections.observableArrayList(percentageRows);
         candidateListView.setItems(items);
     }
-
 
 }

@@ -43,8 +43,9 @@ public class VotingView {
     public VotingView(VotingPresenter controller) {
         this.controller = controller;
         baseStruct.createNavBar();
+        baseStruct.showHomeButton();
+        baseStruct.setHomeButtonAction(e -> controller.navigateToHome());
         backButton.setVisible(false);
-
     }
 
     public void setSecondHeading(String text) {
