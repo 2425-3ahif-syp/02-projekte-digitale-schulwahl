@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class MainPresenter {
     private ObservableList<String> classList = FXCollections.observableArrayList();
     private MainView view;
@@ -24,19 +23,38 @@ public class MainPresenter {
         attachEvents();
     }
 
-
-
-    public static void show(Stage stage){
+    public static void show(Stage stage) {
         MainView view = new MainView();
         MainPresenter controller = new MainPresenter(view);
 
+        Scene scene = new Scene(view.getRoot(), 900, 600);
 
-        String css = MainPresenter.class.getResource("/mainPageStyle.css").toExternalForm();
-        String css1 = MainPresenter.class.getResource("/votingPageStyle.css").toExternalForm();
-        String css2 = MainPresenter.class.getResource("/toastNotification.css").toExternalForm();
+        try {
+            var mainPageCss = MainPresenter.class.getResource("/mainPageStyle.css");
+            var votingPageCss = MainPresenter.class.getResource("/votingPageStyle.css");
+            var toastCss = MainPresenter.class.getResource("/toastNotification.css");
 
-        Scene scene = new Scene(view.getRoot(), 900,600);
-        scene.getStylesheets().addAll(css2,css1, css);
+            if (mainPageCss != null) {
+                scene.getStylesheets().add(mainPageCss.toExternalForm());
+            } else {
+                System.err.println("Warning: mainPageStyle.css not found");
+            }
+
+            if (votingPageCss != null) {
+                scene.getStylesheets().add(votingPageCss.toExternalForm());
+            } else {
+                System.err.println("Warning: votingPageStyle.css not found");
+            }
+
+            if (toastCss != null) {
+                scene.getStylesheets().add(toastCss.toExternalForm());
+            } else {
+                System.err.println("Warning: toastNotification.css not found");
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading CSS files: " + e.getMessage());
+        }
+
         stage.setTitle("Digitale Schulwahl");
         stage.setScene(scene);
         stage.setResizable(true);
@@ -45,11 +63,11 @@ public class MainPresenter {
 
     }
 
-    public void bind(){
+    public void bind() {
         view.getClassField().setItems(classList);
     }
 
-    private void attachEvents(){
+    private void attachEvents() {
         view.getLoginButton().setOnAction(event -> tryLogin());
     }
 
@@ -60,27 +78,26 @@ public class MainPresenter {
         bind();
     }
 
-    public void navigateToVotingView(){
+    public void navigateToVotingView() {
         VotingPresenter presenter = new VotingPresenter();
         presenter.show(stage);
     }
 
-    public void navigateToPdfGenerationView(){
+    public void navigateToPdfGenerationView() {
         PdfPresenter presenter = new PdfPresenter();
         presenter.show(stage);
     }
 
-
-    public void tryLogin(){
-        if(view.getStudentToggle().isSelected()){
+    public void tryLogin() {
+        if (view.getStudentToggle().isSelected()) {
             String code = view.getStudentCodeField().getText().trim();
             System.out.println(code);
-            if(code.isEmpty()){
+            if (code.isEmpty()) {
                 ToastNotification.show(stage, "Bitte gib deinen Code ein!", "error");
-            } else{
+            } else {
                 navigateToVotingView();
             }
-        } else{
+        } else {
             navigateToPdfGenerationView();
         }
     }
