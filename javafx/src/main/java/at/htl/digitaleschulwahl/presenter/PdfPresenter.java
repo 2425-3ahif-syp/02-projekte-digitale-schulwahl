@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-
 public class PdfPresenter {
     public interface PdfSaveCallback {
         void onPdfSaved(String filePath);
@@ -32,13 +31,12 @@ public class PdfPresenter {
     private final Random random = new Random();
     private PdfSaveCallback pdfSaveCallback;
 
-
     public PdfPresenter() {
         studentRepository = new StudentRepository();
         this.view = new PdfView(this);
     }
 
-    public void show(Stage primaryStage){
+    public void show(Stage primaryStage) {
         Scene scene = new Scene(view.getRoot(), 900, 700);
         String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
@@ -47,14 +45,13 @@ public class PdfPresenter {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
     public void setPdfSaveCallback(PdfSaveCallback callback) {
         this.pdfSaveCallback = callback;
     }
 
-    public void generateAndSaveCodesForAllStudents(){
-        String code = generateRandomCode();
-        studentRepository.saveCodesForAllStudents(code);
+    public void generateAndSaveCodesForAllStudents() {
+        studentRepository.saveCodesForAllStudents(this::generateRandomCode);
     }
 
     public String generateRandomCode() {
@@ -74,8 +71,7 @@ public class PdfPresenter {
 
         pdfContent.append(studentRepository.getClass(classId)).append("\n\n");
 
-
-        for(Student student : students) {
+        for (Student student : students) {
             pdfContent.append(student.getFirstName()).append(" ").append(student.getLastName())
                     .append(" - Login Code: ").append(student.getLoginCode()).append("\n");
         }

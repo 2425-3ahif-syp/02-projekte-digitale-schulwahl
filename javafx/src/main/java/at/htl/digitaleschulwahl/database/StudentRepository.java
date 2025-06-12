@@ -50,16 +50,17 @@ public class StudentRepository {
         return students;
     }
 
-    public void saveCodesForAllStudents(String code) {
+    public void saveCodesForAllStudents(java.util.function.Supplier<String> codeGenerator) {
         try {
             var query = "UPDATE student SET login_code = ? WHERE id = ?";
 
             try (var statement = connection.prepareStatement(query)) {
                 for (var student : getAllStudents()) {
-                    statement.setString(1, code);
+                    String uniqueCode = codeGenerator.get();
+                    statement.setString(1, uniqueCode);
                     statement.setInt(2, student.getId());
                     statement.addBatch();
-                    student.setLoginCode(code);
+                    student.setLoginCode(uniqueCode);
                 }
 
                 statement.executeBatch();
