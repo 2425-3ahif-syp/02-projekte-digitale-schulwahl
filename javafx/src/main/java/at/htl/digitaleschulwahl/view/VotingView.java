@@ -2,6 +2,7 @@ package at.htl.digitaleschulwahl.view;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
+import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.presenter.VotingPresenter;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -12,9 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import java.util.*;
-
-
 
 public class VotingView {
     private final VotingPresenter controller;
@@ -26,19 +26,19 @@ public class VotingView {
     private Label secondHeading = new Label();
     private final HBox pointsHeader = new HBox(10);
 
-
     public HBox getPointsHeader() {
         return pointsHeader;
     }
 
-
     // temporär
     private final VoteRepository voteRepository = new VoteRepository();
 
-    // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige ToggleGroups zu speichern.
-    // Diese werden benötigt, um beim Absenden (Submit) die ausgewählten Rankings den richtigen Kandidaten zuzuordnen.
+    // Listen, um die aktuell angezeigten Kandidaten und deren zugehörige
+    // ToggleGroups zu speichern.
+    // Diese werden benötigt, um beim Absenden (Submit) die ausgewählten Rankings
+    // den richtigen Kandidaten zuzuordnen.
     private List<ToggleGroup> currentToggleGroups = new ArrayList<>();
-
+    private List<Candidate> currentCandidates = new ArrayList<>();
 
     public VotingView(VotingPresenter controller) {
         this.controller = controller;
@@ -46,7 +46,6 @@ public class VotingView {
         backButton.setVisible(false);
 
     }
-
 
     public void setSecondHeading(String text) {
         this.secondHeading.setText(text);
@@ -69,6 +68,61 @@ public class VotingView {
         submitButton.getStyleClass().add("submit-button");
         submitButton.setVisible(false);
 
+        submitButton.setOnAction(event -> {
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Wahl bestätigen");
+            confirmation.setHeaderText(null);
+            confirmation.setContentText("Sind Sie sicher, dass Sie Ihre Stimmen abgeben möchten? " +
+                    "Nach dem Abschicken kann Ihre Wahl nicht mehr geändert werden");
+
+            Button okButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.OK);
+            Button cancelButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
+
+            if (okButton != null) {
+                okButton.setText("Ja");
+            }
+            if (cancelButton != null) {
+                cancelButton.setText("Nein");
+            }
+
+            Optional<ButtonType> result = confirmation.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                for (int i = 0; i < currentCandidates.size(); i++) {
+                    var candidate = currentCandidates.get(i);
+                    var group = currentToggleGroups.get(i);
+
+                    if (group.getSelectedToggle() != null) {
+                        int ranking = (int) group.getSelectedToggle().getUserData();
+                        // TODO
+                        // ACHTUNG
+                        // später muss auf die Klasse des Wählenden zugegriffen werden, 111 ist nur ein
+                        // Platzhalter
+                        // wird erstmal so gelassen, bis es soweit ist
+
+                        var vote = new Vote(candidate.getId(), ranking, 111);
+                        // var vote = new Vote(candidate_id, ranking);
+
+                        voteRepository.castVote(vote); // Vote wird in der DB gespeichert
+                    } else {
+                        // eigentlich muss eh nicht jeder eine Wahl bekommen
+                        // ich denke, der else-Zweig bleibt fürs Erste leer ...
+                    }
+                }
+                // Feedback an den Benutzer
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Stimmabgabe");
+                alert.setHeaderText(null);
+                alert.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
+                alert.showAndWait();
+            } else {
+                confirmation.close();
+                stage.close();
+            }
+
+        });
         bottomBox.getChildren().add(submitButton);
 
         root.setBottom(bottomBox);
@@ -92,6 +146,8 @@ public class VotingView {
         candidateInfoSection.getChildren().addAll(createCandidateInfoSection());
 
         currentToggleGroups.clear();
+        currentCandidates.clear();
+        currentCandidates.addAll(controller.getCurrentCandidatesByType());
         VBox pointsSection;
 
         pointsSection = createPointsSection();
@@ -104,7 +160,6 @@ public class VotingView {
         return mainContainer;
     }
 
-
     private VBox createCandidateInfoSection() {
         var list = controller.getCurrentCandidatesByType();
         VBox candidateInfoSection = new VBox(15);
@@ -114,7 +169,7 @@ public class VotingView {
             HBox currentBox = new HBox(15);
             currentBox.setAlignment(Pos.CENTER_LEFT);
 
-            //TODO
+            // TODO
             // Später werden die Bilder aus der DB geholt
             // benötigte Methode wird dann in der Candidate Klasse verfügbar sein
 
@@ -145,7 +200,6 @@ public class VotingView {
         }
         return candidateInfoSection;
     }
-
 
     private VBox createPointsSection() {
         var list = controller.getCurrentCandidatesByType();
