@@ -112,4 +112,9 @@ public class PdfPresenter {
             throw new RuntimeException("Fehler beim Speichern der PDF: " + e.getMessage(), e);
         }
     }
+
+    public void navigateToHome() {
+        Stage stage = (Stage) view.getRoot().getScene().getWindow();
+        MainPresenter.show(stage);
+    }
 }

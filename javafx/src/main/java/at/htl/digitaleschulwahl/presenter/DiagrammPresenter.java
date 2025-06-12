@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-
 public class DiagrammPresenter {
     private final DiagrammView view;
     private final DiagrammRepository repository;
@@ -25,7 +24,6 @@ public class DiagrammPresenter {
     private final String[] roles = { "Schülersprecher", "Abteilungsvertreter" };
     private int currentRoleIndex = 0; // 0 = Schülersprecher, 1 = Abteilungsvertreter
     private boolean showingOverall = false;
-
 
     public DiagrammPresenter(DiagrammRepository repository, DiagrammView view) {
         this.repository = repository;
@@ -42,11 +40,13 @@ public class DiagrammPresenter {
         view.addClassSelectionListener(this::onClassSelectionChanged);
         view.addShowOverallListener(this::onShowOverallClicked);
 
+        view.getBaseStruct().setHomeButtonAction(e -> navigateToHome());
+
         refreshChart();
         refreshCandidateList();
     }
 
-    public static void show(Stage stage){
+    public static void show(Stage stage) {
         DiagrammRepository repo = new DiagrammRepository(DatabaseManager.getInstance().getConnection());
         DiagrammView view = new DiagrammView();
 
@@ -60,8 +60,7 @@ public class DiagrammPresenter {
         stage.setTitle("Digitale Schulwahl – Auswertung");
         stage.setScene(scene);
         stage.show();
-        DiagrammPresenter.stage=stage;
-
+        DiagrammPresenter.stage = stage;
 
     }
 
@@ -77,14 +76,12 @@ public class DiagrammPresenter {
         }
     }
 
-
     private void onPrevRoleClicked(ActionEvent event) {
         currentRoleIndex = (currentRoleIndex + roles.length - 1) % roles.length;
         view.setRoleLabel(roles[currentRoleIndex]);
         refreshChart();
         refreshCandidateList();
     }
-
 
     private void onNextRoleClicked(ActionEvent event) {
         currentRoleIndex = (currentRoleIndex + 1) % roles.length;
@@ -94,7 +91,7 @@ public class DiagrammPresenter {
     }
 
     private void onClassSelectionChanged(ObservableValue<? extends ClassInfo> obs,
-                                         ClassInfo oldClass, ClassInfo newClass) {
+            ClassInfo oldClass, ClassInfo newClass) {
         refreshCandidateList();
     }
 
@@ -132,6 +129,7 @@ public class DiagrammPresenter {
 
         }
     }
+
     private void onShowOverallClicked(ActionEvent event) {
         String currentRole = roles[currentRoleIndex];
         try {
@@ -152,5 +150,8 @@ public class DiagrammPresenter {
         }
     }
 
+    public void navigateToHome() {
+        MainPresenter.show(stage);
+    }
 
 }

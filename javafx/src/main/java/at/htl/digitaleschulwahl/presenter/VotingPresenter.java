@@ -319,4 +319,9 @@ public class VotingPresenter {
         return view;
     }
 
+    public void navigateToHome() {
+        Stage stage = (Stage) view.getRoot().getScene().getWindow();
+        MainPresenter.show(stage);
+    }
+
 }
