@@ -1,14 +1,12 @@
 package at.htl.digitaleschulwahl.database;
 
 import at.htl.digitaleschulwahl.model.Student;
-import at.htl.digitaleschulwahl.presenter.PdfPresenter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class StudentRepository {
     private final Connection connection;
@@ -35,8 +33,7 @@ public class StudentRepository {
 
         try (
                 var preparedStatement = connection.prepareStatement(query);
-                var resultSet = preparedStatement.executeQuery()
-        ) {
+                var resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 students.add(new Student(
                         resultSet.getInt("id"),
@@ -44,8 +41,7 @@ public class StudentRepository {
                         resultSet.getString("last_name"),
                         resultSet.getString("class_name"),
                         resultSet.getString("login_code"),
-                        resultSet.getInt("grade")
-                ));
+                        resultSet.getInt("grade")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,8 +71,8 @@ public class StudentRepository {
 
     public String getClass(Integer classId) {
         var query = """
-                SELECT 
-                    (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+                SELECT
+                    (EXTRACT(YEAR FROM CURRENT_DATE) - start_year +
                     (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS grade
                 FROM class
                 WHERE id = ?;
@@ -121,17 +117,17 @@ public class StudentRepository {
 
     public String[] getAllClasses() {
         String query = """
-            SELECT distinct 
-                (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
-                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS full_class
-            FROM class
-            ORDER BY full_class;
-            """;
+                SELECT distinct
+                    (EXTRACT(YEAR FROM CURRENT_DATE) - start_year +
+                    (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name AS full_class
+                FROM class
+                ORDER BY full_class;
+                """;
 
         List<String> classList = new ArrayList<>();
 
         try (var statement = connection.prepareStatement(query);
-             var resultSet = statement.executeQuery()) {
+                var resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 classList.add(resultSet.getString("full_class"));
             }
@@ -144,11 +140,11 @@ public class StudentRepository {
 
     public ArrayList<Student> getStudentsByClass(Integer classId) {
         String query = """
-                SELECT s.id, first_name, last_name, login_code, (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
-                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) as grade, class_name
+                SELECT s.id, s.first_name, s.last_name, s.login_code, (EXTRACT(YEAR FROM CURRENT_DATE) - c.start_year +
+                (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) as grade, c.class_name
                 FROM STUDENT s
-                join CLASS c ON student.class_id = class.id;
-                WHERE class_id = ?;
+                JOIN CLASS c ON s.class_id = c.id
+                WHERE s.class_id = ?;
                 """;
         ArrayList<Student> students = new ArrayList<>();
 
@@ -167,9 +163,8 @@ public class StudentRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Fehler beim Abrufen des Students: " + e.getMessage(), e);
-
-        } finally {
-            return students;
         }
+
+        return students;
     }
 }
