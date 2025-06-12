@@ -11,7 +11,6 @@ public class DiagrammRepository {
     private final Connection connection;
 
     public DiagrammRepository(Connection connection) {
-        // wir verwenden den Singleton‐Connection aus DatabaseManager
         this.connection = DatabaseManager.getInstance().getConnection();
     }
 
@@ -44,7 +43,7 @@ public class DiagrammRepository {
     }
 
     /**
-     * DTO: eine Klasse (nur ID und class_name) als Anzeige‐Objekt.
+     * Hilfsklasse halt... eine Klasse (nur ID und class_name) als Anzeige‐Objekt.
      */
     public static class ClassInfo {
         private final int id;
@@ -60,14 +59,11 @@ public class DiagrammRepository {
 
         @Override
         public String toString() {
-            // ComboBox verwendet toString() für die Anzeige
             return className;
         }
     }
 
-    /**
-     * Liefert alle Klassen (nur id + class_name), sortiert nach class_name.
-     */
+
     public List<ClassInfo> getAllClasses() throws SQLException {
         List<ClassInfo> classes = new ArrayList<>();
 
@@ -90,10 +86,7 @@ public class DiagrammRepository {
         return classes;
     }
 
-    /**
-     * Zählt alle Stimmen pro Kandidat, gefiltert auf role (=Schülersprecher/
-     * Abteilungsvertreter) und auf class_id_of_voter = classId.
-     */
+
     public List<VoteCount> getVoteCountsByRoleAndClass(String role, int classId) throws SQLException {
         List<VoteCount> results = new ArrayList<>();
 
@@ -128,10 +121,6 @@ public class DiagrammRepository {
         return results;
     }
 
-    /**
-     * NEU: Zählt alle Stimmen pro Kandidat über alle Klassen hinweg,
-     * gefiltert nur nach role (=Schülersprecher oder Abteilungsvertreter).
-     */
     public List<VoteCount> getVoteCountsByRole(String role) throws SQLException {
         List<VoteCount> results = new ArrayList<>();
 
