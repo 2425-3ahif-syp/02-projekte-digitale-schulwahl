@@ -75,7 +75,6 @@ public class MainPresenter {
     public void fillComboBox() {
         classList.clear();
         classList.addAll(studentRepository.getAllClasses());
-        System.out.println(studentRepository.getAllClasses());
         bind();
     }
 
