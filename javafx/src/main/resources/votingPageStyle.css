@@ -34,11 +34,9 @@
     -fx-padding: 20 0 0 10;
 }
 
-
 .voting-content {
     -fx-padding: 30 0 0 30;
 }
-
 
 .label {
     -fx-text-fill: white;
@@ -65,7 +63,6 @@
     -fx-padding: 10px 30px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
-
 }
 
 .button:hover {
@@ -91,7 +88,6 @@
     -fx-background-color: white;
 }
 
-
 .points-header {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -99,7 +95,6 @@
     -fx-alignment: center;
     -fx-padding: 5px 0 2px 0;
 }
-
 
 .line {
     -fx-stroke: white;
@@ -116,7 +111,6 @@
     -fx-background-color: white;
     -fx-text-fill: black;
     -fx-cursor: hand;
-
 }
 
 .bottom-button-container {
@@ -133,7 +127,7 @@
 }
 
 .submit-button {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #4caf50;
     -fx-text-fill: white;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -147,9 +141,9 @@
 }
 
 .submit-button:pressed {
-    -fx-background-color: #388E3C;
-   /** -fx-transform: scale(0.98);**/
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0.3, 0, 1);
+    -fx-background-color: #388e3c;
+    /** -fx-transform: scale(0.98);**/
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 2, 0.3, 0, 1);
 }
 
 .point-button {
@@ -166,7 +160,7 @@
     -fx-border-width: 2px;
 
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 4, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 4, 0.5, 0, 0);
     -fx-padding: 0;
 }
 
@@ -174,16 +168,16 @@
     -fx-background-color: white;
     -fx-border-color: white;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.3, 0, 2);
 }
 
 /* Code generation page*/
-.class-dropdown{
+.class-dropdown {
     -fx-pref-width: 450px;
     -fx-font-size: 16px;
 }
 
-.combo-box{
+.combo-box {
     -fx-background-color: white;
     -fx-border-color: #ccc;
 }
@@ -199,15 +193,15 @@
 
 .combo-box-popup .list-cell:hover {
     -fx-text-fill: white;
-}/* -----------------------------
+} /* -----------------------------
    Chart (PieChart) – Dark Theme
    ----------------------------- */
 
 /* Haupt-Container des Charts */
 .chart {
-    -fx-background-color: #424242;    /* dunkler Hintergrund */
-    -fx-padding: 10;                  /* etwas Innenabstand */
-    -fx-border-color: #555555;        /* optionaler Rahmen */
+    -fx-background-color: #424242; /* dunkler Hintergrund */
+    -fx-padding: 10; /* etwas Innenabstand */
+    -fx-border-color: #555555; /* optionaler Rahmen */
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
@@ -215,22 +209,21 @@
 
 /* Titel des Charts (z.B. "Gesamtverteilung") */
 .chart .chart-title {
-    -fx-text-fill: white;             /* Titel in Weiß */
+    -fx-text-fill: white; /* Titel in Weiß */
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
 /* Beschriftungen der einzelnen Pie-Segmente */
 .chart .chart-pie-label {
-    -fx-fill: white;            /* Alternative zu -fx-text-fill */
-    -fx-font-size: 16px;        /* Größer */
-    -fx-font-weight: bold;      /* Optional für mehr Sichtbarkeit */
+    -fx-fill: white; /* Alternative zu -fx-text-fill */
+    -fx-font-size: 16px; /* Größer */
+    -fx-font-weight: bold; /* Optional für mehr Sichtbarkeit */
 }
-
 
 /* Tooltip‐Style (wenn man mit der Maus über ein Segment fährt) */
 .chart .chart-legend-item {
-    -fx-text-fill: black;             /* Legenden-Einträge in Weiß */
+    -fx-text-fill: black; /* Legenden-Einträge in Weiß */
 }
 
 /* Legenden‐Container (falls ihr eine Legende anzeigt) */
@@ -243,5 +236,26 @@
 
 /* Optional: Rand des gesamten Charts */
 .chart {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 0);
+}
+
+/* Home Button Styling */
+.home-button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 6 6 6;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.3, 0, 1);
+}
+
+.home-button:hover {
+    -fx-background-color: #5a5a5a;
+    -fx-cursor: hand;
+}
+
+.home-button:pressed {
+    -fx-background-color: #3a3a3a;
 }
