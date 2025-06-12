@@ -144,13 +144,7 @@ public class DiagrammView {
         classComboBox.getSelectionModel().selectedItemProperty().addListener(listener);
     }
 
-    // =========================================
-    // 2) Öffentliche Methods, um Daten zu setzen
-    // =========================================
 
-    /**
-     * Der Presenter ruft das auf, um der ComboBox alle Klassen zur Verfügung zu stellen.
-     */
     public void setClassList(List<ClassInfo> classes) {
         ObservableList<ClassInfo> obs = FXCollections.observableArrayList(classes);
         classComboBox.setItems(obs);
@@ -167,11 +161,7 @@ public class DiagrammView {
         roleLabel.setText(roleText);
     }
 
-    /**
-     * Aktualisiert nur das Tortendiagramm (PieChart),
-     * basierend auf den insgesamt über alle Klassen aggregierten Daten (data).
-     * Der title ist z.B. “Schülersprecher – Gesamt”.
-     */
+
     public void updateChart(String title, List<VoteCount> data) {
         pieChart.setTitle(title);
 
@@ -188,11 +178,7 @@ public class DiagrammView {
 
     }
 
-    /**
-     * Aktualisiert nur die rechte ListView (Kandidaten + Punkte) für die aktuell
-     * ausgewählte Klasse UND Rolle. data sind VoteCounts, die vorher
-     * à la getVoteCountsByRoleAndClass(...) abgefragt wurden.
-     */
+
     public void updateCandidateList(List<VoteCount> data) {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (VoteCount vc : data) {
@@ -202,9 +188,6 @@ public class DiagrammView {
         candidateListView.setItems(items);
     }
 
-    /**
-     * Hilfsmethode für den Presenter, um abzufragen, welche Klasse gerade ausgewählt ist.
-     */
     public ClassInfo getSelectedClass() {
         return classComboBox.getSelectionModel().getSelectedItem();
     }
