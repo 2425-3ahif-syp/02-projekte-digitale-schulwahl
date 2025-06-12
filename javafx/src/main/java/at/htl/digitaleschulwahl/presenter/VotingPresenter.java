@@ -2,9 +2,10 @@ package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.VoteRepository;
 import at.htl.digitaleschulwahl.database.CandidateRepository;
+import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
-import at.htl.digitaleschulwahl.view.MainView;
+import at.htl.digitaleschulwahl.model.Student;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,7 +23,9 @@ public class VotingPresenter {
 
     private final VoteRepository voteRepository;
     private final CandidateRepository candidateRepository;
+    private final StudentRepository studentRepository;
     private final VotingView view;
+    private final Student authenticatedStudent;
     private boolean isCouncil = false; // false: Abteilungsvertretung, true: Schülervertretung.
 
     // private List<Candidate> currentCandidates;
@@ -34,9 +37,15 @@ public class VotingPresenter {
     private List<Candidate> currentCandidates;
 
     public VotingPresenter() {
+        this(null);
+    }
+
+    public VotingPresenter(Student student) {
+        this.authenticatedStudent = student;
         this.view = new VotingView(this);
         this.voteRepository = new VoteRepository();
         this.candidateRepository = new CandidateRepository();
+        this.studentRepository = new StudentRepository();
         init();
     }
 
@@ -163,15 +172,27 @@ public class VotingPresenter {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             VotingPresenter.tempVotes2.clear();
             VotingPresenter.tempVotes2 = getSelectedVotes();
+
+            Integer voterClassId = null;
+            if (authenticatedStudent != null) {
+                voterClassId = studentRepository.getClassId(authenticatedStudent.getClassName());
+            }
+
+            if (voterClassId == null) {
+                voterClassId = 1;
+            }
+
             for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes2.entrySet()) {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
-                // TODO: class id richtig getten
-                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), voterClassId));
             }
-            for(Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes1.entrySet()) {
+            for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes1.entrySet()) {
                 Integer candidate_id = candidateRepository.getCandidateIdByName(entry.getKey().getName());
-                // TODO: class id richtig getten
-                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), 1));
+                voteRepository.castVote(new Vote(candidate_id, entry.getValue(), voterClassId));
+            }
+
+            if (authenticatedStudent != null && authenticatedStudent.getLoginCode() != null) {
+                studentRepository.deleteStudentCode(authenticatedStudent.getLoginCode());
             }
 
             Alert info = new Alert(Alert.AlertType.INFORMATION);
@@ -294,11 +315,8 @@ public class VotingPresenter {
         primaryStage.show();
     }
 
-
     public VotingView getView() {
         return view;
     }
-
-
 
 }

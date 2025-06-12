@@ -1,6 +1,7 @@
 package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.StudentRepository;
+import at.htl.digitaleschulwahl.model.Student;
 import at.htl.digitaleschulwahl.view.MainView;
 import at.htl.digitaleschulwahl.view.ToastNotification;
 import javafx.collections.FXCollections;
@@ -78,8 +79,8 @@ public class MainPresenter {
         bind();
     }
 
-    public void navigateToVotingView() {
-        VotingPresenter presenter = new VotingPresenter();
+    public void navigateToVotingView(Student authenticatedStudent) {
+        VotingPresenter presenter = new VotingPresenter(authenticatedStudent);
         presenter.show(stage);
     }
 
@@ -95,7 +96,12 @@ public class MainPresenter {
             if (code.isEmpty()) {
                 ToastNotification.show(stage, "Bitte gib deinen Code ein!", "error");
             } else {
-                navigateToVotingView();
+                if (studentRepository.verifyStudentCode(code)) {
+                    Student authenticatedStudent = studentRepository.getStudentByCode(code);
+                    navigateToVotingView(authenticatedStudent);
+                } else {
+                    ToastNotification.show(stage, "Ungültiger Code! Bitte überprüfe deinen Code.", "error");
+                }
             }
         } else {
             navigateToPdfGenerationView();
