@@ -259,3 +259,59 @@
 .home-button:pressed {
     -fx-background-color: #3a3a3a;
 }
+
+
+/* Candidate Form Styling */
+.form-content{
+    -fx-max-width: 600px;
+
+}
+/*.textfield {*/
+/*    -fx-background-color: white;*/
+/*    -fx-text-fill: black;*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-pref-width: 500px;*/
+/*    -fx-pref-height: 30px;*/
+/*    -fx-padding: 5px 10px;*/
+/*    -fx-border-color: #ccc;*/
+/*    -fx-border-radius: 5px;*/
+/*    -fx-background-radius: 5px;*/
+/*}*/
+
+.form-content .label{
+    -fx-font-size: 17px;
+}
+
+/*.form-content .combo-box{*/
+/*    -fx-max-width: 600px;*/
+/*    -fx-text-fill: black;*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-border-color: #ccc;*/
+/*    -fx-border-radius: 5px;*/
+/*    -fx-padding: 5px 5px;*/
+/*}*/
+
+
+.form-content .textfield, .combo-box {
+    -fx-pref-width: 500px;
+    -fx-pref-height: 38px;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+.form-content .combo-box{
+ -fx-max-width: 600px;
+
+}
+
+.form-bottom-button-container{
+    -fx-alignment: center;
+
+    -fx-padding: 50px 10px 50px 10px;
+
+}
