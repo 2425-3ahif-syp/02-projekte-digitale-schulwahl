@@ -70,6 +70,7 @@ public class MainPresenter {
 
     private void attachEvents() {
         view.getLoginButton().setOnAction(event -> tryLogin());
+        view.getCandidateSignupButton().setOnAction(event -> navigateToCandidateSignup());
     }
 
     public void fillComboBox() {
@@ -85,6 +86,11 @@ public class MainPresenter {
 
     public void navigateToPdfGenerationView() {
         PdfPresenter presenter = new PdfPresenter();
+        presenter.show(stage);
+    }
+
+    public void navigateToCandidateSignup() {
+        CandidateSignupPresenter presenter = new CandidateSignupPresenter();
         presenter.show(stage);
     }
 
