@@ -5,12 +5,15 @@ import at.htl.digitaleschulwahl.database.DiagrammRepository;
 import at.htl.digitaleschulwahl.database.DiagrammRepository.ClassInfo;
 import at.htl.digitaleschulwahl.database.DiagrammRepository.VoteCount;
 import at.htl.digitaleschulwahl.view.DiagrammView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -44,6 +47,18 @@ public class DiagrammPresenter {
 
         refreshChart();
         refreshCandidateList();
+
+        // Timeline, die alle 15 Sekunden Chart und Liste aktualisiert
+        var autoRefresh = new Timeline(
+                new KeyFrame(Duration.seconds(15), e -> {
+                    // Immer Gesamt-Chart und Klassen‑Liste neu laden
+                    refreshChart();
+                    refreshCandidateList();
+                })
+        );
+
+        autoRefresh.setCycleCount(Timeline.INDEFINITE);
+        autoRefresh.play();
     }
 
     public static void show(Stage stage) {
