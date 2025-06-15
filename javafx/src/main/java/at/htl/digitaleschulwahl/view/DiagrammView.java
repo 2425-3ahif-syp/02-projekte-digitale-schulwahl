@@ -45,9 +45,6 @@ public class DiagrammView {
         baseStruct.createNavBar(); // htl leonding logo
         baseStruct.showHomeButton();
 
-        root.getStyleClass().add("content");
-        root.setPadding(new Insets(0, 10, 10, 10));
-
         // ---- UI‐Initialisierung ----
         pieChart = new PieChart();
         pieChart.setTitle("Gesamtverteilung");
@@ -67,7 +64,7 @@ public class DiagrammView {
 
         HBox carouselBox = new HBox(10);
         carouselBox.setPadding(new Insets(10, 0, 10, 0));
-        carouselBox.getChildren().addAll(prevRoleButton, roleLabel, nextRoleButton);
+        carouselBox.getChildren().addAll(prevRoleButton,roleLabel, nextRoleButton);
         carouselBox.setStyle("-fx-alignment: center;");
 
         classComboBox = new ComboBox<>();
