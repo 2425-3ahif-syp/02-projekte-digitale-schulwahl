@@ -2,6 +2,7 @@ package at.htl.digitaleschulwahl.presenter;
 
 import at.htl.digitaleschulwahl.database.CandidateRepository;
 import at.htl.digitaleschulwahl.view.CandidateSignupView;
+import at.htl.digitaleschulwahl.view.ToastNotification;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -69,18 +70,23 @@ public class CandidateSignupPresenter {
 
     public void show(Stage primaryStage) {
         CandidateSignupPresenter.stage = primaryStage;
+        view.setStage(primaryStage);
 
         Scene scene = new Scene(view.getRoot(), 900, 700);
 
         try {
             var mainPageCss = getClass().getResource("/mainPageStyle.css");
             var votingPageCss = getClass().getResource("/votingPageStyle.css");
+            var toastCss = getClass().getResource("/toastNotification.css");
 
             if (mainPageCss != null) {
                 scene.getStylesheets().add(mainPageCss.toExternalForm());
             }
             if (votingPageCss != null) {
                 scene.getStylesheets().add(votingPageCss.toExternalForm());
+            }
+            if (toastCss != null) {
+                scene.getStylesheets().add(toastCss.toExternalForm());
             }
         } catch (Exception e) {
             System.err.println("Error loading CSS files: " + e.getMessage());

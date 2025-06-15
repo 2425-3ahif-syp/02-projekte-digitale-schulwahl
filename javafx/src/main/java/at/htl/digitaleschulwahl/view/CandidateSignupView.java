@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 public class CandidateSignupView {
     private final BorderPane root = new BorderPane();
@@ -18,6 +19,7 @@ public class CandidateSignupView {
     private Runnable onSignup;
     private Runnable onCancel;
     private Runnable onNavigateHome;
+    private Stage stage;
 
     public CandidateSignupView() {
         createUI();
@@ -108,19 +110,19 @@ public class CandidateSignupView {
         roleComboBox.getSelectionModel().clearSelection();
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     public void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Fehler");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        if (stage != null) {
+            ToastNotification.show(stage, message, "error");
+        }
     }
 
     public void showSuccess(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Erfolg");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        if (stage != null) {
+            ToastNotification.show(stage, message, "success");
+        }
     }
 }
