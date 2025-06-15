@@ -15,6 +15,7 @@ public class MainView {
     private final ToggleButton studentToggle = new ToggleButton("Schüler:in");
     private final ToggleButton teacherToggle = new ToggleButton("Lehrkraft");
     private final Button loginButton = new Button("Login");
+    private final Button candidateSignupButton = new Button("Als Kandidat anmelden");
     private final VBox formBox = new VBox(15);
 
     private TextField studentCodeField = new TextField();
@@ -112,13 +113,20 @@ public class MainView {
 
         root.setCenter(contentBox);
 
-        // Login-Button ganz unten
-        VBox bottomBox = new VBox(loginButton);
+        // Login-Button und Kandidatur-Button ganz unten
+        VBox bottomBox = new VBox(15);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.setPadding(new Insets(20));
+
         loginButton.setMaxWidth(400);
         loginButton.setPrefWidth(Double.MAX_VALUE);
         loginButton.getStyleClass().add("login-button");
+
+        candidateSignupButton.setMaxWidth(400);
+        candidateSignupButton.setPrefWidth(Double.MAX_VALUE);
+        candidateSignupButton.getStyleClass().add("bottom-button");
+
+        bottomBox.getChildren().addAll(loginButton, candidateSignupButton);
 
         root.setBottom(bottomBox);
         root.getStyleClass().add("main-root");
@@ -185,6 +193,10 @@ public class MainView {
 
     public PasswordField getTeacherPasswordField() {
         return teacherPasswordField;
+    }
+
+    public Button getCandidateSignupButton() {
+        return candidateSignupButton;
     }
 
 }
