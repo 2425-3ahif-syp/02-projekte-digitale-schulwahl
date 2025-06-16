@@ -118,13 +118,14 @@ public class DiagrammPresenter {
     private void refreshChart() {
         String currentRole = roles[currentRoleIndex];
         try {
-            List<VoteCount> allCounts = repository.getVoteCountsByRole(currentRole);
+            List<VoteCount> newCounts = repository.getVoteCountsByRole(currentRole);
             String title = currentRole + " – Gesamt";
-            view.updateChart(title, allCounts);
+            view.updateChart(title, newCounts);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     private void refreshCandidateList() {
         ClassInfo selectedClass = view.getSelectedClass();

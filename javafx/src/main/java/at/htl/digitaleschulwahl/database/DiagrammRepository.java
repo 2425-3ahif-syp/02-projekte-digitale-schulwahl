@@ -116,6 +116,7 @@ public class DiagrammRepository {
                     int candidateId     = rs.getInt("candidate_id");
                     String candidateName = rs.getString("candidate_name");
                     long count          = rs.getLong("vote_count");
+                    System.out.println("Vote count for candidate: " + candidateId + " - " + candidateName + ": " + count);
                     results.add(new VoteCount(candidateId, candidateName, count));
                 }
             }
@@ -133,7 +134,7 @@ public class DiagrammRepository {
               c.name          AS candidate_name,
               COALESCE(SUM(v.ranking), 0)        AS vote_count
             FROM votes v
-            left JOIN candidate c
+            right JOIN candidate c
               ON v.candidate_id = c.id
             WHERE c.role = ?
             GROUP BY c.id, c.name

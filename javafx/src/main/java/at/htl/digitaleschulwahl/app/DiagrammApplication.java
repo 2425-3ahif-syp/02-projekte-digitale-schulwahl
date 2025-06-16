@@ -11,7 +11,6 @@ public class DiagrammApplication extends Application
     @Override
     public void start(Stage primaryStage) {
 
-
         DiagrammPresenter.show(primaryStage);
     }
 

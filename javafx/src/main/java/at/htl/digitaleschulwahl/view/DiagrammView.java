@@ -194,4 +194,9 @@ public class DiagrammView {
         candidateListView.setItems(items);
     }
 
+    public void setPieChartAnimated(boolean animated) {
+        pieChart.setAnimated(animated);
+    }
+
+
 }
