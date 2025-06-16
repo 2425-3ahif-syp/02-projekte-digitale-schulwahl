@@ -34,6 +34,8 @@ public class MainView {
     }
 
     private void createUI() {
+
+
         // Überschrift
         VBox headingBox = new VBox(10);
         headingBox.setAlignment(Pos.CENTER);
@@ -136,20 +138,37 @@ public class MainView {
         formBox.getChildren().clear();
 
         if (userType.equals("teacher")) {
-            teacherNameField.setPromptText("Name");
 
-            teacherPasswordField.setPromptText("Passwort");
+            VBox nameContainer = new VBox(8);
+            Label nameLabel = new Label("Name:");
+            nameLabel.getStyleClass().add("label");
+            teacherNameField.setPromptText("Name eingeben");
+            teacherNameField.getStyleClass().add("code-input");
+            nameContainer.getChildren().addAll(nameLabel, teacherNameField);
 
+
+            VBox pwContainer = new VBox(8);
+            Label pwLabel = new Label("Passwort:");
+            pwLabel.getStyleClass().add("label");
+            teacherPasswordField.setPromptText("Passwort eingeben");
+            teacherPasswordField.getStyleClass().add("code-input");
+            pwContainer.getChildren().addAll(pwLabel, teacherPasswordField);
+
+            VBox classContainer = new VBox(8);
+            Label classLabel = new Label("Klasse:");
+            pwLabel.getStyleClass().add("label");
             classField.setPromptText("Klasse");
             classField.getStyleClass().add("combo-box");
             classField.setPrefWidth(1000);
+            pwContainer.getChildren().addAll(classLabel, classField);
 
-            formBox.getChildren().addAll(teacherNameField, teacherPasswordField, classField);
+            formBox.getChildren().addAll(nameContainer, pwContainer, classContainer);
 
             setTeacherFormFields(teacherNameField, teacherPasswordField, classField);
 
         } else {
             studentCodeField.setPromptText("Code");
+            studentCodeField.getStyleClass().add("code-field");
 
             formBox.getChildren().add(studentCodeField);
 
