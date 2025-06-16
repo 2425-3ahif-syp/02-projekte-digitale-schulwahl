@@ -169,9 +169,9 @@ public class MainView {
         } else {
 
             VBox codeContainer = new VBox(8);
-            Label codeLabel = new Label("Name:");
+            Label codeLabel = new Label("Code:");
             codeLabel.getStyleClass().add("label");
-            studentCodeField.setPromptText("Name eingeben");
+            studentCodeField.setPromptText("Code eingeben");
             studentCodeField.getStyleClass().add("code-input");
             codeContainer.getChildren().addAll(codeLabel, studentCodeField);
 
