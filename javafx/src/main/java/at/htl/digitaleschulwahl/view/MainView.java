@@ -35,24 +35,8 @@ public class MainView {
 
     private void createUI() {
 
-
         // Überschrift
-        VBox headingBox = new VBox(10);
-        headingBox.setAlignment(Pos.CENTER);
-        headingBox.setPadding(new Insets(30, 10, 10, 10));
-
-        Label heading = new Label("Digitale Schulwahl - Login");
-        heading.getStyleClass().add("first-heading");
-
-        Line line = new Line();
-        line.getStyleClass().add("underline");
-
-        heading.widthProperty().addListener((obs, oldVal, newVal) -> {
-            line.setStartX(-40);
-            line.setEndX(newVal.doubleValue() + 40);
-        });
-
-        headingBox.getChildren().addAll(heading, line);
+        VBox headingBox = baseStruct.createHeadingSection("Login");
 
         // Toggle & Eingabefeld
         VBox centerBox = new VBox(30);
