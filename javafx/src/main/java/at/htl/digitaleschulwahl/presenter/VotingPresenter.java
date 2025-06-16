@@ -306,7 +306,7 @@ public class VotingPresenter {
     }
 
     public void show(Stage primaryStage) {
-        Scene scene = new Scene(view.getRoot(), 900, 700);
+        Scene scene = new Scene(view.getRoot(), 1000, 800);
         String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
 

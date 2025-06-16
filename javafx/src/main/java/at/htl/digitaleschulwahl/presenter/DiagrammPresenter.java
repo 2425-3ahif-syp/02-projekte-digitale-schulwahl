@@ -69,7 +69,7 @@ public class DiagrammPresenter {
 
         new DiagrammPresenter(repo, view);
 
-        Scene scene = new Scene(view.getRoot(), 1000, 600);
+        Scene scene = new Scene(view.getRoot(), 1000, 800);
         scene.getStylesheets().add(css);
 
         stage.setTitle("Digitale Schulwahl – Auswertung");

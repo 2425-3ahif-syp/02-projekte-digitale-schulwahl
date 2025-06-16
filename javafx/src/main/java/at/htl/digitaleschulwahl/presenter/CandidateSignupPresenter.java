@@ -72,7 +72,7 @@ public class CandidateSignupPresenter {
         CandidateSignupPresenter.stage = primaryStage;
         view.setStage(primaryStage);
 
-        Scene scene = new Scene(view.getRoot(), 900, 700);
+        Scene scene = new Scene(view.getRoot(), 1000, 900);
 
         try {
             var mainPageCss = getClass().getResource("/mainPageStyle.css");
