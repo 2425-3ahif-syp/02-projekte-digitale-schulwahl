@@ -74,18 +74,25 @@ public class CandidateSignupView {
 
         formSection.getChildren().addAll(nameContainer, classContainer, roleContainer);
 
-        HBox buttonSection = new HBox(20);
-        buttonSection.setAlignment(Pos.CENTER);
+        VBox buttonSection = new VBox(20);
+        buttonSection.setAlignment(Pos.BOTTOM_CENTER);
+        buttonSection.setPadding(new Insets(20));
 
         cancelButton.getStyleClass().add("bottom-button");
         signupButton.getStyleClass().add("login-button");
-        signupButton.setPrefWidth(200);
-        cancelButton.setPrefWidth(120);
+        signupButton.setMaxWidth(400);
+        cancelButton.setMaxWidth(400);
 
-        buttonSection.getChildren().addAll(cancelButton, signupButton);
+        buttonSection.getChildren().addAll(signupButton, cancelButton);
 
-        mainContainer.getChildren().addAll(headingContent, formSection, buttonSection);
-        root.setCenter(mainContainer);
+        // Content-Box unter der NavBar
+        VBox contentBox = new VBox(30);
+        contentBox.setAlignment(Pos.TOP_CENTER);
+        contentBox.setPadding(new Insets(20, 20, 20, 20));
+        contentBox.getChildren().addAll(headingContent, formSection);
+        root.setCenter(contentBox);
+
+        root.setBottom(buttonSection);
     }
 
     public BorderPane getRoot() {

@@ -34,23 +34,9 @@ public class MainView {
     }
 
     private void createUI() {
+
         // Überschrift
-        VBox headingBox = new VBox(10);
-        headingBox.setAlignment(Pos.CENTER);
-        headingBox.setPadding(new Insets(30, 10, 10, 10));
-
-        Label heading = new Label("Digitale Schulwahl - Login");
-        heading.getStyleClass().add("first-heading");
-
-        Line line = new Line();
-        line.getStyleClass().add("underline");
-
-        heading.widthProperty().addListener((obs, oldVal, newVal) -> {
-            line.setStartX(-40);
-            line.setEndX(newVal.doubleValue() + 40);
-        });
-
-        headingBox.getChildren().addAll(heading, line);
+        VBox headingBox = baseStruct.createHeadingSection("Login");
 
         // Toggle & Eingabefeld
         VBox centerBox = new VBox(30);
@@ -119,11 +105,9 @@ public class MainView {
         bottomBox.setPadding(new Insets(20));
 
         loginButton.setMaxWidth(400);
-        loginButton.setPrefWidth(Double.MAX_VALUE);
         loginButton.getStyleClass().add("login-button");
 
         candidateSignupButton.setMaxWidth(400);
-        candidateSignupButton.setPrefWidth(Double.MAX_VALUE);
         candidateSignupButton.getStyleClass().add("bottom-button");
 
         bottomBox.getChildren().addAll(loginButton, candidateSignupButton);
@@ -136,22 +120,44 @@ public class MainView {
         formBox.getChildren().clear();
 
         if (userType.equals("teacher")) {
-            teacherNameField.setPromptText("Name");
 
-            teacherPasswordField.setPromptText("Passwort");
+            VBox nameContainer = new VBox(8);
+            Label nameLabel = new Label("Name:");
+            nameLabel.getStyleClass().add("label");
+            teacherNameField.setPromptText("Name eingeben");
+            teacherNameField.getStyleClass().add("code-input");
+            nameContainer.getChildren().addAll(nameLabel, teacherNameField);
 
+
+            VBox pwContainer = new VBox(8);
+            Label pwLabel = new Label("Passwort:");
+            pwLabel.getStyleClass().add("label");
+            teacherPasswordField.setPromptText("Passwort eingeben");
+            teacherPasswordField.getStyleClass().add("code-input");
+            pwContainer.getChildren().addAll(pwLabel, teacherPasswordField);
+
+            VBox classContainer = new VBox(8);
+            Label classLabel = new Label("Klasse:");
+            pwLabel.getStyleClass().add("label");
             classField.setPromptText("Klasse");
             classField.getStyleClass().add("combo-box");
             classField.setPrefWidth(1000);
+            pwContainer.getChildren().addAll(classLabel, classField);
 
-            formBox.getChildren().addAll(teacherNameField, teacherPasswordField, classField);
+            formBox.getChildren().addAll(nameContainer, pwContainer, classContainer);
 
             setTeacherFormFields(teacherNameField, teacherPasswordField, classField);
 
         } else {
-            studentCodeField.setPromptText("Code");
 
-            formBox.getChildren().add(studentCodeField);
+            VBox codeContainer = new VBox(8);
+            Label codeLabel = new Label("Code:");
+            codeLabel.getStyleClass().add("label");
+            studentCodeField.setPromptText("Code eingeben");
+            studentCodeField.getStyleClass().add("code-input");
+            codeContainer.getChildren().addAll(codeLabel, studentCodeField);
+
+            formBox.getChildren().add(codeContainer);
 
             setStudentFormField(studentCodeField);
         }
