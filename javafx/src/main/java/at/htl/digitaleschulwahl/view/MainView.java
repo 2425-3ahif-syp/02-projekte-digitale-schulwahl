@@ -105,11 +105,9 @@ public class MainView {
         bottomBox.setPadding(new Insets(20));
 
         loginButton.setMaxWidth(400);
-        loginButton.setPrefWidth(Double.MAX_VALUE);
         loginButton.getStyleClass().add("login-button");
 
         candidateSignupButton.setMaxWidth(400);
-        candidateSignupButton.setPrefWidth(Double.MAX_VALUE);
         candidateSignupButton.getStyleClass().add("bottom-button");
 
         bottomBox.getChildren().addAll(loginButton, candidateSignupButton);
