@@ -15,7 +15,7 @@ public class DiagrammRepository {
     }
 
     /**
-     * DTO: vote counts pro Kandidat in einer bestimmten Klasse.
+     *  vote counts pro Kandidat in einer bestimmten Klasse.
      */
     public static class VoteCount {
         private final int candidateId;
@@ -79,6 +79,9 @@ public class DiagrammRepository {
             while (rs.next()) {
                 int id        = rs.getInt("id");
                 String name   = rs.getString("class_name");
+
+                System.out.println("Found class: " + id + " - " + name);
+
                 classes.add(new ClassInfo(id, name));
             }
         }
@@ -94,9 +97,9 @@ public class DiagrammRepository {
             SELECT
               c.id            AS candidate_id,
               c.name          AS candidate_name,
-              COUNT(*)        AS vote_count
+              COALESCE(SUM(v.ranking), 0)        AS vote_count
             FROM votes v
-            JOIN candidate c
+           right JOIN candidate c
               ON v.candidate_id = c.id
             WHERE c.role = ?
               AND v.class_id_of_voter = ?
@@ -128,9 +131,9 @@ public class DiagrammRepository {
             SELECT
               c.id            AS candidate_id,
               c.name          AS candidate_name,
-              COUNT(*)        AS vote_count
+              COALESCE(SUM(v.ranking), 0)        AS vote_count
             FROM votes v
-            JOIN candidate c
+            left JOIN candidate c
               ON v.candidate_id = c.id
             WHERE c.role = ?
             GROUP BY c.id, c.name

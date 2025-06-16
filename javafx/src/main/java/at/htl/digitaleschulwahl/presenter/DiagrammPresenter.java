@@ -7,10 +7,8 @@ import at.htl.digitaleschulwahl.database.DiagrammRepository.VoteCount;
 import at.htl.digitaleschulwahl.view.DiagrammView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,6 +49,9 @@ public class DiagrammPresenter {
         // Timeline, die alle 15 Sekunden Chart und Liste aktualisiert
         var autoRefresh = new Timeline(
                 new KeyFrame(Duration.seconds(15), e -> {
+                    // Klassen neu laden
+                    loadAllClasses();
+
                     // Immer Gesamt-Chart und Klassen‑Liste neu laden
                     refreshChart();
                     refreshCandidateList();
@@ -117,7 +118,6 @@ public class DiagrammPresenter {
     private void refreshChart() {
         String currentRole = roles[currentRoleIndex];
         try {
-            // Hier die neue Methode: summiert über alle Klassen
             List<VoteCount> allCounts = repository.getVoteCountsByRole(currentRole);
             String title = currentRole + " – Gesamt";
             view.updateChart(title, allCounts);
@@ -135,6 +135,8 @@ public class DiagrammPresenter {
 
         String currentRole = roles[currentRoleIndex];
         int classId = selectedClass.getId();
+
+        System.out.println("Selected class: "+classId);
 
         try {
             List<VoteCount> classCounts = repository.getVoteCountsByRoleAndClass(currentRole, classId);
