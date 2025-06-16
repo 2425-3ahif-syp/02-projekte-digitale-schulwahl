@@ -28,7 +28,7 @@ public class MainPresenter {
         MainView view = new MainView();
         MainPresenter controller = new MainPresenter(view);
 
-        Scene scene = new Scene(view.getRoot(), 1000, 800);
+        Scene scene = new Scene(view.getRoot(), 1100, 800);
 
         try {
             var mainPageCss = MainPresenter.class.getResource("/mainPageStyle.css");
