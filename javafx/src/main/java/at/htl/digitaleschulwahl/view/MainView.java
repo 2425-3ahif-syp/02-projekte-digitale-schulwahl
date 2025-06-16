@@ -167,10 +167,15 @@ public class MainView {
             setTeacherFormFields(teacherNameField, teacherPasswordField, classField);
 
         } else {
-            studentCodeField.setPromptText("Code");
-            studentCodeField.getStyleClass().add("code-field");
 
-            formBox.getChildren().add(studentCodeField);
+            VBox codeContainer = new VBox(8);
+            Label codeLabel = new Label("Name:");
+            codeLabel.getStyleClass().add("label");
+            studentCodeField.setPromptText("Name eingeben");
+            studentCodeField.getStyleClass().add("code-input");
+            codeContainer.getChildren().addAll(codeLabel, studentCodeField);
+
+            formBox.getChildren().add(codeContainer);
 
             setStudentFormField(studentCodeField);
         }
