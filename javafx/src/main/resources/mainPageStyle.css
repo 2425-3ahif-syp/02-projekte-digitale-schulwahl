@@ -42,12 +42,13 @@
 
 /* Code Input */
 .code-input {
-    -fx-padding: 14;
+    -fx-padding: 10;
     -fx-font-size: 18px;
     -fx-background-color: white;
     -fx-border-color: #ccc;
     -fx-border-radius: 6;
     -fx-max-width: 400px;
+    -fx-max-height: 200px;
 }
 
 /* Login Button */

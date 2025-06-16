@@ -74,7 +74,7 @@ public class CandidateSignupView {
 
         formSection.getChildren().addAll(nameContainer, classContainer, roleContainer);
 
-        HBox buttonSection = new HBox(20);
+        VBox buttonSection = new VBox(20);
         buttonSection.setAlignment(Pos.CENTER);
 
         cancelButton.getStyleClass().add("bottom-button");
@@ -82,7 +82,7 @@ public class CandidateSignupView {
         signupButton.setPrefWidth(200);
         cancelButton.setPrefWidth(120);
 
-        buttonSection.getChildren().addAll(cancelButton, signupButton);
+        buttonSection.getChildren().addAll(signupButton, cancelButton);
 
         mainContainer.getChildren().addAll(headingContent, formSection, buttonSection);
         root.setCenter(mainContainer);
