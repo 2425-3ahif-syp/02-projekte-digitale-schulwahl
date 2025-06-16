@@ -6,6 +6,8 @@ import at.htl.digitaleschulwahl.database.StudentRepository;
 import at.htl.digitaleschulwahl.model.Candidate;
 import at.htl.digitaleschulwahl.model.Vote;
 import at.htl.digitaleschulwahl.model.Student;
+import at.htl.digitaleschulwahl.view.DiagrammView;
+import at.htl.digitaleschulwahl.view.ToastNotification;
 import at.htl.digitaleschulwahl.view.VotingView;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,6 +29,8 @@ public class VotingPresenter {
     private final VotingView view;
     private final Student authenticatedStudent;
     private boolean isCouncil = false; // false: Abteilungsvertretung, true: Schülervertretung.
+    private static Stage stage;
+
 
     // private List<Candidate> currentCandidates;
 
@@ -195,14 +199,18 @@ public class VotingPresenter {
                 studentRepository.deleteStudentCode(authenticatedStudent.getLoginCode());
             }
 
-            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            DiagrammPresenter.show(VotingPresenter.stage);
+            ToastNotification.show(stage, "Wahl erfolgreich gespeichert", "success");
+
+
+            /*Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Stimmabgabe");
             info.setHeaderText(null);
             info.setContentText("Ihre Stimme(n) wurden erfolgreich gespeichert.");
             info.showAndWait();
             // stage.close();
             Stage stage = (Stage) view.getSubmitButton().getScene().getWindow();
-            stage.close();
+            stage.close();*/
 
         } else {
             confirmation.close();
@@ -309,6 +317,7 @@ public class VotingPresenter {
         Scene scene = new Scene(view.getRoot(), 1100, 800);
         String css = getClass().getResource("/votingPageStyle.css").toExternalForm();
         scene.getStylesheets().add(css);
+        VotingPresenter.stage = primaryStage;
 
         primaryStage.setTitle("Digitale Schulwahl");
         primaryStage.setScene(scene);
