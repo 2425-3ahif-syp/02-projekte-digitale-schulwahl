@@ -39,7 +39,7 @@ public class MainView {
         VBox headingBox = baseStruct.createHeadingSection("Login");
 
         // Toggle & Eingabefeld
-        VBox centerBox = new VBox(30);
+        VBox centerBox = new VBox(15);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(0, 40, 0, 40));
 
@@ -123,7 +123,7 @@ public class MainView {
 
             VBox nameContainer = new VBox(8);
             Label nameLabel = new Label("Name:");
-            nameLabel.getStyleClass().add("label");
+            nameLabel.getStyleClass().add("main-label");
             teacherNameField.setPromptText("Name eingeben");
             teacherNameField.getStyleClass().add("code-input");
             nameContainer.getChildren().addAll(nameLabel, teacherNameField);
@@ -131,16 +131,17 @@ public class MainView {
 
             VBox pwContainer = new VBox(8);
             Label pwLabel = new Label("Passwort:");
-            pwLabel.getStyleClass().add("label");
+            pwLabel.getStyleClass().add("main-label");
             teacherPasswordField.setPromptText("Passwort eingeben");
             teacherPasswordField.getStyleClass().add("code-input");
             pwContainer.getChildren().addAll(pwLabel, teacherPasswordField);
 
             VBox classContainer = new VBox(8);
             Label classLabel = new Label("Klasse:");
-            pwLabel.getStyleClass().add("label");
+            classLabel.getStyleClass().add("main-label");
+            pwLabel.getStyleClass().add("main-label");
             classField.setPromptText("Klasse");
-            classField.getStyleClass().add("combo-box");
+            classField.getStyleClass().add("big-combo-box");
             classField.setPrefWidth(1000);
             pwContainer.getChildren().addAll(classLabel, classField);
 
@@ -152,7 +153,7 @@ public class MainView {
 
             VBox codeContainer = new VBox(8);
             Label codeLabel = new Label("Code:");
-            codeLabel.getStyleClass().add("label");
+            codeLabel.getStyleClass().add("main-label");
             studentCodeField.setPromptText("Code eingeben");
             studentCodeField.getStyleClass().add("code-input");
             codeContainer.getChildren().addAll(codeLabel, studentCodeField);
