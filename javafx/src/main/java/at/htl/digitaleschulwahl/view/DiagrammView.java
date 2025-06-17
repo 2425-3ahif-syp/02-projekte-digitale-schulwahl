@@ -64,16 +64,12 @@ public class DiagrammView {
 
         HBox carouselBox = new HBox(10);
         carouselBox.setPadding(new Insets(10, 0, 10, 0));
-        carouselBox.getChildren().addAll(prevRoleButton,roleLabel, nextRoleButton);
+        carouselBox.getChildren().addAll(prevRoleButton, nextRoleButton);
         carouselBox.setStyle("-fx-alignment: center;");
 
         classComboBox = new ComboBox<>();
+        classComboBox.getStyleClass().add("chart-combo-box");
         classComboBox.setPromptText("Wähle eine Klasse");
-        classComboBox.setStyle(
-                "-fx-background-color: #555555; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-prompt-text-fill: #cccccc; " +
-                        "-fx-font-size: 14px;");
 
         showOverallButton = new Button("Gesamt");
         showOverallButton.getStyleClass().add("button");
@@ -82,18 +78,13 @@ public class DiagrammView {
         classSelectionBox.setStyle("-fx-alignment: center-left;");
 
         candidateListView = new ListView<>();
+        candidateListView.getStyleClass().add("candidate-list");
         candidateListView.setPlaceholder(new Label("Kein Ergebnis"));
-        candidateListView.setStyle(
-                "-fx-control-inner-background: #424242; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 14px;");
 
         percentageListView = new ListView<>();
+        percentageListView.getStyleClass().add("percentage-list");
         percentageListView.setPlaceholder(new Label("Noch keine Daten"));
-        percentageListView.setStyle(
-                "-fx-control-inner-background: #333333; " +
-                        "-fx-text-fill: #00ff99; " +
-                        "-fx-font-size: 14px;");
+
         ((Label) percentageListView.getPlaceholder()).setStyle("-fx-text-fill: #888888;");
 
         ((Label) candidateListView.getPlaceholder()).setStyle("-fx-text-fill: #bbbbbb;");
