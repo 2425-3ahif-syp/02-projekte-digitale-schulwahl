@@ -56,6 +56,7 @@ public class VotingView {
 
         VBox bottomBox = new VBox();
         bottomBox.setSpacing(10);
+        bottomBox.setAlignment(Pos.CENTER);
         bottomBox.getStyleClass().add("bottom-button-container");
 
         backButton.setVisible(false);
