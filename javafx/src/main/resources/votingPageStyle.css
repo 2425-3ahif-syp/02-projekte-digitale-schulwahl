@@ -42,6 +42,11 @@
     -fx-text-fill: white;
 }
 
+.main-label{
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
 .candidateBox {
     -fx-pref-height: 10px;
 }
@@ -171,15 +176,23 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.3, 0, 2);
 }
 
-/* Code generation page*/
 .class-dropdown {
     -fx-pref-width: 450px;
     -fx-font-size: 16px;
 }
 
+
+.big-combo-box {
+    -fx-pref-width: 450px;
+    -fx-pref-height: 46px;
+    -fx-font-size: 18px;
+
+}
+
 .combo-box {
     -fx-background-color: white;
     -fx-border-color: #ccc;
+    -fx-border-radius: 3px;
 }
 
 .combo-box-popup .list-view {
@@ -238,6 +251,73 @@
 .chart {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 0);
 }
+
+.chart-combo-box .combo-box-button {
+    -fx-text-fill: white;
+    -fx-background-color: #555555;
+}
+.chart-combo-box {
+
+    -fx-background-color: #555555;
+
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #cccccc;
+
+    -fx-pref-width: 250px;
+    -fx-min-width: 182px;
+
+    -fx-pref-height: 48px;
+    -fx-min-height: 30px;
+
+    -fx-border-radius: 3px;
+}
+
+.chart-combo-box .arrow-button {
+    -fx-background-color: #555555;
+
+}
+
+.chart-combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #444444;
+}
+
+
+.chart-combo-box .list-cell:selected {
+    -fx-background-color: #666666;
+    -fx-text-fill: white;
+}
+
+
+.chart-combo-box .list-cell:hover {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+}
+
+
+.list-view.candidate-list {
+    -fx-control-inner-background: #424242;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.list-view.candidate-list .placeholder {
+    -fx-text-fill: #bbbbbb;
+}
+
+.list-view.percentage-list {
+    -fx-control-inner-background: #333333;
+    -fx-text-fill: #00ff99;
+    -fx-font-size: 14px;
+}
+
+.list-view.percentage-list .placeholder {
+    -fx-text-fill: #888888;
+}
+
+
+
 
 /* Home Button Styling */
 .home-button {
