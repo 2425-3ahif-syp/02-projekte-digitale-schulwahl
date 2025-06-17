@@ -51,24 +51,24 @@ public class CandidateSignupView {
 
         VBox nameContainer = new VBox(8);
         Label nameLabel = new Label("Vollständiger Name:");
-        nameLabel.getStyleClass().add("label");
+        nameLabel.getStyleClass().add("main-label");
         nameField.setPromptText("Vor- und Nachname eingeben");
         nameField.getStyleClass().add("code-input");
         nameContainer.getChildren().addAll(nameLabel, nameField);
 
         VBox classContainer = new VBox(8);
         Label classLabel = new Label("Klasse:");
-        classLabel.getStyleClass().add("label");
+        classLabel.getStyleClass().add("main-label");
         classField.setPromptText("z.B. 5AHIF");
         classField.getStyleClass().add("code-input");
         classContainer.getChildren().addAll(classLabel, classField);
 
         VBox roleContainer = new VBox(8);
         Label roleLabel = new Label("Position:");
-        roleLabel.getStyleClass().add("label");
+        roleLabel.getStyleClass().add("main-label");
         roleComboBox.getItems().addAll("Schülersprecher", "Abteilungsvertreter");
         roleComboBox.setPromptText("Position auswählen");
-        roleComboBox.getStyleClass().add("combo-box");
+        roleComboBox.getStyleClass().add("big-combo-box");
         roleComboBox.setPrefWidth(Double.MAX_VALUE);
         roleContainer.getChildren().addAll(roleLabel, roleComboBox);
 
