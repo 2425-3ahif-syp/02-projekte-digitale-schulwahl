@@ -12,7 +12,7 @@ public class MainView {
     private final BorderPane root = new BorderPane();
     BaseStructureView baseStruct = new BaseStructureView(root);
 
-    private final ToggleButton studentToggle = new ToggleButton("Schüler:in");
+    private final ToggleButton studentToggle = new ToggleButton("Schüler");
     private final ToggleButton teacherToggle = new ToggleButton("Lehrkraft");
     private final Button loginButton = new Button("Login");
     private final Button candidateSignupButton = new Button("Als Kandidat anmelden");
