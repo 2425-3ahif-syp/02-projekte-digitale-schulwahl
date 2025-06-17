@@ -69,7 +69,9 @@ public class PdfView {
 
         classDropdown.setOnAction(event -> {
             String selectedClass = classDropdown.getValue();
-            classId = studentRepository.getClassId(selectedClass);
+            int grade = Character.getNumericValue(selectedClass.charAt(0));
+            String name = selectedClass.substring(1);
+            classId = studentRepository.getClassId(name, grade);
         });
 
         main.getChildren().addAll(headingContent, classDropdown);

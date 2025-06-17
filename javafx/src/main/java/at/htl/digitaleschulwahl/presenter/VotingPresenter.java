@@ -179,11 +179,14 @@ public class VotingPresenter {
 
             Integer voterClassId = null;
             if (authenticatedStudent != null) {
-                voterClassId = studentRepository.getClassId(authenticatedStudent.getClassName());
+                voterClassId = studentRepository.getClassId(authenticatedStudent.getClassName(), authenticatedStudent.getGrade());
+                System.out.println(authenticatedStudent.getClassName());
+                System.out.println(voterClassId);
             }
-
             if (voterClassId == null) {
-                voterClassId = 1;
+
+                ToastNotification.show(stage, "Class id not found", "error");
+
             }
 
             for (Map.Entry<Candidate, Integer> entry : VotingPresenter.tempVotes2.entrySet()) {

@@ -94,27 +94,31 @@ public class StudentRepository {
         return null;
     }
 
-    public Integer getClassId(String className) {
-        var query = """
-                SELECT id
-                FROM class
-                WHERE ((EXTRACT(YEAR FROM CURRENT_DATE) - start_year + (EXTRACT(MONTH FROM CURRENT_DATE)::int >= 9)::int) || '' || class_name) = ?;
-                """;
+    public Integer getClassId(String className, Integer classYear) {
+        String query = """
+        SELECT id
+        FROM class
+        WHERE class_name = ?
+        AND (EXTRACT(YEAR FROM CURRENT_DATE) - start_year + 
+            CASE WHEN EXTRACT(MONTH FROM CURRENT_DATE) >= 9 THEN 1 ELSE 0 END) = ?;
+    """;
 
         try (var statement = connection.prepareStatement(query)) {
             statement.setString(1, className);
+            statement.setInt(2, classYear);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("id");
                 } else {
-                    return null; // oder -1, oder Fehler werfen, falls keine Klasse gefunden
+                    return null;
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Datenbankfehler: " + e.getMessage(), e);
         }
     }
+
 
     public String[] getAllClasses() {
         String query = """
