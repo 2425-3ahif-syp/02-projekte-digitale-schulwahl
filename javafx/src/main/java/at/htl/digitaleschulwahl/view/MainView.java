@@ -136,18 +136,18 @@ public class MainView {
             teacherPasswordField.getStyleClass().add("code-input");
             pwContainer.getChildren().addAll(pwLabel, teacherPasswordField);
 
-            VBox classContainer = new VBox(8);
+            /*VBox classContainer = new VBox(8);
             Label classLabel = new Label("Klasse:");
             classLabel.getStyleClass().add("main-label");
             pwLabel.getStyleClass().add("main-label");
             classField.setPromptText("Klasse");
             classField.getStyleClass().add("big-combo-box");
             classField.setPrefWidth(1000);
-            pwContainer.getChildren().addAll(classLabel, classField);
+            pwContainer.getChildren().addAll(classLabel, classField);*/
 
-            formBox.getChildren().addAll(nameContainer, pwContainer, classContainer);
+            formBox.getChildren().addAll(nameContainer, pwContainer);
 
-            setTeacherFormFields(teacherNameField, teacherPasswordField, classField);
+            setTeacherFormFields(teacherNameField, teacherPasswordField);
 
         } else {
 
@@ -168,10 +168,9 @@ public class MainView {
         this.studentCodeField = field;
     }
 
-    public void setTeacherFormFields(TextField name, PasswordField pw, ComboBox<String> classComboBox) {
+    public void setTeacherFormFields(TextField name, PasswordField pw) {
         this.teacherNameField = name;
         this.teacherPasswordField = pw;
-        this.classField = classComboBox;
     }
 
     public ComboBox<String> getClassField() {
