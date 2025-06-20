@@ -30,7 +30,7 @@ jobs:
           popd
 
           mkdir -p dist
-          cp -r javafx/target/*.jar dist/app.jar
+          cp -r javafx/target/digitale-schulwahl-*.jar dist/app.jar
 
       - name: Get the git commits since the last tag
         run: |
